@@ -38,4 +38,10 @@ jobs:
           echo "NPM_PACKAGE_NAME=$(node -p "require('./package.json').name")" >> $GITHUB_ENV
 
       - name: Create NPM publish
-        run: npm publish
+        run: |
+          if [[ $(npm view "${{env.NPM_PACKAGE_NAME}}" versions) != *"'${{env.NPM_PACKAGE_VERSION}}'"* ]]; then
+            npm publish
+            echo "Successfully published version ${{env.NPM_PACKAGE_VERSION}} of ${{env.NPM_PACKAGE_NAME}} to Github's NPM registry"
+          else
+            echo "Version ${{env.NPM_PACKAGE_VERSION}} of ${{env.NPM_PACKAGE_NAME}} has already been published, so no new version will be published."
+          fi
