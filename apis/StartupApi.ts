@@ -8,6 +8,7 @@ import {canConsumeForm, isCodeInRange} from '../util';
 import {SecurityAuthentication} from '../auth/auth';
 
 
+import { TestModel } from '../models/TestModel';
 
 /**
  * no description
@@ -53,22 +54,22 @@ export class StartupApiResponseProcessor {
      * @params response Response returned by the server for a request to apiStartupPingGet
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async apiStartupPingGet(response: ResponseContext): Promise<string > {
+     public async apiStartupPingGet(response: ResponseContext): Promise<TestModel > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: string = ObjectSerializer.deserialize(
+            const body: TestModel = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "string", ""
-            ) as string;
+                "TestModel", ""
+            ) as TestModel;
             return body;
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: string = ObjectSerializer.deserialize(
+            const body: TestModel = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "string", ""
-            ) as string;
+                "TestModel", ""
+            ) as TestModel;
             return body;
         }
 

@@ -8,7 +8,7 @@ Method | HTTP request | Description
 
 
 # **apiStartupPingGet**
-> string apiStartupPingGet()
+> TestModel apiStartupPingGet()
 
 
 ### Example
@@ -35,7 +35,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**string**
+**TestModel**
 
 ### Authorization
 
