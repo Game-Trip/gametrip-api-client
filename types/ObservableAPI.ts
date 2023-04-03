@@ -2,6 +2,7 @@ import { ResponseContext, RequestContext, HttpFile } from '../http/http';
 import { Configuration} from '../configuration'
 import { Observable, of, from } from '../rxjsStub';
 import {mergeMap, map} from  '../rxjsStub';
+import { TestModel } from '../models/TestModel';
 
 import { StartupApiRequestFactory, StartupApiResponseProcessor} from "../apis/StartupApi";
 export class ObservableStartupApi {
@@ -21,7 +22,7 @@ export class ObservableStartupApi {
 
     /**
      */
-    public apiStartupPingGet(_options?: Configuration): Observable<string> {
+    public apiStartupPingGet(_options?: Configuration): Observable<TestModel> {
         const requestContextPromise = this.requestFactory.apiStartupPingGet(_options);
 
         // build promise chain

@@ -1,6 +1,7 @@
 import { ResponseContext, RequestContext, HttpFile } from '../http/http';
 import { Configuration} from '../configuration'
 
+import { TestModel } from '../models/TestModel';
 
 import { ObservableStartupApi } from "./ObservableAPI";
 import { StartupApiRequestFactory, StartupApiResponseProcessor} from "../apis/StartupApi";
@@ -18,7 +19,7 @@ export class ObjectStartupApi {
     /**
      * @param param the request object
      */
-    public apiStartupPingGet(param: StartupApiApiStartupPingGetRequest = {}, options?: Configuration): Promise<string> {
+    public apiStartupPingGet(param: StartupApiApiStartupPingGetRequest = {}, options?: Configuration): Promise<TestModel> {
         return this.api.apiStartupPingGet( options).toPromise();
     }
 
