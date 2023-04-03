@@ -29,6 +29,8 @@ jobs:
       - name: Build client API
         run: npm run build
         
+      - run: |
+          ls -al
 
       - name: Get Variable value
         run: |
