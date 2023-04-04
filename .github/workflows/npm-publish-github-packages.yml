@@ -39,7 +39,7 @@ jobs:
 
       - name: Create NPM publish
         run: |
-          if [[ $(npm view "${{env.NPM_PACKAGE_NAME}}" versions) != *"'${{env.NPM_PACKAGE_VERSION}}'"* ]]; then
+          if [[ $(npm view "${{env.NPM_PACKAGE_NAME}}" versions) != *${{env.NPM_PACKAGE_VERSION}}* ]]; then
             npm publish
             echo "Successfully published version ${{env.NPM_PACKAGE_VERSION}} of ${{env.NPM_PACKAGE_NAME}} to Github's NPM registry"
           else
