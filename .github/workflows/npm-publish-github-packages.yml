@@ -21,7 +21,7 @@ jobs:
         with:
           node-version: lts/*
 
-      - run: echo "//npm.pkg.github.com/:_authToken=${{secrets.GITHUB_TOKEN }}">.npmrc
+      - run: echo "//npm.pkg.github.com/:_authToken=${{secrets.DERCRAKER_TOKEN }}">.npmrc
 
       - name: Install npm package
         run: npm install
