@@ -36,5 +36,5 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
-  "file": "\\[\"dist\"\\]"
+  "file": "[dist]"
 }
