@@ -1,5 +1,7 @@
+export * from '../models/LocationDTO';
 export * from '../models/TestModel';
 
+import { LocationDTO } from '../models/LocationDTO';
 import { TestModel } from '../models/TestModel';
 
 /* tslint:disable:no-unused-variable */
@@ -25,6 +27,7 @@ let enumsMap: Set<string> = new Set<string>([
 ]);
 
 let typeMap: {[index: string]: any} = {
+    "LocationDTO": LocationDTO,
     "TestModel": TestModel,
 }
 

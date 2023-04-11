@@ -1,6 +1,7 @@
 import { ResponseContext, RequestContext, HttpFile } from '../http/http';
 import { Configuration} from '../configuration'
 
+import { LocationDTO } from '../models/LocationDTO';
 import { TestModel } from '../models/TestModel';
 import { ObservableStartupApi } from './ObservableAPI';
 
@@ -14,6 +15,13 @@ export class PromiseStartupApi {
         responseProcessor?: StartupApiResponseProcessor
     ) {
         this.api = new ObservableStartupApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     */
+    public apiStartupLocationsGet(_options?: Configuration): Promise<Array<LocationDTO>> {
+        const result = this.api.apiStartupLocationsGet(_options);
+        return result.toPromise();
     }
 
     /**
