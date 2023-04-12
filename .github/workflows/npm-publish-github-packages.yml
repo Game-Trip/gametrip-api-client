@@ -37,6 +37,8 @@ jobs:
         
       - run: |
           ls -al ./
+      - run: cat .yarnrc.yaml
+      - run: cat package.json
 
       - name: Get Variable value
         run: |
