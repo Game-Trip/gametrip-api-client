@@ -38,11 +38,6 @@ jobs:
 
       - name: Build client API
         run: yarn build
-        
-      - run: |
-          ls -al ./
-      - run: cat .yarnrc.yaml
-      - run: cat package.json
 
       - name: Get Variable value
         run: |
