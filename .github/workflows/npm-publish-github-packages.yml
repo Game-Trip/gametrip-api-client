@@ -20,14 +20,20 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: lts/*
+          
+      - run: |
+          mv .npmrc .yarnrc.yaml
+          echo "npmScopes:" > .yarnrc.yaml
+          echo "  game-trip:" >> .yarnrc.yaml
+          echo "    npmPublishRegistry: 'https://npm.pkg.github.com/'" >> .yarnrc.yaml
+          echo "    npmAlwaysAuth: true" >> .yarnrc.yaml
+          echo "    npmAuthToken: '${{secrets.DERCRAKER_TOKEN }}'" >> .yarnrc.yaml
 
-      - run: echo "//npm.pkg.github.com/:_authToken=${{secrets.DERCRAKER_TOKEN }}">.npmrc
-
-      - name: Install npm package
-        run: npm install
+      - name: Install yarn package
+        run: yarn
 
       - name: Build client API
-        run: npm run build
+        run: yarn build
         
       - run: |
           ls -al ./dist
@@ -40,7 +46,7 @@ jobs:
       - name: Create NPM publish
         run: |
           if [[ $(npm view "${{env.NPM_PACKAGE_NAME}}" versions) != ${{env.NPM_PACKAGE_VERSION}} ]]; then
-            npm publish
+            yarn publish
             echo "Successfully published version ${{env.NPM_PACKAGE_VERSION}} of ${{env.NPM_PACKAGE_NAME}} to Github's NPM registry"
           else
             echo "Version ${{env.NPM_PACKAGE_VERSION}} of ${{env.NPM_PACKAGE_NAME}} has already been published, so no new version will be published."
