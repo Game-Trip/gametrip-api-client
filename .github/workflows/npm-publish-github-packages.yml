@@ -36,7 +36,7 @@ jobs:
         run: yarn build
         
       - run: |
-          ls -al ./dist
+          ls -al ./
 
       - name: Get Variable value
         run: |
