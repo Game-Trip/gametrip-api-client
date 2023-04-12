@@ -29,7 +29,7 @@ jobs:
           echo "    npmAlwaysAuth: true" >> .yarnrc.yaml
           echo "    npmAuthToken: '${{secrets.DERCRAKER_TOKEN }}'" >> .yarnrc.yaml
           
-      - run: yarn config set npmRegistryServer https://npm.pkg.github.com/ 
+      - run: npm config set @game-trip:registry https://npm.pkg.github.com/
 
       - name: Install yarn package
         run: yarn
