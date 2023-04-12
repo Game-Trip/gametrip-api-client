@@ -1,6 +1,6 @@
 {
   "name": "@game-trip/ts-api-client",
-  "version": "0.0.1-Beta",
+  "version": "1.0.0-Beta",
   "description": "OpenAPI client for @game-trip/ts-api-client",
   "author": "OpenAPI-Generator Contributors",
   "repository": {

@@ -12,42 +12,42 @@
 
 import { HttpFile } from '../http/http';
 
-export class LocationDTO {
-    'name': string;
-    'description': string;
-    'latitude': number;
-    'longitude': number;
+export class RegisterDTO {
+    'username': string;
+    'email': string;
+    'password': string;
+    'confirmPassword': string;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "name",
-            "baseName": "name",
+            "name": "username",
+            "baseName": "username",
             "type": "string",
             "format": ""
         },
         {
-            "name": "description",
-            "baseName": "description",
+            "name": "email",
+            "baseName": "email",
             "type": "string",
-            "format": ""
+            "format": "email"
         },
         {
-            "name": "latitude",
-            "baseName": "latitude",
-            "type": "number",
-            "format": "double"
+            "name": "password",
+            "baseName": "password",
+            "type": "string",
+            "format": "password"
         },
         {
-            "name": "longitude",
-            "baseName": "longitude",
-            "type": "number",
-            "format": "double"
+            "name": "confirmPassword",
+            "baseName": "confirmPassword",
+            "type": "string",
+            "format": "password"
         }    ];
 
     static getAttributeTypeMap() {
-        return LocationDTO.attributeTypeMap;
+        return RegisterDTO.attributeTypeMap;
     }
 
     public constructor() {

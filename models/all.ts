@@ -1,2 +1,7 @@
+export * from '../models/GameTripUserDTO'
 export * from '../models/LocationDTO'
+export * from '../models/LoginDTO'
+export * from '../models/RegisterDTO'
+export * from '../models/ResetPasswordDTO'
 export * from '../models/TestModel'
+export * from '../models/TokenDTO'

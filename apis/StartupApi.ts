@@ -18,11 +18,11 @@ export class StartupApiRequestFactory extends BaseAPIRequestFactory {
 
     /**
      */
-    public async apiStartupLocationsGet(_options?: Configuration): Promise<RequestContext> {
+    public async startupLocationsGet(_options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // Path Params
-        const localVarPath = '/api/Startup/locations';
+        const localVarPath = '/Startup/locations';
 
         // Make Request Context
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
@@ -46,11 +46,11 @@ export class StartupApiRequestFactory extends BaseAPIRequestFactory {
 
     /**
      */
-    public async apiStartupPingGet(_options?: Configuration): Promise<RequestContext> {
+    public async startupPingGet(_options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // Path Params
-        const localVarPath = '/api/Startup/ping';
+        const localVarPath = '/Startup/ping';
 
         // Make Request Context
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
@@ -80,10 +80,10 @@ export class StartupApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to apiStartupLocationsGet
+     * @params response Response returned by the server for a request to startupLocationsGet
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async apiStartupLocationsGet(response: ResponseContext): Promise<Array<LocationDTO> > {
+     public async startupLocationsGet(response: ResponseContext): Promise<Array<LocationDTO> > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: Array<LocationDTO> = ObjectSerializer.deserialize(
@@ -109,10 +109,10 @@ export class StartupApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to apiStartupPingGet
+     * @params response Response returned by the server for a request to startupPingGet
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async apiStartupPingGet(response: ResponseContext): Promise<TestModel > {
+     public async startupPingGet(response: ResponseContext): Promise<TestModel > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: TestModel = ObjectSerializer.deserialize(

@@ -1,6 +1,8 @@
 .gitignore
+AuthApi.md
 README.md
 StartupApi.md
+apis/AuthApi.ts
 apis/StartupApi.ts
 apis/baseapi.ts
 apis/exception.ts
@@ -11,9 +13,14 @@ http/http.ts
 http/isomorphic-fetch.ts
 index.ts
 middleware.ts
+models/GameTripUserDTO.ts
 models/LocationDTO.ts
+models/LoginDTO.ts
 models/ObjectSerializer.ts
+models/RegisterDTO.ts
+models/ResetPasswordDTO.ts
 models/TestModel.ts
+models/TokenDTO.ts
 models/all.ts
 package.json
 rxjsStub.ts

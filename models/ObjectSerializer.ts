@@ -1,8 +1,18 @@
+export * from '../models/GameTripUserDTO';
 export * from '../models/LocationDTO';
+export * from '../models/LoginDTO';
+export * from '../models/RegisterDTO';
+export * from '../models/ResetPasswordDTO';
 export * from '../models/TestModel';
+export * from '../models/TokenDTO';
 
+import { GameTripUserDTO } from '../models/GameTripUserDTO';
 import { LocationDTO } from '../models/LocationDTO';
+import { LoginDTO } from '../models/LoginDTO';
+import { RegisterDTO } from '../models/RegisterDTO';
+import { ResetPasswordDTO } from '../models/ResetPasswordDTO';
 import { TestModel } from '../models/TestModel';
+import { TokenDTO } from '../models/TokenDTO';
 
 /* tslint:disable:no-unused-variable */
 let primitives = [
@@ -27,8 +37,13 @@ let enumsMap: Set<string> = new Set<string>([
 ]);
 
 let typeMap: {[index: string]: any} = {
+    "GameTripUserDTO": GameTripUserDTO,
     "LocationDTO": LocationDTO,
+    "LoginDTO": LoginDTO,
+    "RegisterDTO": RegisterDTO,
+    "ResetPasswordDTO": ResetPasswordDTO,
     "TestModel": TestModel,
+    "TokenDTO": TokenDTO,
 }
 
 export class ObjectSerializer {

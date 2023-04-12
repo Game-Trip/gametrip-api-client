@@ -4,12 +4,12 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**apiStartupLocationsGet**](StartupApi.md#apiStartupLocationsGet) | **GET** /api/Startup/locations | 
-[**apiStartupPingGet**](StartupApi.md#apiStartupPingGet) | **GET** /api/Startup/ping | 
+[**startupLocationsGet**](StartupApi.md#startupLocationsGet) | **GET** /Startup/locations | 
+[**startupPingGet**](StartupApi.md#startupPingGet) | **GET** /Startup/ping | 
 
 
-# **apiStartupLocationsGet**
-> Array<LocationDTO> apiStartupLocationsGet()
+# **startupLocationsGet**
+> Array<LocationDTO> startupLocationsGet()
 
 
 ### Example
@@ -24,7 +24,7 @@ const apiInstance = new .StartupApi(configuration);
 
 let body:any = {};
 
-apiInstance.apiStartupLocationsGet(body).then((data:any) => {
+apiInstance.startupLocationsGet(body).then((data:any) => {
   console.log('API called successfully. Returned data: ' + data);
 }).catch((error:any) => console.error(error));
 ```
@@ -55,8 +55,8 @@ This endpoint does not need any parameter.
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
-# **apiStartupPingGet**
-> TestModel apiStartupPingGet()
+# **startupPingGet**
+> TestModel startupPingGet()
 
 
 ### Example
@@ -71,7 +71,7 @@ const apiInstance = new .StartupApi(configuration);
 
 let body:any = {};
 
-apiInstance.apiStartupPingGet(body).then((data:any) => {
+apiInstance.startupPingGet(body).then((data:any) => {
   console.log('API called successfully. Returned data: ' + data);
 }).catch((error:any) => console.error(error));
 ```
