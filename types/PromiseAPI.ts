@@ -112,13 +112,6 @@ export class PromiseStartupApi {
         return result.toPromise();
     }
 
-    /**
-     */
-    public startupSendMailGet(_options?: Configuration): Promise<void> {
-        const result = this.api.startupSendMailGet(_options);
-        return result.toPromise();
-    }
-
 
 }
 

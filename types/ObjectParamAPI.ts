@@ -138,9 +138,6 @@ export interface StartupApiStartupLocationsGetRequest {
 export interface StartupApiStartupPingGetRequest {
 }
 
-export interface StartupApiStartupSendMailGetRequest {
-}
-
 export class ObjectStartupApi {
     private api: ObservableStartupApi
 
@@ -160,13 +157,6 @@ export class ObjectStartupApi {
      */
     public startupPingGet(param: StartupApiStartupPingGetRequest = {}, options?: Configuration): Promise<TestModel> {
         return this.api.startupPingGet( options).toPromise();
-    }
-
-    /**
-     * @param param the request object
-     */
-    public startupSendMailGet(param: StartupApiStartupSendMailGetRequest = {}, options?: Configuration): Promise<void> {
-        return this.api.startupSendMailGet( options).toPromise();
     }
 
 }
