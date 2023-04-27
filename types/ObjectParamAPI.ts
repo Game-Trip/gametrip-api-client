@@ -1,6 +1,8 @@
 import { ResponseContext, RequestContext, HttpFile } from '../http/http';
 import { Configuration} from '../configuration'
 
+import { ConfirmMailDto } from '../models/ConfirmMailDto';
+import { FrogotPasswordDto } from '../models/FrogotPasswordDto';
 import { GameTripUserDTO } from '../models/GameTripUserDTO';
 import { LocationDTO } from '../models/LocationDTO';
 import { LoginDTO } from '../models/LoginDTO';
@@ -12,12 +14,30 @@ import { TokenDTO } from '../models/TokenDTO';
 import { ObservableAuthApi } from "./ObservableAPI";
 import { AuthApiRequestFactory, AuthApiResponseProcessor} from "../apis/AuthApi";
 
+export interface AuthApiAuthConfirmEmailPostRequest {
+    /**
+     * 
+     * @type ConfirmMailDto
+     * @memberof AuthApiauthConfirmEmailPost
+     */
+    confirmMailDto?: ConfirmMailDto
+}
+
+export interface AuthApiAuthFrogotPasswordPostRequest {
+    /**
+     * 
+     * @type FrogotPasswordDto
+     * @memberof AuthApiauthFrogotPasswordPost
+     */
+    frogotPasswordDto?: FrogotPasswordDto
+}
+
 export interface AuthApiAuthInitializePostRequest {
 }
 
 export interface AuthApiAuthLoginPostRequest {
     /**
-     * Model de login d&#39;un user
+     * 
      * @type LoginDTO
      * @memberof AuthApiauthLoginPost
      */
@@ -26,7 +46,7 @@ export interface AuthApiAuthLoginPostRequest {
 
 export interface AuthApiAuthRegisterPostRequest {
     /**
-     * Model de l&#39;utilisateur
+     * 
      * @type RegisterDTO
      * @memberof AuthApiauthRegisterPost
      */
@@ -44,7 +64,7 @@ export interface AuthApiAuthResetPasswordPostRequest {
 
 export interface AuthApiAuthTokenTestPostRequest {
     /**
-     * token a check
+     * 
      * @type string
      * @memberof AuthApiauthTokenTestPost
      */
@@ -59,7 +79,20 @@ export class ObjectAuthApi {
     }
 
     /**
-     * Initialise les table avec les rôles et l'utilisateur Admin
+     * @param param the request object
+     */
+    public authConfirmEmailPost(param: AuthApiAuthConfirmEmailPostRequest = {}, options?: Configuration): Promise<GameTripUserDTO> {
+        return this.api.authConfirmEmailPost(param.confirmMailDto,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public authFrogotPasswordPost(param: AuthApiAuthFrogotPasswordPostRequest = {}, options?: Configuration): Promise<void> {
+        return this.api.authFrogotPasswordPost(param.frogotPasswordDto,  options).toPromise();
+    }
+
+    /**
      * @param param the request object
      */
     public authInitializePost(param: AuthApiAuthInitializePostRequest = {}, options?: Configuration): Promise<void> {
@@ -67,7 +100,6 @@ export class ObjectAuthApi {
     }
 
     /**
-     * Permet de login un user dans la DB
      * @param param the request object
      */
     public authLoginPost(param: AuthApiAuthLoginPostRequest = {}, options?: Configuration): Promise<TokenDTO> {
@@ -75,10 +107,9 @@ export class ObjectAuthApi {
     }
 
     /**
-     * Permet de register un user dans la DB
      * @param param the request object
      */
-    public authRegisterPost(param: AuthApiAuthRegisterPostRequest = {}, options?: Configuration): Promise<void | GameTripUserDTO> {
+    public authRegisterPost(param: AuthApiAuthRegisterPostRequest = {}, options?: Configuration): Promise<GameTripUserDTO> {
         return this.api.authRegisterPost(param.registerDTO,  options).toPromise();
     }
 
@@ -90,7 +121,6 @@ export class ObjectAuthApi {
     }
 
     /**
-     * Teste la validiter d'un token
      * @param param the request object
      */
     public authTokenTestPost(param: AuthApiAuthTokenTestPostRequest = {}, options?: Configuration): Promise<void> {
@@ -106,6 +136,9 @@ export interface StartupApiStartupLocationsGetRequest {
 }
 
 export interface StartupApiStartupPingGetRequest {
+}
+
+export interface StartupApiStartupSendMailGetRequest {
 }
 
 export class ObjectStartupApi {
@@ -127,6 +160,13 @@ export class ObjectStartupApi {
      */
     public startupPingGet(param: StartupApiStartupPingGetRequest = {}, options?: Configuration): Promise<TestModel> {
         return this.api.startupPingGet( options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public startupSendMailGet(param: StartupApiStartupSendMailGetRequest = {}, options?: Configuration): Promise<void> {
+        return this.api.startupSendMailGet( options).toPromise();
     }
 
 }

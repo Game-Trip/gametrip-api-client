@@ -2,6 +2,8 @@ import { ResponseContext, RequestContext, HttpFile } from '../http/http';
 import { Configuration} from '../configuration'
 import { Observable, of, from } from '../rxjsStub';
 import {mergeMap, map} from  '../rxjsStub';
+import { ConfirmMailDto } from '../models/ConfirmMailDto';
+import { FrogotPasswordDto } from '../models/FrogotPasswordDto';
 import { GameTripUserDTO } from '../models/GameTripUserDTO';
 import { LocationDTO } from '../models/LocationDTO';
 import { LoginDTO } from '../models/LoginDTO';
@@ -27,7 +29,50 @@ export class ObservableAuthApi {
     }
 
     /**
-     * Initialise les table avec les rôles et l'utilisateur Admin
+     * @param confirmMailDto 
+     */
+    public authConfirmEmailPost(confirmMailDto?: ConfirmMailDto, _options?: Configuration): Observable<GameTripUserDTO> {
+        const requestContextPromise = this.requestFactory.authConfirmEmailPost(confirmMailDto, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.authConfirmEmailPost(rsp)));
+            }));
+    }
+
+    /**
+     * @param frogotPasswordDto 
+     */
+    public authFrogotPasswordPost(frogotPasswordDto?: FrogotPasswordDto, _options?: Configuration): Observable<void> {
+        const requestContextPromise = this.requestFactory.authFrogotPasswordPost(frogotPasswordDto, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.authFrogotPasswordPost(rsp)));
+            }));
+    }
+
+    /**
      */
     public authInitializePost(_options?: Configuration): Observable<void> {
         const requestContextPromise = this.requestFactory.authInitializePost(_options);
@@ -49,8 +94,7 @@ export class ObservableAuthApi {
     }
 
     /**
-     * Permet de login un user dans la DB
-     * @param loginDTO Model de login d&#39;un user
+     * @param loginDTO 
      */
     public authLoginPost(loginDTO?: LoginDTO, _options?: Configuration): Observable<TokenDTO> {
         const requestContextPromise = this.requestFactory.authLoginPost(loginDTO, _options);
@@ -72,10 +116,9 @@ export class ObservableAuthApi {
     }
 
     /**
-     * Permet de register un user dans la DB
-     * @param registerDTO Model de l&#39;utilisateur
+     * @param registerDTO 
      */
-    public authRegisterPost(registerDTO?: RegisterDTO, _options?: Configuration): Observable<void | GameTripUserDTO> {
+    public authRegisterPost(registerDTO?: RegisterDTO, _options?: Configuration): Observable<GameTripUserDTO> {
         const requestContextPromise = this.requestFactory.authRegisterPost(registerDTO, _options);
 
         // build promise chain
@@ -117,8 +160,7 @@ export class ObservableAuthApi {
     }
 
     /**
-     * Teste la validiter d'un token
-     * @param body token a check
+     * @param body 
      */
     public authTokenTestPost(body?: string, _options?: Configuration): Observable<void> {
         const requestContextPromise = this.requestFactory.authTokenTestPost(body, _options);
@@ -196,6 +238,27 @@ export class ObservableStartupApi {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
                 return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.startupPingGet(rsp)));
+            }));
+    }
+
+    /**
+     */
+    public startupSendMailGet(_options?: Configuration): Observable<void> {
+        const requestContextPromise = this.requestFactory.startupSendMailGet(_options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.startupSendMailGet(rsp)));
             }));
     }
 

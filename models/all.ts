@@ -1,3 +1,5 @@
+export * from '../models/ConfirmMailDto'
+export * from '../models/FrogotPasswordDto'
 export * from '../models/GameTripUserDTO'
 export * from '../models/LocationDTO'
 export * from '../models/LoginDTO'

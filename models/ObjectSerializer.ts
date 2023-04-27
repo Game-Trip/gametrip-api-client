@@ -1,3 +1,5 @@
+export * from '../models/ConfirmMailDto';
+export * from '../models/FrogotPasswordDto';
 export * from '../models/GameTripUserDTO';
 export * from '../models/LocationDTO';
 export * from '../models/LoginDTO';
@@ -6,6 +8,8 @@ export * from '../models/ResetPasswordDTO';
 export * from '../models/TestModel';
 export * from '../models/TokenDTO';
 
+import { ConfirmMailDto } from '../models/ConfirmMailDto';
+import { FrogotPasswordDto } from '../models/FrogotPasswordDto';
 import { GameTripUserDTO } from '../models/GameTripUserDTO';
 import { LocationDTO } from '../models/LocationDTO';
 import { LoginDTO } from '../models/LoginDTO';
@@ -37,6 +41,8 @@ let enumsMap: Set<string> = new Set<string>([
 ]);
 
 let typeMap: {[index: string]: any} = {
+    "ConfirmMailDto": ConfirmMailDto,
+    "FrogotPasswordDto": FrogotPasswordDto,
     "GameTripUserDTO": GameTripUserDTO,
     "LocationDTO": LocationDTO,
     "LoginDTO": LoginDTO,

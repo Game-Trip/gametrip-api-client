@@ -1,6 +1,8 @@
 import { ResponseContext, RequestContext, HttpFile } from '../http/http';
 import { Configuration} from '../configuration'
 
+import { ConfirmMailDto } from '../models/ConfirmMailDto';
+import { FrogotPasswordDto } from '../models/FrogotPasswordDto';
 import { GameTripUserDTO } from '../models/GameTripUserDTO';
 import { LocationDTO } from '../models/LocationDTO';
 import { LoginDTO } from '../models/LoginDTO';
@@ -23,7 +25,22 @@ export class PromiseAuthApi {
     }
 
     /**
-     * Initialise les table avec les rôles et l'utilisateur Admin
+     * @param confirmMailDto 
+     */
+    public authConfirmEmailPost(confirmMailDto?: ConfirmMailDto, _options?: Configuration): Promise<GameTripUserDTO> {
+        const result = this.api.authConfirmEmailPost(confirmMailDto, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param frogotPasswordDto 
+     */
+    public authFrogotPasswordPost(frogotPasswordDto?: FrogotPasswordDto, _options?: Configuration): Promise<void> {
+        const result = this.api.authFrogotPasswordPost(frogotPasswordDto, _options);
+        return result.toPromise();
+    }
+
+    /**
      */
     public authInitializePost(_options?: Configuration): Promise<void> {
         const result = this.api.authInitializePost(_options);
@@ -31,8 +48,7 @@ export class PromiseAuthApi {
     }
 
     /**
-     * Permet de login un user dans la DB
-     * @param loginDTO Model de login d&#39;un user
+     * @param loginDTO 
      */
     public authLoginPost(loginDTO?: LoginDTO, _options?: Configuration): Promise<TokenDTO> {
         const result = this.api.authLoginPost(loginDTO, _options);
@@ -40,10 +56,9 @@ export class PromiseAuthApi {
     }
 
     /**
-     * Permet de register un user dans la DB
-     * @param registerDTO Model de l&#39;utilisateur
+     * @param registerDTO 
      */
-    public authRegisterPost(registerDTO?: RegisterDTO, _options?: Configuration): Promise<void | GameTripUserDTO> {
+    public authRegisterPost(registerDTO?: RegisterDTO, _options?: Configuration): Promise<GameTripUserDTO> {
         const result = this.api.authRegisterPost(registerDTO, _options);
         return result.toPromise();
     }
@@ -57,8 +72,7 @@ export class PromiseAuthApi {
     }
 
     /**
-     * Teste la validiter d'un token
-     * @param body token a check
+     * @param body 
      */
     public authTokenTestPost(body?: string, _options?: Configuration): Promise<void> {
         const result = this.api.authTokenTestPost(body, _options);
@@ -95,6 +109,13 @@ export class PromiseStartupApi {
      */
     public startupPingGet(_options?: Configuration): Promise<TestModel> {
         const result = this.api.startupPingGet(_options);
+        return result.toPromise();
+    }
+
+    /**
+     */
+    public startupSendMailGet(_options?: Configuration): Promise<void> {
+        const result = this.api.startupSendMailGet(_options);
         return result.toPromise();
     }
 

@@ -8,6 +8,8 @@ import {canConsumeForm, isCodeInRange} from '../util';
 import {SecurityAuthentication} from '../auth/auth';
 
 
+import { ConfirmMailDto } from '../models/ConfirmMailDto';
+import { FrogotPasswordDto } from '../models/FrogotPasswordDto';
 import { GameTripUserDTO } from '../models/GameTripUserDTO';
 import { LoginDTO } from '../models/LoginDTO';
 import { RegisterDTO } from '../models/RegisterDTO';
@@ -20,7 +22,96 @@ import { TokenDTO } from '../models/TokenDTO';
 export class AuthApiRequestFactory extends BaseAPIRequestFactory {
 
     /**
-     * Initialise les table avec les rôles et l'utilisateur Admin
+     * @param confirmMailDto 
+     */
+    public async authConfirmEmailPost(confirmMailDto?: ConfirmMailDto, _options?: Configuration): Promise<RequestContext> {
+        let _config = _options || this.configuration;
+
+
+        // Path Params
+        const localVarPath = '/Auth/ConfirmEmail';
+
+        // Make Request Context
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+
+        // Body Params
+        const contentType = ObjectSerializer.getPreferredMediaType([
+            "application/json",
+        
+            "text/json",
+        
+            "application/*+json"
+        ]);
+        requestContext.setHeaderParam("Content-Type", contentType);
+        const serializedBody = ObjectSerializer.stringify(
+            ObjectSerializer.serialize(confirmMailDto, "ConfirmMailDto", ""),
+            contentType
+        );
+        requestContext.setBody(serializedBody);
+
+        let authMethod: SecurityAuthentication | undefined;
+        // Apply auth methods
+        authMethod = _config.authMethods["Bearer"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        
+        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        if (defaultAuth?.applySecurityAuthentication) {
+            await defaultAuth?.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
+    }
+
+    /**
+     * @param frogotPasswordDto 
+     */
+    public async authFrogotPasswordPost(frogotPasswordDto?: FrogotPasswordDto, _options?: Configuration): Promise<RequestContext> {
+        let _config = _options || this.configuration;
+
+
+        // Path Params
+        const localVarPath = '/Auth/FrogotPassword';
+
+        // Make Request Context
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+
+        // Body Params
+        const contentType = ObjectSerializer.getPreferredMediaType([
+            "application/json",
+        
+            "text/json",
+        
+            "application/*+json"
+        ]);
+        requestContext.setHeaderParam("Content-Type", contentType);
+        const serializedBody = ObjectSerializer.stringify(
+            ObjectSerializer.serialize(frogotPasswordDto, "FrogotPasswordDto", ""),
+            contentType
+        );
+        requestContext.setBody(serializedBody);
+
+        let authMethod: SecurityAuthentication | undefined;
+        // Apply auth methods
+        authMethod = _config.authMethods["Bearer"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        
+        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        if (defaultAuth?.applySecurityAuthentication) {
+            await defaultAuth?.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
+    }
+
+    /**
      */
     public async authInitializePost(_options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
@@ -49,8 +140,7 @@ export class AuthApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * Permet de login un user dans la DB
-     * @param loginDTO Model de login d&#39;un user
+     * @param loginDTO 
      */
     public async authLoginPost(loginDTO?: LoginDTO, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
@@ -95,8 +185,7 @@ export class AuthApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * Permet de register un user dans la DB
-     * @param registerDTO Model de l&#39;utilisateur
+     * @param registerDTO 
      */
     public async authRegisterPost(registerDTO?: RegisterDTO, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
@@ -186,8 +275,7 @@ export class AuthApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * Teste la validiter d'un token
-     * @param body token a check
+     * @param body 
      */
     public async authTokenTestPost(body?: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
@@ -239,15 +327,66 @@ export class AuthApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
+     * @params response Response returned by the server for a request to authConfirmEmailPost
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async authConfirmEmailPost(response: ResponseContext): Promise<GameTripUserDTO > {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+            const body: GameTripUserDTO = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "GameTripUserDTO", ""
+            ) as GameTripUserDTO;
+            return body;
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: GameTripUserDTO = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "GameTripUserDTO", ""
+            ) as GameTripUserDTO;
+            return body;
+        }
+
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+    }
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to authFrogotPasswordPost
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async authFrogotPasswordPost(response: ResponseContext): Promise<void > {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+            return;
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: void = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "void", ""
+            ) as void;
+            return body;
+        }
+
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+    }
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
      * @params response Response returned by the server for a request to authInitializePost
      * @throws ApiException if the response code was not in [200, 299]
      */
      public async authInitializePost(response: ResponseContext): Promise<void > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            return;
-        }
-        if (isCodeInRange("200 + Message", response.httpStatusCode)) {
             return;
         }
 
@@ -279,12 +418,6 @@ export class AuthApiResponseProcessor {
             ) as TokenDTO;
             return body;
         }
-        if (isCodeInRange("400 + Message", response.httpStatusCode)) {
-            throw new ApiException<undefined>(response.httpStatusCode, "", undefined, response.headers);
-        }
-        if (isCodeInRange("401", response.httpStatusCode)) {
-            throw new ApiException<undefined>(response.httpStatusCode, "Erreur de mdp ou username", undefined, response.headers);
-        }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
@@ -305,7 +438,7 @@ export class AuthApiResponseProcessor {
      * @params response Response returned by the server for a request to authRegisterPost
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async authRegisterPost(response: ResponseContext): Promise<void | GameTripUserDTO > {
+     public async authRegisterPost(response: ResponseContext): Promise<GameTripUserDTO > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: GameTripUserDTO = ObjectSerializer.deserialize(
@@ -314,19 +447,13 @@ export class AuthApiResponseProcessor {
             ) as GameTripUserDTO;
             return body;
         }
-        if (isCodeInRange("400 + Message", response.httpStatusCode)) {
-            throw new ApiException<undefined>(response.httpStatusCode, "", undefined, response.headers);
-        }
-        if (isCodeInRange("200 + Message", response.httpStatusCode)) {
-            return;
-        }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: void | GameTripUserDTO = ObjectSerializer.deserialize(
+            const body: GameTripUserDTO = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "void | GameTripUserDTO", ""
-            ) as void | GameTripUserDTO;
+                "GameTripUserDTO", ""
+            ) as GameTripUserDTO;
             return body;
         }
 
@@ -369,9 +496,6 @@ export class AuthApiResponseProcessor {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             return;
-        }
-        if (isCodeInRange("401", response.httpStatusCode)) {
-            throw new ApiException<undefined>(response.httpStatusCode, "Token non valide || Pas la permission d&#39;acceder a cette endpoint", undefined, response.headers);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml

@@ -12,11 +12,8 @@
 
 import { HttpFile } from '../http/http';
 
-export class ResetPasswordDTO {
+export class FrogotPasswordDto {
     'email': string;
-    'password': string;
-    'passwordConfirmation': string;
-    'token': string;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -26,28 +23,10 @@ export class ResetPasswordDTO {
             "baseName": "email",
             "type": "string",
             "format": "email"
-        },
-        {
-            "name": "password",
-            "baseName": "password",
-            "type": "string",
-            "format": "password"
-        },
-        {
-            "name": "passwordConfirmation",
-            "baseName": "passwordConfirmation",
-            "type": "string",
-            "format": "password"
-        },
-        {
-            "name": "token",
-            "baseName": "token",
-            "type": "string",
-            "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return ResetPasswordDTO.attributeTypeMap;
+        return FrogotPasswordDto.attributeTypeMap;
     }
 
     public constructor() {
