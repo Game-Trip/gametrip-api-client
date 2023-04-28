@@ -12,21 +12,28 @@
 
 import { HttpFile } from '../http/http';
 
-export class TestModel {
-    'test'?: string | null;
+export class ConfirmMailDto {
+    'token': string;
+    'email': string;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "test",
-            "baseName": "test",
+            "name": "token",
+            "baseName": "token",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "email",
+            "baseName": "email",
             "type": "string",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return TestModel.attributeTypeMap;
+        return ConfirmMailDto.attributeTypeMap;
     }
 
     public constructor() {

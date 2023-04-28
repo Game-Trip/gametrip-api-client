@@ -1,6 +1,6 @@
 {
   "name": "@game-trip/ts-api-client",
-  "version": "0.0.1",
+  "version": "1.0.4",
   "description": "OpenAPI client for @game-trip/ts-api-client",
   "author": "OpenAPI-Generator Contributors",
   "repository": {
@@ -33,7 +33,10 @@
     "typescript": "^4.0",
     "@types/url-parse": "1.4.4"
   },
-  "publishConfig":{
-    "registry":"https://npm.pkg.github.com"
-  }
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "files": [
+    "dist"
+  ]
 }
