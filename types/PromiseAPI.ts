@@ -27,7 +27,7 @@ export class PromiseAuthApi {
     /**
      * @param confirmMailDto 
      */
-    public authConfirmEmailPost(confirmMailDto?: ConfirmMailDto, _options?: Configuration): Promise<GameTripUserDTO> {
+    public authConfirmEmailPost(confirmMailDto?: ConfirmMailDto, _options?: Configuration): Promise<void> {
         const result = this.api.authConfirmEmailPost(confirmMailDto, _options);
         return result.toPromise();
     }
@@ -68,14 +68,6 @@ export class PromiseAuthApi {
      */
     public authResetPasswordPost(resetPasswordDTO?: ResetPasswordDTO, _options?: Configuration): Promise<void> {
         const result = this.api.authResetPasswordPost(resetPasswordDTO, _options);
-        return result.toPromise();
-    }
-
-    /**
-     * @param body 
-     */
-    public authTokenTestPost(body?: string, _options?: Configuration): Promise<void> {
-        const result = this.api.authTokenTestPost(body, _options);
         return result.toPromise();
     }
 

@@ -31,7 +31,7 @@ export class ObservableAuthApi {
     /**
      * @param confirmMailDto 
      */
-    public authConfirmEmailPost(confirmMailDto?: ConfirmMailDto, _options?: Configuration): Observable<GameTripUserDTO> {
+    public authConfirmEmailPost(confirmMailDto?: ConfirmMailDto, _options?: Configuration): Observable<void> {
         const requestContextPromise = this.requestFactory.authConfirmEmailPost(confirmMailDto, _options);
 
         // build promise chain
@@ -156,28 +156,6 @@ export class ObservableAuthApi {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
                 return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.authResetPasswordPost(rsp)));
-            }));
-    }
-
-    /**
-     * @param body 
-     */
-    public authTokenTestPost(body?: string, _options?: Configuration): Observable<void> {
-        const requestContextPromise = this.requestFactory.authTokenTestPost(body, _options);
-
-        // build promise chain
-        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (let middleware of this.configuration.middleware) {
-            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
-        }
-
-        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
-            pipe(mergeMap((response: ResponseContext) => {
-                let middlewarePostObservable = of(response);
-                for (let middleware of this.configuration.middleware) {
-                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
-                }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.authTokenTestPost(rsp)));
             }));
     }
 

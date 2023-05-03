@@ -62,15 +62,6 @@ export interface AuthApiAuthResetPasswordPostRequest {
     resetPasswordDTO?: ResetPasswordDTO
 }
 
-export interface AuthApiAuthTokenTestPostRequest {
-    /**
-     * 
-     * @type string
-     * @memberof AuthApiauthTokenTestPost
-     */
-    body?: string
-}
-
 export class ObjectAuthApi {
     private api: ObservableAuthApi
 
@@ -81,7 +72,7 @@ export class ObjectAuthApi {
     /**
      * @param param the request object
      */
-    public authConfirmEmailPost(param: AuthApiAuthConfirmEmailPostRequest = {}, options?: Configuration): Promise<GameTripUserDTO> {
+    public authConfirmEmailPost(param: AuthApiAuthConfirmEmailPostRequest = {}, options?: Configuration): Promise<void> {
         return this.api.authConfirmEmailPost(param.confirmMailDto,  options).toPromise();
     }
 
@@ -118,13 +109,6 @@ export class ObjectAuthApi {
      */
     public authResetPasswordPost(param: AuthApiAuthResetPasswordPostRequest = {}, options?: Configuration): Promise<void> {
         return this.api.authResetPasswordPost(param.resetPasswordDTO,  options).toPromise();
-    }
-
-    /**
-     * @param param the request object
-     */
-    public authTokenTestPost(param: AuthApiAuthTokenTestPostRequest = {}, options?: Configuration): Promise<void> {
-        return this.api.authTokenTestPost(param.body,  options).toPromise();
     }
 
 }
