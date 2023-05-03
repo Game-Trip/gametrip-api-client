@@ -27,7 +27,7 @@ jobs:
           echo "  game-trip:" >> .yarnrc.yaml
           echo "    npmPublishRegistry: 'https://npm.pkg.github.com/'" >> .yarnrc.yaml
           echo "    npmAlwaysAuth: true" >> .yarnrc.yaml
-          echo "    npmAuthToken: '${{secrets.DERCRAKER_TOKEN }}'" >> .yarnrc.yaml
+          echo "    npmAuthToken: '${{secrets.DERCRAKER_TOKEN_FINEGRINED }}'" >> .yarnrc.yaml
           
       - run: |
           npm config set @game-trip:registry https://npm.pkg.github.com/
