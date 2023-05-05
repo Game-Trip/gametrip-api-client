@@ -5,22 +5,22 @@ import { Comment } from '../models/Comment';
 import { ConfirmMailDto } from '../models/ConfirmMailDto';
 import { CreateGameDto } from '../models/CreateGameDto';
 import { CreateLocationDto } from '../models/CreateLocationDto';
-import { FrogotPasswordDto } from '../models/FrogotPasswordDto';
+import { ForgotPasswordDto } from '../models/ForgotPasswordDto';
 import { Game } from '../models/Game';
 import { GameDto } from '../models/GameDto';
 import { GameTripUser } from '../models/GameTripUser';
-import { GameTripUserDTO } from '../models/GameTripUserDTO';
+import { GameTripUserDto } from '../models/GameTripUserDto';
 import { GetLocationDto } from '../models/GetLocationDto';
 import { LikedGame } from '../models/LikedGame';
 import { LikedLocation } from '../models/LikedLocation';
 import { ListGameDto } from '../models/ListGameDto';
 import { Location } from '../models/Location';
 import { LocationDto } from '../models/LocationDto';
-import { LoginDTO } from '../models/LoginDTO';
+import { LoginDto } from '../models/LoginDto';
 import { Picture } from '../models/Picture';
-import { RegisterDTO } from '../models/RegisterDTO';
-import { ResetPasswordDTO } from '../models/ResetPasswordDTO';
-import { TokenDTO } from '../models/TokenDTO';
+import { RegisterDto } from '../models/RegisterDto';
+import { ResetPasswordDto } from '../models/ResetPasswordDto';
+import { TokenDto } from '../models/TokenDto';
 import { UpdateGameDto } from '../models/UpdateGameDto';
 import { UpdateLocationDto } from '../models/UpdateLocationDto';
 
@@ -36,13 +36,13 @@ export interface AuthApiAuthConfirmEmailPostRequest {
     confirmMailDto?: ConfirmMailDto
 }
 
-export interface AuthApiAuthFrogotPasswordPostRequest {
+export interface AuthApiAuthForgotPasswordPostRequest {
     /**
      * The dto.
-     * @type FrogotPasswordDto
-     * @memberof AuthApiauthFrogotPasswordPost
+     * @type ForgotPasswordDto
+     * @memberof AuthApiauthForgotPasswordPost
      */
-    frogotPasswordDto?: FrogotPasswordDto
+    forgotPasswordDto?: ForgotPasswordDto
 }
 
 export interface AuthApiAuthInitializePostRequest {
@@ -51,28 +51,28 @@ export interface AuthApiAuthInitializePostRequest {
 export interface AuthApiAuthLoginPostRequest {
     /**
      * The dto.
-     * @type LoginDTO
+     * @type LoginDto
      * @memberof AuthApiauthLoginPost
      */
-    loginDTO?: LoginDTO
+    loginDto?: LoginDto
 }
 
 export interface AuthApiAuthRegisterPostRequest {
     /**
-     * The dto.
-     * @type RegisterDTO
+     * 
+     * @type RegisterDto
      * @memberof AuthApiauthRegisterPost
      */
-    registerDTO?: RegisterDTO
+    registerDto?: RegisterDto
 }
 
 export interface AuthApiAuthResetPasswordPostRequest {
     /**
      * The dto.
-     * @type ResetPasswordDTO
+     * @type ResetPasswordDto
      * @memberof AuthApiauthResetPasswordPost
      */
-    resetPasswordDTO?: ResetPasswordDTO
+    resetPasswordDto?: ResetPasswordDto
 }
 
 export class ObjectAuthApi {
@@ -94,12 +94,11 @@ export class ObjectAuthApi {
      * Frogots the password.
      * @param param the request object
      */
-    public authFrogotPasswordPost(param: AuthApiAuthFrogotPasswordPostRequest = {}, options?: Configuration): Promise<void> {
-        return this.api.authFrogotPasswordPost(param.frogotPasswordDto,  options).toPromise();
+    public authForgotPasswordPost(param: AuthApiAuthForgotPasswordPostRequest = {}, options?: Configuration): Promise<void> {
+        return this.api.authForgotPasswordPost(param.forgotPasswordDto,  options).toPromise();
     }
 
     /**
-     * Initializes the.
      * @param param the request object
      */
     public authInitializePost(param: AuthApiAuthInitializePostRequest = {}, options?: Configuration): Promise<void> {
@@ -111,16 +110,15 @@ export class ObjectAuthApi {
      * Logins the.
      * @param param the request object
      */
-    public authLoginPost(param: AuthApiAuthLoginPostRequest = {}, options?: Configuration): Promise<TokenDTO> {
-        return this.api.authLoginPost(param.loginDTO,  options).toPromise();
+    public authLoginPost(param: AuthApiAuthLoginPostRequest = {}, options?: Configuration): Promise<TokenDto> {
+        return this.api.authLoginPost(param.loginDto,  options).toPromise();
     }
 
     /**
-     * Registers the.
      * @param param the request object
      */
-    public authRegisterPost(param: AuthApiAuthRegisterPostRequest = {}, options?: Configuration): Promise<GameTripUserDTO> {
-        return this.api.authRegisterPost(param.registerDTO,  options).toPromise();
+    public authRegisterPost(param: AuthApiAuthRegisterPostRequest = {}, options?: Configuration): Promise<GameTripUserDto> {
+        return this.api.authRegisterPost(param.registerDto,  options).toPromise();
     }
 
     /**
@@ -128,7 +126,7 @@ export class ObjectAuthApi {
      * @param param the request object
      */
     public authResetPasswordPost(param: AuthApiAuthResetPasswordPostRequest = {}, options?: Configuration): Promise<void> {
-        return this.api.authResetPasswordPost(param.resetPasswordDTO,  options).toPromise();
+        return this.api.authResetPasswordPost(param.resetPasswordDto,  options).toPromise();
     }
 
 }

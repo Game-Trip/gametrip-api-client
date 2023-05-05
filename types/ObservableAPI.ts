@@ -6,22 +6,22 @@ import { Comment } from '../models/Comment';
 import { ConfirmMailDto } from '../models/ConfirmMailDto';
 import { CreateGameDto } from '../models/CreateGameDto';
 import { CreateLocationDto } from '../models/CreateLocationDto';
-import { FrogotPasswordDto } from '../models/FrogotPasswordDto';
+import { ForgotPasswordDto } from '../models/ForgotPasswordDto';
 import { Game } from '../models/Game';
 import { GameDto } from '../models/GameDto';
 import { GameTripUser } from '../models/GameTripUser';
-import { GameTripUserDTO } from '../models/GameTripUserDTO';
+import { GameTripUserDto } from '../models/GameTripUserDto';
 import { GetLocationDto } from '../models/GetLocationDto';
 import { LikedGame } from '../models/LikedGame';
 import { LikedLocation } from '../models/LikedLocation';
 import { ListGameDto } from '../models/ListGameDto';
 import { Location } from '../models/Location';
 import { LocationDto } from '../models/LocationDto';
-import { LoginDTO } from '../models/LoginDTO';
+import { LoginDto } from '../models/LoginDto';
 import { Picture } from '../models/Picture';
-import { RegisterDTO } from '../models/RegisterDTO';
-import { ResetPasswordDTO } from '../models/ResetPasswordDTO';
-import { TokenDTO } from '../models/TokenDTO';
+import { RegisterDto } from '../models/RegisterDto';
+import { ResetPasswordDto } from '../models/ResetPasswordDto';
+import { TokenDto } from '../models/TokenDto';
 import { UpdateGameDto } from '../models/UpdateGameDto';
 import { UpdateLocationDto } from '../models/UpdateLocationDto';
 
@@ -66,10 +66,10 @@ export class ObservableAuthApi {
 
     /**
      * Frogots the password.
-     * @param frogotPasswordDto The dto.
+     * @param forgotPasswordDto The dto.
      */
-    public authFrogotPasswordPost(frogotPasswordDto?: FrogotPasswordDto, _options?: Configuration): Observable<void> {
-        const requestContextPromise = this.requestFactory.authFrogotPasswordPost(frogotPasswordDto, _options);
+    public authForgotPasswordPost(forgotPasswordDto?: ForgotPasswordDto, _options?: Configuration): Observable<void> {
+        const requestContextPromise = this.requestFactory.authForgotPasswordPost(forgotPasswordDto, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -83,12 +83,11 @@ export class ObservableAuthApi {
                 for (let middleware of this.configuration.middleware) {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.authFrogotPasswordPost(rsp)));
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.authForgotPasswordPost(rsp)));
             }));
     }
 
     /**
-     * Initializes the.
      */
     public authInitializePost(_options?: Configuration): Observable<void> {
         const requestContextPromise = this.requestFactory.authInitializePost(_options);
@@ -112,10 +111,10 @@ export class ObservableAuthApi {
     /**
      * {    \"username\": \"Dercraker\",    \"password\": \"NMdRx$HqyT8jX6\"  }
      * Logins the.
-     * @param loginDTO The dto.
+     * @param loginDto The dto.
      */
-    public authLoginPost(loginDTO?: LoginDTO, _options?: Configuration): Observable<TokenDTO> {
-        const requestContextPromise = this.requestFactory.authLoginPost(loginDTO, _options);
+    public authLoginPost(loginDto?: LoginDto, _options?: Configuration): Observable<TokenDto> {
+        const requestContextPromise = this.requestFactory.authLoginPost(loginDto, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -134,11 +133,10 @@ export class ObservableAuthApi {
     }
 
     /**
-     * Registers the.
-     * @param registerDTO The dto.
+     * @param registerDto 
      */
-    public authRegisterPost(registerDTO?: RegisterDTO, _options?: Configuration): Observable<GameTripUserDTO> {
-        const requestContextPromise = this.requestFactory.authRegisterPost(registerDTO, _options);
+    public authRegisterPost(registerDto?: RegisterDto, _options?: Configuration): Observable<GameTripUserDto> {
+        const requestContextPromise = this.requestFactory.authRegisterPost(registerDto, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -158,10 +156,10 @@ export class ObservableAuthApi {
 
     /**
      * Resets the password.
-     * @param resetPasswordDTO The dto.
+     * @param resetPasswordDto The dto.
      */
-    public authResetPasswordPost(resetPasswordDTO?: ResetPasswordDTO, _options?: Configuration): Observable<void> {
-        const requestContextPromise = this.requestFactory.authResetPasswordPost(resetPasswordDTO, _options);
+    public authResetPasswordPost(resetPasswordDto?: ResetPasswordDto, _options?: Configuration): Observable<void> {
+        const requestContextPromise = this.requestFactory.authResetPasswordPost(resetPasswordDto, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);

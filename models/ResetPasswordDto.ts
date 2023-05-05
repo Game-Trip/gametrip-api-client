@@ -12,28 +12,42 @@
 
 import { HttpFile } from '../http/http';
 
-export class ConfirmMailDto {
-    'token'?: string | null;
+export class ResetPasswordDto {
     'email'?: string | null;
+    'password'?: string | null;
+    'passwordConfirmation'?: string | null;
+    'token'?: string | null;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "token",
-            "baseName": "token",
+            "name": "email",
+            "baseName": "email",
             "type": "string",
             "format": ""
         },
         {
-            "name": "email",
-            "baseName": "email",
+            "name": "password",
+            "baseName": "password",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "passwordConfirmation",
+            "baseName": "passwordConfirmation",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "token",
+            "baseName": "token",
             "type": "string",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return ConfirmMailDto.attributeTypeMap;
+        return ResetPasswordDto.attributeTypeMap;
     }
 
     public constructor() {

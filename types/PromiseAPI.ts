@@ -5,22 +5,22 @@ import { Comment } from '../models/Comment';
 import { ConfirmMailDto } from '../models/ConfirmMailDto';
 import { CreateGameDto } from '../models/CreateGameDto';
 import { CreateLocationDto } from '../models/CreateLocationDto';
-import { FrogotPasswordDto } from '../models/FrogotPasswordDto';
+import { ForgotPasswordDto } from '../models/ForgotPasswordDto';
 import { Game } from '../models/Game';
 import { GameDto } from '../models/GameDto';
 import { GameTripUser } from '../models/GameTripUser';
-import { GameTripUserDTO } from '../models/GameTripUserDTO';
+import { GameTripUserDto } from '../models/GameTripUserDto';
 import { GetLocationDto } from '../models/GetLocationDto';
 import { LikedGame } from '../models/LikedGame';
 import { LikedLocation } from '../models/LikedLocation';
 import { ListGameDto } from '../models/ListGameDto';
 import { Location } from '../models/Location';
 import { LocationDto } from '../models/LocationDto';
-import { LoginDTO } from '../models/LoginDTO';
+import { LoginDto } from '../models/LoginDto';
 import { Picture } from '../models/Picture';
-import { RegisterDTO } from '../models/RegisterDTO';
-import { ResetPasswordDTO } from '../models/ResetPasswordDTO';
-import { TokenDTO } from '../models/TokenDTO';
+import { RegisterDto } from '../models/RegisterDto';
+import { ResetPasswordDto } from '../models/ResetPasswordDto';
+import { TokenDto } from '../models/TokenDto';
 import { UpdateGameDto } from '../models/UpdateGameDto';
 import { UpdateLocationDto } from '../models/UpdateLocationDto';
 import { ObservableAuthApi } from './ObservableAPI';
@@ -48,15 +48,14 @@ export class PromiseAuthApi {
 
     /**
      * Frogots the password.
-     * @param frogotPasswordDto The dto.
+     * @param forgotPasswordDto The dto.
      */
-    public authFrogotPasswordPost(frogotPasswordDto?: FrogotPasswordDto, _options?: Configuration): Promise<void> {
-        const result = this.api.authFrogotPasswordPost(frogotPasswordDto, _options);
+    public authForgotPasswordPost(forgotPasswordDto?: ForgotPasswordDto, _options?: Configuration): Promise<void> {
+        const result = this.api.authForgotPasswordPost(forgotPasswordDto, _options);
         return result.toPromise();
     }
 
     /**
-     * Initializes the.
      */
     public authInitializePost(_options?: Configuration): Promise<void> {
         const result = this.api.authInitializePost(_options);
@@ -66,28 +65,27 @@ export class PromiseAuthApi {
     /**
      * {    \"username\": \"Dercraker\",    \"password\": \"NMdRx$HqyT8jX6\"  }
      * Logins the.
-     * @param loginDTO The dto.
+     * @param loginDto The dto.
      */
-    public authLoginPost(loginDTO?: LoginDTO, _options?: Configuration): Promise<TokenDTO> {
-        const result = this.api.authLoginPost(loginDTO, _options);
+    public authLoginPost(loginDto?: LoginDto, _options?: Configuration): Promise<TokenDto> {
+        const result = this.api.authLoginPost(loginDto, _options);
         return result.toPromise();
     }
 
     /**
-     * Registers the.
-     * @param registerDTO The dto.
+     * @param registerDto 
      */
-    public authRegisterPost(registerDTO?: RegisterDTO, _options?: Configuration): Promise<GameTripUserDTO> {
-        const result = this.api.authRegisterPost(registerDTO, _options);
+    public authRegisterPost(registerDto?: RegisterDto, _options?: Configuration): Promise<GameTripUserDto> {
+        const result = this.api.authRegisterPost(registerDto, _options);
         return result.toPromise();
     }
 
     /**
      * Resets the password.
-     * @param resetPasswordDTO The dto.
+     * @param resetPasswordDto The dto.
      */
-    public authResetPasswordPost(resetPasswordDTO?: ResetPasswordDTO, _options?: Configuration): Promise<void> {
-        const result = this.api.authResetPasswordPost(resetPasswordDTO, _options);
+    public authResetPasswordPost(resetPasswordDto?: ResetPasswordDto, _options?: Configuration): Promise<void> {
+        const result = this.api.authResetPasswordPost(resetPasswordDto, _options);
         return result.toPromise();
     }
 

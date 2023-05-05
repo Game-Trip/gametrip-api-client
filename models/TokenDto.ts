@@ -12,9 +12,9 @@
 
 import { HttpFile } from '../http/http';
 
-export class ConfirmMailDto {
-    'token'?: string | null;
-    'email'?: string | null;
+export class TokenDto {
+    'token': string;
+    'expirationDate'?: Date | null;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -26,14 +26,14 @@ export class ConfirmMailDto {
             "format": ""
         },
         {
-            "name": "email",
-            "baseName": "email",
-            "type": "string",
-            "format": ""
+            "name": "expirationDate",
+            "baseName": "expirationDate",
+            "type": "Date",
+            "format": "date-time"
         }    ];
 
     static getAttributeTypeMap() {
-        return ConfirmMailDto.attributeTypeMap;
+        return TokenDto.attributeTypeMap;
     }
 
     public constructor() {

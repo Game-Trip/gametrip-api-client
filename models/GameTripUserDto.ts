@@ -12,16 +12,16 @@
 
 import { HttpFile } from '../http/http';
 
-export class ConfirmMailDto {
-    'token'?: string | null;
+export class GameTripUserDto {
+    'userName'?: string | null;
     'email'?: string | null;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "token",
-            "baseName": "token",
+            "name": "userName",
+            "baseName": "userName",
             "type": "string",
             "format": ""
         },
@@ -33,7 +33,7 @@ export class ConfirmMailDto {
         }    ];
 
     static getAttributeTypeMap() {
-        return ConfirmMailDto.attributeTypeMap;
+        return GameTripUserDto.attributeTypeMap;
     }
 
     public constructor() {
