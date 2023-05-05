@@ -22,7 +22,8 @@ import { TokenDTO } from '../models/TokenDTO';
 export class AuthApiRequestFactory extends BaseAPIRequestFactory {
 
     /**
-     * @param confirmMailDto 
+     * Confirms the email.
+     * @param confirmMailDto The dto.
      */
     public async authConfirmEmailPost(confirmMailDto?: ConfirmMailDto, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
@@ -63,7 +64,8 @@ export class AuthApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * @param frogotPasswordDto 
+     * Frogots the password.
+     * @param frogotPasswordDto The dto.
      */
     public async authFrogotPasswordPost(frogotPasswordDto?: FrogotPasswordDto, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
@@ -104,6 +106,7 @@ export class AuthApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
+     * Initializes the.
      */
     public async authInitializePost(_options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
@@ -132,7 +135,9 @@ export class AuthApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * @param loginDTO 
+     * {    \"username\": \"Dercraker\",    \"password\": \"NMdRx$HqyT8jX6\"  }
+     * Logins the.
+     * @param loginDTO The dto.
      */
     public async authLoginPost(loginDTO?: LoginDTO, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
@@ -173,7 +178,8 @@ export class AuthApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * @param registerDTO 
+     * Registers the.
+     * @param registerDTO The dto.
      */
     public async authRegisterPost(registerDTO?: RegisterDTO, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
@@ -214,7 +220,8 @@ export class AuthApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * @param resetPasswordDTO 
+     * Resets the password.
+     * @param resetPasswordDTO The dto.
      */
     public async authResetPasswordPost(resetPasswordDTO?: ResetPasswordDTO, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
