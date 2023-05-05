@@ -22,7 +22,8 @@ import { TokenDTO } from '../models/TokenDTO';
 export class AuthApiRequestFactory extends BaseAPIRequestFactory {
 
     /**
-     * @param confirmMailDto 
+     * Confirms the email.
+     * @param confirmMailDto The dto.
      */
     public async authConfirmEmailPost(confirmMailDto?: ConfirmMailDto, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
@@ -38,11 +39,7 @@ export class AuthApiRequestFactory extends BaseAPIRequestFactory {
 
         // Body Params
         const contentType = ObjectSerializer.getPreferredMediaType([
-            "application/json",
-        
-            "text/json",
-        
-            "application/*+json"
+            "application/json"
         ]);
         requestContext.setHeaderParam("Content-Type", contentType);
         const serializedBody = ObjectSerializer.stringify(
@@ -67,7 +64,8 @@ export class AuthApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * @param frogotPasswordDto 
+     * Frogots the password.
+     * @param frogotPasswordDto The dto.
      */
     public async authFrogotPasswordPost(frogotPasswordDto?: FrogotPasswordDto, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
@@ -83,11 +81,7 @@ export class AuthApiRequestFactory extends BaseAPIRequestFactory {
 
         // Body Params
         const contentType = ObjectSerializer.getPreferredMediaType([
-            "application/json",
-        
-            "text/json",
-        
-            "application/*+json"
+            "application/json"
         ]);
         requestContext.setHeaderParam("Content-Type", contentType);
         const serializedBody = ObjectSerializer.stringify(
@@ -140,7 +134,9 @@ export class AuthApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * @param loginDTO 
+     * {    \"username\": \"Dercraker\",    \"password\": \"NMdRx$HqyT8jX6\"  }
+     * Logins the.
+     * @param loginDTO The dto.
      */
     public async authLoginPost(loginDTO?: LoginDTO, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
@@ -156,11 +152,7 @@ export class AuthApiRequestFactory extends BaseAPIRequestFactory {
 
         // Body Params
         const contentType = ObjectSerializer.getPreferredMediaType([
-            "application/json",
-        
-            "text/json",
-        
-            "application/*+json"
+            "application/json"
         ]);
         requestContext.setHeaderParam("Content-Type", contentType);
         const serializedBody = ObjectSerializer.stringify(
@@ -185,7 +177,8 @@ export class AuthApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * @param registerDTO 
+     * Registers the.
+     * @param registerDTO The dto.
      */
     public async authRegisterPost(registerDTO?: RegisterDTO, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
@@ -201,11 +194,7 @@ export class AuthApiRequestFactory extends BaseAPIRequestFactory {
 
         // Body Params
         const contentType = ObjectSerializer.getPreferredMediaType([
-            "application/json",
-        
-            "text/json",
-        
-            "application/*+json"
+            "application/json"
         ]);
         requestContext.setHeaderParam("Content-Type", contentType);
         const serializedBody = ObjectSerializer.stringify(
@@ -230,7 +219,8 @@ export class AuthApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * @param resetPasswordDTO 
+     * Resets the password.
+     * @param resetPasswordDTO The dto.
      */
     public async authResetPasswordPost(resetPasswordDTO?: ResetPasswordDTO, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
@@ -246,60 +236,11 @@ export class AuthApiRequestFactory extends BaseAPIRequestFactory {
 
         // Body Params
         const contentType = ObjectSerializer.getPreferredMediaType([
-            "application/json",
-        
-            "text/json",
-        
-            "application/*+json"
+            "application/json"
         ]);
         requestContext.setHeaderParam("Content-Type", contentType);
         const serializedBody = ObjectSerializer.stringify(
             ObjectSerializer.serialize(resetPasswordDTO, "ResetPasswordDTO", ""),
-            contentType
-        );
-        requestContext.setBody(serializedBody);
-
-        let authMethod: SecurityAuthentication | undefined;
-        // Apply auth methods
-        authMethod = _config.authMethods["Bearer"]
-        if (authMethod?.applySecurityAuthentication) {
-            await authMethod?.applySecurityAuthentication(requestContext);
-        }
-        
-        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
-        if (defaultAuth?.applySecurityAuthentication) {
-            await defaultAuth?.applySecurityAuthentication(requestContext);
-        }
-
-        return requestContext;
-    }
-
-    /**
-     * @param body 
-     */
-    public async authTokenTestPost(body?: string, _options?: Configuration): Promise<RequestContext> {
-        let _config = _options || this.configuration;
-
-
-        // Path Params
-        const localVarPath = '/Auth/TokenTest';
-
-        // Make Request Context
-        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
-        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
-
-
-        // Body Params
-        const contentType = ObjectSerializer.getPreferredMediaType([
-            "application/json",
-        
-            "text/json",
-        
-            "application/*+json"
-        ]);
-        requestContext.setHeaderParam("Content-Type", contentType);
-        const serializedBody = ObjectSerializer.stringify(
-            ObjectSerializer.serialize(body, "string", ""),
             contentType
         );
         requestContext.setBody(serializedBody);
@@ -330,22 +271,18 @@ export class AuthApiResponseProcessor {
      * @params response Response returned by the server for a request to authConfirmEmailPost
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async authConfirmEmailPost(response: ResponseContext): Promise<GameTripUserDTO > {
+     public async authConfirmEmailPost(response: ResponseContext): Promise<void > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: GameTripUserDTO = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "GameTripUserDTO", ""
-            ) as GameTripUserDTO;
-            return body;
+            return;
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: GameTripUserDTO = ObjectSerializer.deserialize(
+            const body: void = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "GameTripUserDTO", ""
-            ) as GameTripUserDTO;
+                "void", ""
+            ) as void;
             return body;
         }
 
@@ -468,31 +405,6 @@ export class AuthApiResponseProcessor {
      * @throws ApiException if the response code was not in [200, 299]
      */
      public async authResetPasswordPost(response: ResponseContext): Promise<void > {
-        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
-        if (isCodeInRange("200", response.httpStatusCode)) {
-            return;
-        }
-
-        // Work around for missing responses in specification, e.g. for petstore.yaml
-        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: void = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "void", ""
-            ) as void;
-            return body;
-        }
-
-        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
-    }
-
-    /**
-     * Unwraps the actual response sent by the server from the response context and deserializes the response content
-     * to the expected objects
-     *
-     * @params response Response returned by the server for a request to authTokenTestPost
-     * @throws ApiException if the response code was not in [200, 299]
-     */
-     public async authTokenTestPost(response: ResponseContext): Promise<void > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             return;

@@ -1,22 +1,48 @@
+export * from '../models/Comment';
 export * from '../models/ConfirmMailDto';
+export * from '../models/CreateGameDto';
+export * from '../models/CreateLocationDto';
 export * from '../models/FrogotPasswordDto';
+export * from '../models/Game';
+export * from '../models/GameDto';
+export * from '../models/GameTripUser';
 export * from '../models/GameTripUserDTO';
-export * from '../models/LocationDTO';
+export * from '../models/GetLocationDto';
+export * from '../models/LikedGame';
+export * from '../models/LikedLocation';
+export * from '../models/ListGameDto';
+export * from '../models/Location';
+export * from '../models/LocationDto';
 export * from '../models/LoginDTO';
+export * from '../models/Picture';
 export * from '../models/RegisterDTO';
 export * from '../models/ResetPasswordDTO';
-export * from '../models/TestModel';
 export * from '../models/TokenDTO';
+export * from '../models/UpdateGameDto';
+export * from '../models/UpdateLocationDto';
 
+import { Comment } from '../models/Comment';
 import { ConfirmMailDto } from '../models/ConfirmMailDto';
+import { CreateGameDto } from '../models/CreateGameDto';
+import { CreateLocationDto } from '../models/CreateLocationDto';
 import { FrogotPasswordDto } from '../models/FrogotPasswordDto';
+import { Game } from '../models/Game';
+import { GameDto } from '../models/GameDto';
+import { GameTripUser } from '../models/GameTripUser';
 import { GameTripUserDTO } from '../models/GameTripUserDTO';
-import { LocationDTO } from '../models/LocationDTO';
+import { GetLocationDto } from '../models/GetLocationDto';
+import { LikedGame } from '../models/LikedGame';
+import { LikedLocation } from '../models/LikedLocation';
+import { ListGameDto } from '../models/ListGameDto';
+import { Location } from '../models/Location';
+import { LocationDto } from '../models/LocationDto';
 import { LoginDTO } from '../models/LoginDTO';
+import { Picture } from '../models/Picture';
 import { RegisterDTO } from '../models/RegisterDTO';
 import { ResetPasswordDTO } from '../models/ResetPasswordDTO';
-import { TestModel } from '../models/TestModel';
 import { TokenDTO } from '../models/TokenDTO';
+import { UpdateGameDto } from '../models/UpdateGameDto';
+import { UpdateLocationDto } from '../models/UpdateLocationDto';
 
 /* tslint:disable:no-unused-variable */
 let primitives = [
@@ -41,15 +67,28 @@ let enumsMap: Set<string> = new Set<string>([
 ]);
 
 let typeMap: {[index: string]: any} = {
+    "Comment": Comment,
     "ConfirmMailDto": ConfirmMailDto,
+    "CreateGameDto": CreateGameDto,
+    "CreateLocationDto": CreateLocationDto,
     "FrogotPasswordDto": FrogotPasswordDto,
+    "Game": Game,
+    "GameDto": GameDto,
+    "GameTripUser": GameTripUser,
     "GameTripUserDTO": GameTripUserDTO,
-    "LocationDTO": LocationDTO,
+    "GetLocationDto": GetLocationDto,
+    "LikedGame": LikedGame,
+    "LikedLocation": LikedLocation,
+    "ListGameDto": ListGameDto,
+    "Location": Location,
+    "LocationDto": LocationDto,
     "LoginDTO": LoginDTO,
+    "Picture": Picture,
     "RegisterDTO": RegisterDTO,
     "ResetPasswordDTO": ResetPasswordDTO,
-    "TestModel": TestModel,
     "TokenDTO": TokenDTO,
+    "UpdateGameDto": UpdateGameDto,
+    "UpdateLocationDto": UpdateLocationDto,
 }
 
 export class ObjectSerializer {

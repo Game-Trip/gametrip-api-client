@@ -4,17 +4,16 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**authConfirmEmailPost**](AuthApi.md#authConfirmEmailPost) | **POST** /Auth/ConfirmEmail | 
-[**authFrogotPasswordPost**](AuthApi.md#authFrogotPasswordPost) | **POST** /Auth/FrogotPassword | 
+[**authConfirmEmailPost**](AuthApi.md#authConfirmEmailPost) | **POST** /Auth/ConfirmEmail | Confirms the email.
+[**authFrogotPasswordPost**](AuthApi.md#authFrogotPasswordPost) | **POST** /Auth/FrogotPassword | Frogots the password.
 [**authInitializePost**](AuthApi.md#authInitializePost) | **POST** /Auth/Initialize | 
-[**authLoginPost**](AuthApi.md#authLoginPost) | **POST** /Auth/Login | 
-[**authRegisterPost**](AuthApi.md#authRegisterPost) | **POST** /Auth/Register | 
-[**authResetPasswordPost**](AuthApi.md#authResetPasswordPost) | **POST** /Auth/ResetPassword | 
-[**authTokenTestPost**](AuthApi.md#authTokenTestPost) | **POST** /Auth/TokenTest | 
+[**authLoginPost**](AuthApi.md#authLoginPost) | **POST** /Auth/Login | Logins the.
+[**authRegisterPost**](AuthApi.md#authRegisterPost) | **POST** /Auth/Register | Registers the.
+[**authResetPasswordPost**](AuthApi.md#authResetPasswordPost) | **POST** /Auth/ResetPassword | Resets the password.
 
 
 # **authConfirmEmailPost**
-> GameTripUserDTO authConfirmEmailPost()
+> void authConfirmEmailPost()
 
 
 ### Example
@@ -28,7 +27,7 @@ const configuration = .createConfiguration();
 const apiInstance = new .AuthApi(configuration);
 
 let body:.AuthApiAuthConfirmEmailPostRequest = {
-  // ConfirmMailDto (optional)
+  // ConfirmMailDto | The dto. (optional)
   confirmMailDto: {
     token: "token_example",
     email: "email_example",
@@ -45,12 +44,12 @@ apiInstance.authConfirmEmailPost(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **confirmMailDto** | **ConfirmMailDto**|  |
+ **confirmMailDto** | **ConfirmMailDto**| The dto. |
 
 
 ### Return type
 
-**GameTripUserDTO**
+**void**
 
 ### Authorization
 
@@ -58,8 +57,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, text/json, application/*+json
- - **Accept**: text/plain, application/json, text/json
+ - **Content-Type**: application/json
+ - **Accept**: Not defined
 
 
 ### HTTP response details
@@ -84,7 +83,7 @@ const configuration = .createConfiguration();
 const apiInstance = new .AuthApi(configuration);
 
 let body:.AuthApiAuthFrogotPasswordPostRequest = {
-  // FrogotPasswordDto (optional)
+  // FrogotPasswordDto | The dto. (optional)
   frogotPasswordDto: {
     email: "email_example",
   },
@@ -100,7 +99,7 @@ apiInstance.authFrogotPasswordPost(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **frogotPasswordDto** | **FrogotPasswordDto**|  |
+ **frogotPasswordDto** | **FrogotPasswordDto**| The dto. |
 
 
 ### Return type
@@ -113,7 +112,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, text/json, application/*+json
+ - **Content-Type**: application/json
  - **Accept**: Not defined
 
 
@@ -174,6 +173,7 @@ This endpoint does not need any parameter.
 # **authLoginPost**
 > TokenDTO authLoginPost()
 
+{    \"username\": \"Dercraker\",    \"password\": \"NMdRx$HqyT8jX6\"  }
 
 ### Example
 
@@ -186,7 +186,7 @@ const configuration = .createConfiguration();
 const apiInstance = new .AuthApi(configuration);
 
 let body:.AuthApiAuthLoginPostRequest = {
-  // LoginDTO (optional)
+  // LoginDTO | The dto. (optional)
   loginDTO: {
     username: "username_example",
     password: "password_example",
@@ -203,7 +203,7 @@ apiInstance.authLoginPost(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **loginDTO** | **LoginDTO**|  |
+ **loginDTO** | **LoginDTO**| The dto. |
 
 
 ### Return type
@@ -216,8 +216,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, text/json, application/*+json
- - **Accept**: text/plain, application/json, text/json
+ - **Content-Type**: application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -242,7 +242,7 @@ const configuration = .createConfiguration();
 const apiInstance = new .AuthApi(configuration);
 
 let body:.AuthApiAuthRegisterPostRequest = {
-  // RegisterDTO (optional)
+  // RegisterDTO | The dto. (optional)
   registerDTO: {
     username: "username_example",
     email: "email_example",
@@ -261,7 +261,7 @@ apiInstance.authRegisterPost(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **registerDTO** | **RegisterDTO**|  |
+ **registerDTO** | **RegisterDTO**| The dto. |
 
 
 ### Return type
@@ -274,8 +274,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, text/json, application/*+json
- - **Accept**: text/plain, application/json, text/json
+ - **Content-Type**: application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -300,7 +300,7 @@ const configuration = .createConfiguration();
 const apiInstance = new .AuthApi(configuration);
 
 let body:.AuthApiAuthResetPasswordPostRequest = {
-  // ResetPasswordDTO (optional)
+  // ResetPasswordDTO | The dto. (optional)
   resetPasswordDTO: {
     email: "email_example",
     password: "password_example",
@@ -319,7 +319,7 @@ apiInstance.authResetPasswordPost(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **resetPasswordDTO** | **ResetPasswordDTO**|  |
+ **resetPasswordDTO** | **ResetPasswordDTO**| The dto. |
 
 
 ### Return type
@@ -332,60 +332,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, text/json, application/*+json
- - **Accept**: Not defined
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Success |  -  |
-
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
-
-# **authTokenTestPost**
-> void authTokenTestPost()
-
-
-### Example
-
-
-```typescript
-import {  } from '';
-import * as fs from 'fs';
-
-const configuration = .createConfiguration();
-const apiInstance = new .AuthApi(configuration);
-
-let body:.AuthApiAuthTokenTestPostRequest = {
-  // string (optional)
-  body: "body_example",
-};
-
-apiInstance.authTokenTestPost(body).then((data:any) => {
-  console.log('API called successfully. Returned data: ' + data);
-}).catch((error:any) => console.error(error));
-```
-
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **body** | **string**|  |
-
-
-### Return type
-
-**void**
-
-### Authorization
-
-[Bearer](README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: application/json, text/json, application/*+json
+ - **Content-Type**: application/json
  - **Accept**: Not defined
 
 
