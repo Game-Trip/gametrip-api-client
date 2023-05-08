@@ -10,38 +10,21 @@
  * Do not edit the class manually.
  */
 
-import { GameTripUser } from '../models/GameTripUser';
-import { Location } from '../models/Location';
 import { HttpFile } from '../http/http';
 
-export class LikedLocation {
-    'idLikedLocation'?: string;
-    'locationId'?: string;
-    'location'?: Location;
-    'userId'?: string;
-    'user'?: GameTripUser;
-    'vote'?: number;
+export class AddLikeLocationDto {
+    'locationId'?: string | null;
+    'userId'?: string | null;
+    'value'?: number | null;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "idLikedLocation",
-            "baseName": "idLikedLocation",
-            "type": "string",
-            "format": "uuid"
-        },
-        {
             "name": "locationId",
             "baseName": "locationId",
             "type": "string",
             "format": "uuid"
-        },
-        {
-            "name": "location",
-            "baseName": "location",
-            "type": "Location",
-            "format": ""
         },
         {
             "name": "userId",
@@ -50,20 +33,14 @@ export class LikedLocation {
             "format": "uuid"
         },
         {
-            "name": "user",
-            "baseName": "user",
-            "type": "GameTripUser",
-            "format": ""
-        },
-        {
-            "name": "vote",
-            "baseName": "vote",
+            "name": "value",
+            "baseName": "value",
             "type": "number",
             "format": "double"
         }    ];
 
     static getAttributeTypeMap() {
-        return LikedLocation.attributeTypeMap;
+        return AddLikeLocationDto.attributeTypeMap;
     }
 
     public constructor() {

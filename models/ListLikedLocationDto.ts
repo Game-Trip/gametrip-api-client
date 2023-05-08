@@ -10,24 +10,20 @@
  * Do not edit the class manually.
  */
 
-import { GameTripUser } from '../models/GameTripUser';
-import { Location } from '../models/Location';
+import { LocationNameDto } from '../models/LocationNameDto';
 import { HttpFile } from '../http/http';
 
-export class LikedLocation {
-    'idLikedLocation'?: string;
-    'locationId'?: string;
-    'location'?: Location;
-    'userId'?: string;
-    'user'?: GameTripUser;
-    'vote'?: number;
+export class ListLikedLocationDto {
+    'likedLocationId'?: string | null;
+    'locationId'?: string | null;
+    'location'?: LocationNameDto;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "idLikedLocation",
-            "baseName": "idLikedLocation",
+            "name": "likedLocationId",
+            "baseName": "likedLocationId",
             "type": "string",
             "format": "uuid"
         },
@@ -40,30 +36,12 @@ export class LikedLocation {
         {
             "name": "location",
             "baseName": "location",
-            "type": "Location",
+            "type": "LocationNameDto",
             "format": ""
-        },
-        {
-            "name": "userId",
-            "baseName": "userId",
-            "type": "string",
-            "format": "uuid"
-        },
-        {
-            "name": "user",
-            "baseName": "user",
-            "type": "GameTripUser",
-            "format": ""
-        },
-        {
-            "name": "vote",
-            "baseName": "vote",
-            "type": "number",
-            "format": "double"
         }    ];
 
     static getAttributeTypeMap() {
-        return LikedLocation.attributeTypeMap;
+        return ListLikedLocationDto.attributeTypeMap;
     }
 
     public constructor() {

@@ -1,6 +1,8 @@
 import { ResponseContext, RequestContext, HttpFile } from '../http/http';
 import { Configuration} from '../configuration'
 
+import { AddLikeGameDto } from '../models/AddLikeGameDto';
+import { AddLikeLocationDto } from '../models/AddLikeLocationDto';
 import { Comment } from '../models/Comment';
 import { ConfirmMailDto } from '../models/ConfirmMailDto';
 import { CreateGameDto } from '../models/CreateGameDto';
@@ -8,14 +10,19 @@ import { CreateLocationDto } from '../models/CreateLocationDto';
 import { ForgotPasswordDto } from '../models/ForgotPasswordDto';
 import { Game } from '../models/Game';
 import { GameDto } from '../models/GameDto';
+import { GameNameDto } from '../models/GameNameDto';
 import { GameTripUser } from '../models/GameTripUser';
 import { GameTripUserDto } from '../models/GameTripUserDto';
 import { GetLocationDto } from '../models/GetLocationDto';
 import { LikedGame } from '../models/LikedGame';
+import { LikedGameDto } from '../models/LikedGameDto';
 import { LikedLocation } from '../models/LikedLocation';
+import { LikedLocationDto } from '../models/LikedLocationDto';
 import { ListGameDto } from '../models/ListGameDto';
+import { ListLikedLocationDto } from '../models/ListLikedLocationDto';
 import { Location } from '../models/Location';
 import { LocationDto } from '../models/LocationDto';
+import { LocationNameDto } from '../models/LocationNameDto';
 import { LoginDto } from '../models/LoginDto';
 import { Picture } from '../models/Picture';
 import { RegisterDto } from '../models/RegisterDto';
@@ -317,6 +324,148 @@ export class ObjectGameApi {
      */
     public gameRemoveGameToLocationGameGameIdLocationLocationIdPost(param: GameApiGameRemoveGameToLocationGameGameIdLocationLocationIdPostRequest, options?: Configuration): Promise<void> {
         return this.api.gameRemoveGameToLocationGameGameIdLocationLocationIdPost(param.gameId, param.locationId,  options).toPromise();
+    }
+
+}
+
+import { ObservableLikeApi } from "./ObservableAPI";
+import { LikeApiRequestFactory, LikeApiResponseProcessor} from "../apis/LikeApi";
+
+export interface LikeApiLikeAddLikeToGamePostRequest {
+    /**
+     * 
+     * @type AddLikeGameDto
+     * @memberof LikeApilikeAddLikeToGamePost
+     */
+    addLikeGameDto?: AddLikeGameDto
+}
+
+export interface LikeApiLikeAddLikeToLocationPostRequest {
+    /**
+     * 
+     * @type AddLikeLocationDto
+     * @memberof LikeApilikeAddLikeToLocationPost
+     */
+    addLikeLocationDto?: AddLikeLocationDto
+}
+
+export interface LikeApiLikeAllLikedGamesGetRequest {
+}
+
+export interface LikeApiLikeAllLikedLocationsGetRequest {
+}
+
+export interface LikeApiLikeLikedGamesUserIdGetRequest {
+    /**
+     * 
+     * @type string
+     * @memberof LikeApilikeLikedGamesUserIdGet
+     */
+    userId: string
+}
+
+export interface LikeApiLikeLikedLocationsUserIdGetRequest {
+    /**
+     * 
+     * @type string
+     * @memberof LikeApilikeLikedLocationsUserIdGet
+     */
+    userId: string
+}
+
+export interface LikeApiLikeRemoveLikeToGameGameIdUserIdPostRequest {
+    /**
+     * 
+     * @type string
+     * @memberof LikeApilikeRemoveLikeToGameGameIdUserIdPost
+     */
+    gameId: string
+    /**
+     * 
+     * @type string
+     * @memberof LikeApilikeRemoveLikeToGameGameIdUserIdPost
+     */
+    userId: string
+}
+
+export interface LikeApiLikeRemoveLikeToLocationLocationIdUserIdPostRequest {
+    /**
+     * 
+     * @type string
+     * @memberof LikeApilikeRemoveLikeToLocationLocationIdUserIdPost
+     */
+    locationId: string
+    /**
+     * 
+     * @type string
+     * @memberof LikeApilikeRemoveLikeToLocationLocationIdUserIdPost
+     */
+    userId: string
+}
+
+export class ObjectLikeApi {
+    private api: ObservableLikeApi
+
+    public constructor(configuration: Configuration, requestFactory?: LikeApiRequestFactory, responseProcessor?: LikeApiResponseProcessor) {
+        this.api = new ObservableLikeApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * @param param the request object
+     */
+    public likeAddLikeToGamePost(param: LikeApiLikeAddLikeToGamePostRequest = {}, options?: Configuration): Promise<LikedLocationDto> {
+        return this.api.likeAddLikeToGamePost(param.addLikeGameDto,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public likeAddLikeToLocationPost(param: LikeApiLikeAddLikeToLocationPostRequest = {}, options?: Configuration): Promise<LikedLocationDto> {
+        return this.api.likeAddLikeToLocationPost(param.addLikeLocationDto,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public likeAllLikedGamesGet(param: LikeApiLikeAllLikedGamesGetRequest = {}, options?: Configuration): Promise<Array<LikedGameDto>> {
+        return this.api.likeAllLikedGamesGet( options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public likeAllLikedLocationsGet(param: LikeApiLikeAllLikedLocationsGetRequest = {}, options?: Configuration): Promise<Array<LikedLocationDto>> {
+        return this.api.likeAllLikedLocationsGet( options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public likeLikedGamesUserIdGet(param: LikeApiLikeLikedGamesUserIdGetRequest, options?: Configuration): Promise<Array<ListLikedLocationDto>> {
+        return this.api.likeLikedGamesUserIdGet(param.userId,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public likeLikedLocationsUserIdGet(param: LikeApiLikeLikedLocationsUserIdGetRequest, options?: Configuration): Promise<Array<ListLikedLocationDto>> {
+        return this.api.likeLikedLocationsUserIdGet(param.userId,  options).toPromise();
+    }
+
+    /**
+     * Remove Like from Location
+     * @param param the request object
+     */
+    public likeRemoveLikeToGameGameIdUserIdPost(param: LikeApiLikeRemoveLikeToGameGameIdUserIdPostRequest, options?: Configuration): Promise<void | LikedLocationDto> {
+        return this.api.likeRemoveLikeToGameGameIdUserIdPost(param.gameId, param.userId,  options).toPromise();
+    }
+
+    /**
+     * Remove Like from Location
+     * @param param the request object
+     */
+    public likeRemoveLikeToLocationLocationIdUserIdPost(param: LikeApiLikeRemoveLikeToLocationLocationIdUserIdPostRequest, options?: Configuration): Promise<void | LikedLocationDto> {
+        return this.api.likeRemoveLikeToLocationLocationIdUserIdPost(param.locationId, param.userId,  options).toPromise();
     }
 
 }

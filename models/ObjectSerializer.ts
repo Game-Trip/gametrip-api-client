@@ -1,3 +1,5 @@
+export * from '../models/AddLikeGameDto';
+export * from '../models/AddLikeLocationDto';
 export * from '../models/Comment';
 export * from '../models/ConfirmMailDto';
 export * from '../models/CreateGameDto';
@@ -5,14 +7,19 @@ export * from '../models/CreateLocationDto';
 export * from '../models/ForgotPasswordDto';
 export * from '../models/Game';
 export * from '../models/GameDto';
+export * from '../models/GameNameDto';
 export * from '../models/GameTripUser';
 export * from '../models/GameTripUserDto';
 export * from '../models/GetLocationDto';
 export * from '../models/LikedGame';
+export * from '../models/LikedGameDto';
 export * from '../models/LikedLocation';
+export * from '../models/LikedLocationDto';
 export * from '../models/ListGameDto';
+export * from '../models/ListLikedLocationDto';
 export * from '../models/Location';
 export * from '../models/LocationDto';
+export * from '../models/LocationNameDto';
 export * from '../models/LoginDto';
 export * from '../models/Picture';
 export * from '../models/RegisterDto';
@@ -21,6 +28,8 @@ export * from '../models/TokenDto';
 export * from '../models/UpdateGameDto';
 export * from '../models/UpdateLocationDto';
 
+import { AddLikeGameDto } from '../models/AddLikeGameDto';
+import { AddLikeLocationDto } from '../models/AddLikeLocationDto';
 import { Comment } from '../models/Comment';
 import { ConfirmMailDto } from '../models/ConfirmMailDto';
 import { CreateGameDto } from '../models/CreateGameDto';
@@ -28,14 +37,19 @@ import { CreateLocationDto } from '../models/CreateLocationDto';
 import { ForgotPasswordDto } from '../models/ForgotPasswordDto';
 import { Game } from '../models/Game';
 import { GameDto } from '../models/GameDto';
+import { GameNameDto } from '../models/GameNameDto';
 import { GameTripUser } from '../models/GameTripUser';
 import { GameTripUserDto } from '../models/GameTripUserDto';
 import { GetLocationDto } from '../models/GetLocationDto';
 import { LikedGame } from '../models/LikedGame';
+import { LikedGameDto } from '../models/LikedGameDto';
 import { LikedLocation } from '../models/LikedLocation';
+import { LikedLocationDto } from '../models/LikedLocationDto';
 import { ListGameDto } from '../models/ListGameDto';
+import { ListLikedLocationDto } from '../models/ListLikedLocationDto';
 import { Location } from '../models/Location';
 import { LocationDto } from '../models/LocationDto';
+import { LocationNameDto } from '../models/LocationNameDto';
 import { LoginDto } from '../models/LoginDto';
 import { Picture } from '../models/Picture';
 import { RegisterDto } from '../models/RegisterDto';
@@ -67,6 +81,8 @@ let enumsMap: Set<string> = new Set<string>([
 ]);
 
 let typeMap: {[index: string]: any} = {
+    "AddLikeGameDto": AddLikeGameDto,
+    "AddLikeLocationDto": AddLikeLocationDto,
     "Comment": Comment,
     "ConfirmMailDto": ConfirmMailDto,
     "CreateGameDto": CreateGameDto,
@@ -74,14 +90,19 @@ let typeMap: {[index: string]: any} = {
     "ForgotPasswordDto": ForgotPasswordDto,
     "Game": Game,
     "GameDto": GameDto,
+    "GameNameDto": GameNameDto,
     "GameTripUser": GameTripUser,
     "GameTripUserDto": GameTripUserDto,
     "GetLocationDto": GetLocationDto,
     "LikedGame": LikedGame,
+    "LikedGameDto": LikedGameDto,
     "LikedLocation": LikedLocation,
+    "LikedLocationDto": LikedLocationDto,
     "ListGameDto": ListGameDto,
+    "ListLikedLocationDto": ListLikedLocationDto,
     "Location": Location,
     "LocationDto": LocationDto,
+    "LocationNameDto": LocationNameDto,
     "LoginDto": LoginDto,
     "Picture": Picture,
     "RegisterDto": RegisterDto,
