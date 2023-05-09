@@ -10,9 +10,9 @@
  * Do not edit the class manually.
  */
 
-import { LikedGame } from '../models/LikedGame';
-import { LocationDto } from '../models/LocationDto';
-import { Picture } from '../models/Picture';
+import { ListLikedGameDto } from '../models/ListLikedGameDto';
+import { ListPictureDto } from '../models/ListPictureDto';
+import { LocationNameDto } from '../models/LocationNameDto';
 import { HttpFile } from '../http/http';
 
 export class GameDto {
@@ -20,9 +20,9 @@ export class GameDto {
     'description'?: string | null;
     'editor'?: string | null;
     'releaseDate'?: number | null;
-    'locations'?: Array<LocationDto> | null;
-    'pictures'?: Array<Picture> | null;
-    'likedGames'?: Array<LikedGame> | null;
+    'locations'?: Array<LocationNameDto> | null;
+    'pictures'?: Array<ListPictureDto> | null;
+    'likedGames'?: Array<ListLikedGameDto> | null;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -54,19 +54,19 @@ export class GameDto {
         {
             "name": "locations",
             "baseName": "locations",
-            "type": "Array<LocationDto>",
+            "type": "Array<LocationNameDto>",
             "format": ""
         },
         {
             "name": "pictures",
             "baseName": "pictures",
-            "type": "Array<Picture>",
+            "type": "Array<ListPictureDto>",
             "format": ""
         },
         {
             "name": "likedGames",
             "baseName": "likedGames",
-            "type": "Array<LikedGame>",
+            "type": "Array<ListLikedGameDto>",
             "format": ""
         }    ];
 

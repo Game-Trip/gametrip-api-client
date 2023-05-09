@@ -19,7 +19,9 @@ import { LikedGameDto } from '../models/LikedGameDto';
 import { LikedLocation } from '../models/LikedLocation';
 import { LikedLocationDto } from '../models/LikedLocationDto';
 import { ListGameDto } from '../models/ListGameDto';
+import { ListLikedGameDto } from '../models/ListLikedGameDto';
 import { ListLikedLocationDto } from '../models/ListLikedLocationDto';
+import { ListPictureDto } from '../models/ListPictureDto';
 import { Location } from '../models/Location';
 import { LocationDto } from '../models/LocationDto';
 import { LocationNameDto } from '../models/LocationNameDto';
@@ -53,6 +55,12 @@ export interface AuthApiAuthForgotPasswordPostRequest {
 }
 
 export interface AuthApiAuthInitializePostRequest {
+    /**
+     * 
+     * @type Array&lt;HttpFile&gt;
+     * @memberof AuthApiauthInitializePost
+     */
+    files: Array<HttpFile>
 }
 
 export interface AuthApiAuthLoginPostRequest {
@@ -108,8 +116,8 @@ export class ObjectAuthApi {
     /**
      * @param param the request object
      */
-    public authInitializePost(param: AuthApiAuthInitializePostRequest = {}, options?: Configuration): Promise<void> {
-        return this.api.authInitializePost( options).toPromise();
+    public authInitializePost(param: AuthApiAuthInitializePostRequest, options?: Configuration): Promise<void> {
+        return this.api.authInitializePost(param.files,  options).toPromise();
     }
 
     /**
@@ -154,6 +162,12 @@ export interface GameApiGameAddGameToLocationGameGameIdLocationLocationIdPostReq
      * @memberof GameApigameAddGameToLocationGameGameIdLocationLocationIdPost
      */
     locationId: string
+    /**
+     * 
+     * @type Array&lt;HttpFile&gt;
+     * @memberof GameApigameAddGameToLocationGameGameIdLocationLocationIdPost
+     */
+    files: Array<HttpFile>
 }
 
 export interface GameApiGameCreateGamePostRequest {
@@ -247,6 +261,12 @@ export interface GameApiGameRemoveGameToLocationGameGameIdLocationLocationIdPost
      * @memberof GameApigameRemoveGameToLocationGameGameIdLocationLocationIdPost
      */
     locationId: string
+    /**
+     * 
+     * @type Array&lt;HttpFile&gt;
+     * @memberof GameApigameRemoveGameToLocationGameGameIdLocationLocationIdPost
+     */
+    files: Array<HttpFile>
 }
 
 export class ObjectGameApi {
@@ -260,7 +280,7 @@ export class ObjectGameApi {
      * @param param the request object
      */
     public gameAddGameToLocationGameGameIdLocationLocationIdPost(param: GameApiGameAddGameToLocationGameGameIdLocationLocationIdPostRequest, options?: Configuration): Promise<void> {
-        return this.api.gameAddGameToLocationGameGameIdLocationLocationIdPost(param.gameId, param.locationId,  options).toPromise();
+        return this.api.gameAddGameToLocationGameGameIdLocationLocationIdPost(param.gameId, param.locationId, param.files,  options).toPromise();
     }
 
     /**
@@ -323,7 +343,7 @@ export class ObjectGameApi {
      * @param param the request object
      */
     public gameRemoveGameToLocationGameGameIdLocationLocationIdPost(param: GameApiGameRemoveGameToLocationGameGameIdLocationLocationIdPostRequest, options?: Configuration): Promise<void> {
-        return this.api.gameRemoveGameToLocationGameGameIdLocationLocationIdPost(param.gameId, param.locationId,  options).toPromise();
+        return this.api.gameRemoveGameToLocationGameGameIdLocationLocationIdPost(param.gameId, param.locationId, param.files,  options).toPromise();
     }
 
 }
@@ -386,6 +406,12 @@ export interface LikeApiLikeRemoveLikeToGameGameIdUserIdPostRequest {
      * @memberof LikeApilikeRemoveLikeToGameGameIdUserIdPost
      */
     userId: string
+    /**
+     * 
+     * @type Array&lt;HttpFile&gt;
+     * @memberof LikeApilikeRemoveLikeToGameGameIdUserIdPost
+     */
+    files: Array<HttpFile>
 }
 
 export interface LikeApiLikeRemoveLikeToLocationLocationIdUserIdPostRequest {
@@ -401,6 +427,12 @@ export interface LikeApiLikeRemoveLikeToLocationLocationIdUserIdPostRequest {
      * @memberof LikeApilikeRemoveLikeToLocationLocationIdUserIdPost
      */
     userId: string
+    /**
+     * 
+     * @type Array&lt;HttpFile&gt;
+     * @memberof LikeApilikeRemoveLikeToLocationLocationIdUserIdPost
+     */
+    files: Array<HttpFile>
 }
 
 export class ObjectLikeApi {
@@ -457,7 +489,7 @@ export class ObjectLikeApi {
      * @param param the request object
      */
     public likeRemoveLikeToGameGameIdUserIdPost(param: LikeApiLikeRemoveLikeToGameGameIdUserIdPostRequest, options?: Configuration): Promise<void | LikedLocationDto> {
-        return this.api.likeRemoveLikeToGameGameIdUserIdPost(param.gameId, param.userId,  options).toPromise();
+        return this.api.likeRemoveLikeToGameGameIdUserIdPost(param.gameId, param.userId, param.files,  options).toPromise();
     }
 
     /**
@@ -465,7 +497,7 @@ export class ObjectLikeApi {
      * @param param the request object
      */
     public likeRemoveLikeToLocationLocationIdUserIdPost(param: LikeApiLikeRemoveLikeToLocationLocationIdUserIdPostRequest, options?: Configuration): Promise<void | LikedLocationDto> {
-        return this.api.likeRemoveLikeToLocationLocationIdUserIdPost(param.locationId, param.userId,  options).toPromise();
+        return this.api.likeRemoveLikeToLocationLocationIdUserIdPost(param.locationId, param.userId, param.files,  options).toPromise();
     }
 
 }
@@ -612,6 +644,134 @@ export class ObjectLocationApi {
      */
     public locationNameLocationNameGet(param: LocationApiLocationNameLocationNameGetRequest, options?: Configuration): Promise<GetLocationDto> {
         return this.api.locationNameLocationNameGet(param.locationName,  options).toPromise();
+    }
+
+}
+
+import { ObservablePictureApi } from "./ObservableAPI";
+import { PictureApiRequestFactory, PictureApiResponseProcessor} from "../apis/PictureApi";
+
+export interface PictureApiPictureAddPictureToGameGameIdPostRequest {
+    /**
+     * 
+     * @type string
+     * @memberof PictureApipictureAddPictureToGameGameIdPost
+     */
+    gameId: string
+    /**
+     * 
+     * @type string
+     * @memberof PictureApipictureAddPictureToGameGameIdPost
+     */
+    name?: string
+    /**
+     * 
+     * @type string
+     * @memberof PictureApipictureAddPictureToGameGameIdPost
+     */
+    description?: string
+    /**
+     * 
+     * @type HttpFile
+     * @memberof PictureApipictureAddPictureToGameGameIdPost
+     */
+    pictureData?: HttpFile
+}
+
+export interface PictureApiPictureAddPictureToLocationLocationIdPostRequest {
+    /**
+     * 
+     * @type string
+     * @memberof PictureApipictureAddPictureToLocationLocationIdPost
+     */
+    locationId: string
+    /**
+     * 
+     * @type string
+     * @memberof PictureApipictureAddPictureToLocationLocationIdPost
+     */
+    name?: string
+    /**
+     * 
+     * @type string
+     * @memberof PictureApipictureAddPictureToLocationLocationIdPost
+     */
+    description?: string
+    /**
+     * 
+     * @type HttpFile
+     * @memberof PictureApipictureAddPictureToLocationLocationIdPost
+     */
+    pictureData?: HttpFile
+}
+
+export interface PictureApiPictureDeletePicturePictureIdDeleteRequest {
+    /**
+     * 
+     * @type string
+     * @memberof PictureApipictureDeletePicturePictureIdDelete
+     */
+    pictureId: string
+}
+
+export interface PictureApiPictureGetPicturesByGameIdGameIdGetRequest {
+    /**
+     * 
+     * @type string
+     * @memberof PictureApipictureGetPicturesByGameIdGameIdGet
+     */
+    gameId: string
+}
+
+export interface PictureApiPictureGetPicturesByLocationIdLocationIdGetRequest {
+    /**
+     * 
+     * @type string
+     * @memberof PictureApipictureGetPicturesByLocationIdLocationIdGet
+     */
+    locationId: string
+}
+
+export class ObjectPictureApi {
+    private api: ObservablePictureApi
+
+    public constructor(configuration: Configuration, requestFactory?: PictureApiRequestFactory, responseProcessor?: PictureApiResponseProcessor) {
+        this.api = new ObservablePictureApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * @param param the request object
+     */
+    public pictureAddPictureToGameGameIdPost(param: PictureApiPictureAddPictureToGameGameIdPostRequest, options?: Configuration): Promise<void> {
+        return this.api.pictureAddPictureToGameGameIdPost(param.gameId, param.name, param.description, param.pictureData,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public pictureAddPictureToLocationLocationIdPost(param: PictureApiPictureAddPictureToLocationLocationIdPostRequest, options?: Configuration): Promise<void> {
+        return this.api.pictureAddPictureToLocationLocationIdPost(param.locationId, param.name, param.description, param.pictureData,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public pictureDeletePicturePictureIdDelete(param: PictureApiPictureDeletePicturePictureIdDeleteRequest, options?: Configuration): Promise<void> {
+        return this.api.pictureDeletePicturePictureIdDelete(param.pictureId,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public pictureGetPicturesByGameIdGameIdGet(param: PictureApiPictureGetPicturesByGameIdGameIdGetRequest, options?: Configuration): Promise<Array<ListPictureDto>> {
+        return this.api.pictureGetPicturesByGameIdGameIdGet(param.gameId,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public pictureGetPicturesByLocationIdLocationIdGet(param: PictureApiPictureGetPicturesByLocationIdLocationIdGetRequest, options?: Configuration): Promise<Array<ListPictureDto>> {
+        return this.api.pictureGetPicturesByLocationIdLocationIdGet(param.locationId,  options).toPromise();
     }
 
 }

@@ -35,6 +35,10 @@ let body:.GameApiGameAddGameToLocationGameGameIdLocationLocationIdPostRequest = 
   gameId: "gameId_example",
   // string
   locationId: "locationId_example",
+  // Array<HttpFile>
+  files: [
+    { data: Buffer.from(fs.readFileSync('/path/to/file', 'utf-8')), name: '/path/to/file' },
+  ],
 };
 
 apiInstance.gameAddGameToLocationGameGameIdLocationLocationIdPost(body).then((data:any) => {
@@ -49,6 +53,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **gameId** | [**string**] |  | defaults to undefined
  **locationId** | [**string**] |  | defaults to undefined
+ **files** | **Array&lt;HttpFile&gt;** |  | defaults to undefined
 
 
 ### Return type
@@ -61,7 +66,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: multipart/form-data
  - **Accept**: Not defined
 
 
@@ -529,6 +534,10 @@ let body:.GameApiGameRemoveGameToLocationGameGameIdLocationLocationIdPostRequest
   gameId: "gameId_example",
   // string
   locationId: "locationId_example",
+  // Array<HttpFile>
+  files: [
+    { data: Buffer.from(fs.readFileSync('/path/to/file', 'utf-8')), name: '/path/to/file' },
+  ],
 };
 
 apiInstance.gameRemoveGameToLocationGameGameIdLocationLocationIdPost(body).then((data:any) => {
@@ -543,6 +552,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **gameId** | [**string**] |  | defaults to undefined
  **locationId** | [**string**] |  | defaults to undefined
+ **files** | **Array&lt;HttpFile&gt;** |  | defaults to undefined
 
 
 ### Return type
@@ -555,7 +565,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: multipart/form-data
  - **Accept**: Not defined
 
 

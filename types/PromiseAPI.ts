@@ -19,7 +19,9 @@ import { LikedGameDto } from '../models/LikedGameDto';
 import { LikedLocation } from '../models/LikedLocation';
 import { LikedLocationDto } from '../models/LikedLocationDto';
 import { ListGameDto } from '../models/ListGameDto';
+import { ListLikedGameDto } from '../models/ListLikedGameDto';
 import { ListLikedLocationDto } from '../models/ListLikedLocationDto';
+import { ListPictureDto } from '../models/ListPictureDto';
 import { Location } from '../models/Location';
 import { LocationDto } from '../models/LocationDto';
 import { LocationNameDto } from '../models/LocationNameDto';
@@ -63,9 +65,10 @@ export class PromiseAuthApi {
     }
 
     /**
+     * @param files 
      */
-    public authInitializePost(_options?: Configuration): Promise<void> {
-        const result = this.api.authInitializePost(_options);
+    public authInitializePost(files: Array<HttpFile>, _options?: Configuration): Promise<void> {
+        const result = this.api.authInitializePost(files, _options);
         return result.toPromise();
     }
 
@@ -118,9 +121,10 @@ export class PromiseGameApi {
     /**
      * @param gameId 
      * @param locationId 
+     * @param files 
      */
-    public gameAddGameToLocationGameGameIdLocationLocationIdPost(gameId: string, locationId: string, _options?: Configuration): Promise<void> {
-        const result = this.api.gameAddGameToLocationGameGameIdLocationLocationIdPost(gameId, locationId, _options);
+    public gameAddGameToLocationGameGameIdLocationLocationIdPost(gameId: string, locationId: string, files: Array<HttpFile>, _options?: Configuration): Promise<void> {
+        const result = this.api.gameAddGameToLocationGameGameIdLocationLocationIdPost(gameId, locationId, files, _options);
         return result.toPromise();
     }
 
@@ -192,9 +196,10 @@ export class PromiseGameApi {
     /**
      * @param gameId 
      * @param locationId 
+     * @param files 
      */
-    public gameRemoveGameToLocationGameGameIdLocationLocationIdPost(gameId: string, locationId: string, _options?: Configuration): Promise<void> {
-        const result = this.api.gameRemoveGameToLocationGameGameIdLocationLocationIdPost(gameId, locationId, _options);
+    public gameRemoveGameToLocationGameGameIdLocationLocationIdPost(gameId: string, locationId: string, files: Array<HttpFile>, _options?: Configuration): Promise<void> {
+        const result = this.api.gameRemoveGameToLocationGameGameIdLocationLocationIdPost(gameId, locationId, files, _options);
         return result.toPromise();
     }
 
@@ -267,9 +272,10 @@ export class PromiseLikeApi {
      * Remove Like from Location
      * @param gameId 
      * @param userId 
+     * @param files 
      */
-    public likeRemoveLikeToGameGameIdUserIdPost(gameId: string, userId: string, _options?: Configuration): Promise<void | LikedLocationDto> {
-        const result = this.api.likeRemoveLikeToGameGameIdUserIdPost(gameId, userId, _options);
+    public likeRemoveLikeToGameGameIdUserIdPost(gameId: string, userId: string, files: Array<HttpFile>, _options?: Configuration): Promise<void | LikedLocationDto> {
+        const result = this.api.likeRemoveLikeToGameGameIdUserIdPost(gameId, userId, files, _options);
         return result.toPromise();
     }
 
@@ -277,9 +283,10 @@ export class PromiseLikeApi {
      * Remove Like from Location
      * @param locationId 
      * @param userId 
+     * @param files 
      */
-    public likeRemoveLikeToLocationLocationIdUserIdPost(locationId: string, userId: string, _options?: Configuration): Promise<void | LikedLocationDto> {
-        const result = this.api.likeRemoveLikeToLocationLocationIdUserIdPost(locationId, userId, _options);
+    public likeRemoveLikeToLocationLocationIdUserIdPost(locationId: string, userId: string, files: Array<HttpFile>, _options?: Configuration): Promise<void | LikedLocationDto> {
+        const result = this.api.likeRemoveLikeToLocationLocationIdUserIdPost(locationId, userId, files, _options);
         return result.toPromise();
     }
 
@@ -364,6 +371,71 @@ export class PromiseLocationApi {
      */
     public locationNameLocationNameGet(locationName: string, _options?: Configuration): Promise<GetLocationDto> {
         const result = this.api.locationNameLocationNameGet(locationName, _options);
+        return result.toPromise();
+    }
+
+
+}
+
+
+
+import { ObservablePictureApi } from './ObservableAPI';
+
+import { PictureApiRequestFactory, PictureApiResponseProcessor} from "../apis/PictureApi";
+export class PromisePictureApi {
+    private api: ObservablePictureApi
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: PictureApiRequestFactory,
+        responseProcessor?: PictureApiResponseProcessor
+    ) {
+        this.api = new ObservablePictureApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * @param gameId 
+     * @param name 
+     * @param description 
+     * @param pictureData 
+     */
+    public pictureAddPictureToGameGameIdPost(gameId: string, name?: string, description?: string, pictureData?: HttpFile, _options?: Configuration): Promise<void> {
+        const result = this.api.pictureAddPictureToGameGameIdPost(gameId, name, description, pictureData, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param locationId 
+     * @param name 
+     * @param description 
+     * @param pictureData 
+     */
+    public pictureAddPictureToLocationLocationIdPost(locationId: string, name?: string, description?: string, pictureData?: HttpFile, _options?: Configuration): Promise<void> {
+        const result = this.api.pictureAddPictureToLocationLocationIdPost(locationId, name, description, pictureData, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param pictureId 
+     */
+    public pictureDeletePicturePictureIdDelete(pictureId: string, _options?: Configuration): Promise<void> {
+        const result = this.api.pictureDeletePicturePictureIdDelete(pictureId, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param gameId 
+     */
+    public pictureGetPicturesByGameIdGameIdGet(gameId: string, _options?: Configuration): Promise<Array<ListPictureDto>> {
+        const result = this.api.pictureGetPicturesByGameIdGameIdGet(gameId, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param locationId 
+     */
+    public pictureGetPicturesByLocationIdLocationIdGet(locationId: string, _options?: Configuration): Promise<Array<ListPictureDto>> {
+        const result = this.api.pictureGetPicturesByLocationIdLocationIdGet(locationId, _options);
         return result.toPromise();
     }
 

@@ -137,7 +137,12 @@ import * as fs from 'fs';
 const configuration = .createConfiguration();
 const apiInstance = new .AuthApi(configuration);
 
-let body:any = {};
+let body:.AuthApiAuthInitializePostRequest = {
+  // Array<HttpFile>
+  files: [
+    { data: Buffer.from(fs.readFileSync('/path/to/file', 'utf-8')), name: '/path/to/file' },
+  ],
+};
 
 apiInstance.authInitializePost(body).then((data:any) => {
   console.log('API called successfully. Returned data: ' + data);
@@ -146,7 +151,10 @@ apiInstance.authInitializePost(body).then((data:any) => {
 
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **files** | **Array&lt;HttpFile&gt;** |  | defaults to undefined
 
 
 ### Return type
@@ -159,7 +167,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: multipart/form-data
  - **Accept**: Not defined
 
 

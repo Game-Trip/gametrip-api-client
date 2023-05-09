@@ -3,11 +3,13 @@ AuthApi.md
 GameApi.md
 LikeApi.md
 LocationApi.md
+PictureApi.md
 README.md
 apis/AuthApi.ts
 apis/GameApi.ts
 apis/LikeApi.ts
 apis/LocationApi.ts
+apis/PictureApi.ts
 apis/baseapi.ts
 apis/exception.ts
 auth/auth.ts
@@ -35,7 +37,9 @@ models/LikedGameDto.ts
 models/LikedLocation.ts
 models/LikedLocationDto.ts
 models/ListGameDto.ts
+models/ListLikedGameDto.ts
 models/ListLikedLocationDto.ts
+models/ListPictureDto.ts
 models/Location.ts
 models/LocationDto.ts
 models/LocationNameDto.ts

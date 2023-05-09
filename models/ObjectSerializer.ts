@@ -16,7 +16,9 @@ export * from '../models/LikedGameDto';
 export * from '../models/LikedLocation';
 export * from '../models/LikedLocationDto';
 export * from '../models/ListGameDto';
+export * from '../models/ListLikedGameDto';
 export * from '../models/ListLikedLocationDto';
+export * from '../models/ListPictureDto';
 export * from '../models/Location';
 export * from '../models/LocationDto';
 export * from '../models/LocationNameDto';
@@ -46,7 +48,9 @@ import { LikedGameDto } from '../models/LikedGameDto';
 import { LikedLocation } from '../models/LikedLocation';
 import { LikedLocationDto } from '../models/LikedLocationDto';
 import { ListGameDto } from '../models/ListGameDto';
+import { ListLikedGameDto } from '../models/ListLikedGameDto';
 import { ListLikedLocationDto } from '../models/ListLikedLocationDto';
+import { ListPictureDto } from '../models/ListPictureDto';
 import { Location } from '../models/Location';
 import { LocationDto } from '../models/LocationDto';
 import { LocationNameDto } from '../models/LocationNameDto';
@@ -99,7 +103,9 @@ let typeMap: {[index: string]: any} = {
     "LikedLocation": LikedLocation,
     "LikedLocationDto": LikedLocationDto,
     "ListGameDto": ListGameDto,
+    "ListLikedGameDto": ListLikedGameDto,
     "ListLikedLocationDto": ListLikedLocationDto,
+    "ListPictureDto": ListPictureDto,
     "Location": Location,
     "LocationDto": LocationDto,
     "LocationNameDto": LocationNameDto,
