@@ -9,9 +9,9 @@ import {SecurityAuthentication} from '../auth/auth';
 
 
 import { CreateGameDto } from '../models/CreateGameDto';
-import { Game } from '../models/Game';
 import { GameDto } from '../models/GameDto';
 import { ListGameDto } from '../models/ListGameDto';
+import { MessageDto } from '../models/MessageDto';
 import { UpdateGameDto } from '../models/UpdateGameDto';
 
 /**
@@ -20,8 +20,9 @@ import { UpdateGameDto } from '../models/UpdateGameDto';
 export class GameApiRequestFactory extends BaseAPIRequestFactory {
 
     /**
-     * @param gameId 
-     * @param locationId 
+     * Add Game to Location by Game Id and Location Id
+     * @param gameId Id of added Game
+     * @param locationId Id of location to add Game
      * @param files 
      */
     public async gameAddGameToLocationGameGameIdLocationLocationIdPost(gameId: string, locationId: string, files: Array<HttpFile>, _options?: Configuration): Promise<RequestContext> {
@@ -96,7 +97,8 @@ export class GameApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * @param createGameDto 
+     * Create new Game
+     * @param createGameDto CreateGameDto
      */
     public async gameCreateGamePost(createGameDto?: CreateGameDto, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
@@ -141,7 +143,8 @@ export class GameApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * @param gameId 
+     * Delete Game by Id
+     * @param gameId Id of deleted Game
      */
     public async gameDeleteGameIdDelete(gameId: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
@@ -177,8 +180,9 @@ export class GameApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * @param gameId 
-     * @param updateGameDto 
+     * Update Game
+     * @param gameId Id of game to update
+     * @param updateGameDto UpdateGameDto
      */
     public async gameGameIdPut(gameId: string, updateGameDto?: UpdateGameDto, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
@@ -230,7 +234,8 @@ export class GameApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * @param limit 
+     * Get All Games
+     * @param limit Set the limit of number items return
      */
     public async gameGet(limit?: number, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
@@ -265,7 +270,8 @@ export class GameApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * @param gameId 
+     * Get Game by Id
+     * @param gameId Id of Game
      */
     public async gameIdGameIdGet(gameId: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
@@ -301,7 +307,8 @@ export class GameApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * @param locationId 
+     * Get all Games by related location id
+     * @param locationId Id of related location
      */
     public async gameLocationIdLocationIdGet(locationId: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
@@ -337,7 +344,8 @@ export class GameApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * @param locationName 
+     * Get all Games by related location name
+     * @param locationName Name of related location
      */
     public async gameLocationNameLocationNameGet(locationName: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
@@ -373,7 +381,8 @@ export class GameApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * @param gameName 
+     * Get Game by Name
+     * @param gameName Name of Game
      */
     public async gameNameGameNameGet(gameName: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
@@ -409,8 +418,9 @@ export class GameApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * @param gameId 
-     * @param locationId 
+     * Remove Game from Location by Game Id and Location Id
+     * @param gameId Id of removed Game
+     * @param locationId Id of location to remove Game
      * @param files 
      */
     public async gameRemoveGameToLocationGameGameIdLocationLocationIdPost(gameId: string, locationId: string, files: Array<HttpFile>, _options?: Configuration): Promise<RequestContext> {
@@ -495,18 +505,36 @@ export class GameApiResponseProcessor {
      * @params response Response returned by the server for a request to gameAddGameToLocationGameGameIdLocationLocationIdPost
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async gameAddGameToLocationGameGameIdLocationLocationIdPost(response: ResponseContext): Promise<void > {
+     public async gameAddGameToLocationGameGameIdLocationLocationIdPost(response: ResponseContext): Promise<MessageDto > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            return;
+            const body: MessageDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "MessageDto", ""
+            ) as MessageDto;
+            return body;
+        }
+        if (isCodeInRange("400", response.httpStatusCode)) {
+            const body: MessageDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "MessageDto", ""
+            ) as MessageDto;
+            throw new ApiException<MessageDto>(response.httpStatusCode, "Bad Request", body, response.headers);
+        }
+        if (isCodeInRange("404", response.httpStatusCode)) {
+            const body: MessageDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "MessageDto", ""
+            ) as MessageDto;
+            throw new ApiException<MessageDto>(response.httpStatusCode, "Not Found", body, response.headers);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: void = ObjectSerializer.deserialize(
+            const body: MessageDto = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "void", ""
-            ) as void;
+                "MessageDto", ""
+            ) as MessageDto;
             return body;
         }
 
@@ -520,22 +548,29 @@ export class GameApiResponseProcessor {
      * @params response Response returned by the server for a request to gameCreateGamePost
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async gameCreateGamePost(response: ResponseContext): Promise<Game > {
+     public async gameCreateGamePost(response: ResponseContext): Promise<MessageDto > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: Game = ObjectSerializer.deserialize(
+            const body: MessageDto = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "Game", ""
-            ) as Game;
+                "MessageDto", ""
+            ) as MessageDto;
             return body;
+        }
+        if (isCodeInRange("400", response.httpStatusCode)) {
+            const body: MessageDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "MessageDto", ""
+            ) as MessageDto;
+            throw new ApiException<MessageDto>(response.httpStatusCode, "Bad Request", body, response.headers);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: Game = ObjectSerializer.deserialize(
+            const body: MessageDto = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "Game", ""
-            ) as Game;
+                "MessageDto", ""
+            ) as MessageDto;
             return body;
         }
 
@@ -549,18 +584,29 @@ export class GameApiResponseProcessor {
      * @params response Response returned by the server for a request to gameDeleteGameIdDelete
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async gameDeleteGameIdDelete(response: ResponseContext): Promise<void > {
+     public async gameDeleteGameIdDelete(response: ResponseContext): Promise<MessageDto > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            return;
+            const body: MessageDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "MessageDto", ""
+            ) as MessageDto;
+            return body;
+        }
+        if (isCodeInRange("404", response.httpStatusCode)) {
+            const body: MessageDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "MessageDto", ""
+            ) as MessageDto;
+            throw new ApiException<MessageDto>(response.httpStatusCode, "Not Found", body, response.headers);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: void = ObjectSerializer.deserialize(
+            const body: MessageDto = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "void", ""
-            ) as void;
+                "MessageDto", ""
+            ) as MessageDto;
             return body;
         }
 
@@ -582,6 +628,20 @@ export class GameApiResponseProcessor {
                 "GameDto", ""
             ) as GameDto;
             return body;
+        }
+        if (isCodeInRange("400", response.httpStatusCode)) {
+            const body: MessageDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "MessageDto", ""
+            ) as MessageDto;
+            throw new ApiException<MessageDto>(response.httpStatusCode, "Bad Request", body, response.headers);
+        }
+        if (isCodeInRange("404", response.httpStatusCode)) {
+            const body: MessageDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "MessageDto", ""
+            ) as MessageDto;
+            throw new ApiException<MessageDto>(response.httpStatusCode, "Not Found", body, response.headers);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
@@ -641,6 +701,13 @@ export class GameApiResponseProcessor {
             ) as GameDto;
             return body;
         }
+        if (isCodeInRange("404", response.httpStatusCode)) {
+            const body: MessageDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "MessageDto", ""
+            ) as MessageDto;
+            throw new ApiException<MessageDto>(response.httpStatusCode, "Not Found", body, response.headers);
+        }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
@@ -669,6 +736,13 @@ export class GameApiResponseProcessor {
                 "Array<ListGameDto>", ""
             ) as Array<ListGameDto>;
             return body;
+        }
+        if (isCodeInRange("404", response.httpStatusCode)) {
+            const body: MessageDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "MessageDto", ""
+            ) as MessageDto;
+            throw new ApiException<MessageDto>(response.httpStatusCode, "Not Found", body, response.headers);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
@@ -699,6 +773,13 @@ export class GameApiResponseProcessor {
             ) as Array<ListGameDto>;
             return body;
         }
+        if (isCodeInRange("404", response.httpStatusCode)) {
+            const body: MessageDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "MessageDto", ""
+            ) as MessageDto;
+            throw new ApiException<MessageDto>(response.httpStatusCode, "Not Found", body, response.headers);
+        }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
@@ -728,6 +809,13 @@ export class GameApiResponseProcessor {
             ) as GameDto;
             return body;
         }
+        if (isCodeInRange("404", response.httpStatusCode)) {
+            const body: MessageDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "MessageDto", ""
+            ) as MessageDto;
+            throw new ApiException<MessageDto>(response.httpStatusCode, "Not Found", body, response.headers);
+        }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
@@ -748,18 +836,29 @@ export class GameApiResponseProcessor {
      * @params response Response returned by the server for a request to gameRemoveGameToLocationGameGameIdLocationLocationIdPost
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async gameRemoveGameToLocationGameGameIdLocationLocationIdPost(response: ResponseContext): Promise<void > {
+     public async gameRemoveGameToLocationGameGameIdLocationLocationIdPost(response: ResponseContext): Promise<MessageDto > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            return;
+            const body: MessageDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "MessageDto", ""
+            ) as MessageDto;
+            return body;
+        }
+        if (isCodeInRange("404", response.httpStatusCode)) {
+            const body: MessageDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "MessageDto", ""
+            ) as MessageDto;
+            throw new ApiException<MessageDto>(response.httpStatusCode, "Not Found", body, response.headers);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: void = ObjectSerializer.deserialize(
+            const body: MessageDto = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "void", ""
-            ) as void;
+                "MessageDto", ""
+            ) as MessageDto;
             return body;
         }
 

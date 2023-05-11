@@ -3,17 +3,31 @@ import { Configuration} from '../configuration'
 
 import { AddLikeGameDto } from '../models/AddLikeGameDto';
 import { AddLikeLocationDto } from '../models/AddLikeLocationDto';
+import { Assembly } from '../models/Assembly';
+import { CallingConventions } from '../models/CallingConventions';
 import { Comment } from '../models/Comment';
 import { ConfirmMailDto } from '../models/ConfirmMailDto';
+import { ConstructorInfo } from '../models/ConstructorInfo';
 import { CreateGameDto } from '../models/CreateGameDto';
 import { CreateLocationDto } from '../models/CreateLocationDto';
+import { CustomAttributeData } from '../models/CustomAttributeData';
+import { CustomAttributeNamedArgument } from '../models/CustomAttributeNamedArgument';
+import { CustomAttributeTypedArgument } from '../models/CustomAttributeTypedArgument';
+import { EventAttributes } from '../models/EventAttributes';
+import { EventInfo } from '../models/EventInfo';
+import { Exception } from '../models/Exception';
+import { FieldAttributes } from '../models/FieldAttributes';
+import { FieldInfo } from '../models/FieldInfo';
 import { ForgotPasswordDto } from '../models/ForgotPasswordDto';
 import { Game } from '../models/Game';
 import { GameDto } from '../models/GameDto';
 import { GameNameDto } from '../models/GameNameDto';
 import { GameTripUser } from '../models/GameTripUser';
 import { GameTripUserDto } from '../models/GameTripUserDto';
+import { GenericParameterAttributes } from '../models/GenericParameterAttributes';
 import { GetLocationDto } from '../models/GetLocationDto';
+import { IdentityError } from '../models/IdentityError';
+import { LayoutKind } from '../models/LayoutKind';
 import { LikedGame } from '../models/LikedGame';
 import { LikedGameDto } from '../models/LikedGameDto';
 import { LikedLocation } from '../models/LikedLocation';
@@ -26,10 +40,35 @@ import { Location } from '../models/Location';
 import { LocationDto } from '../models/LocationDto';
 import { LocationNameDto } from '../models/LocationNameDto';
 import { LoginDto } from '../models/LoginDto';
+import { MemberInfo } from '../models/MemberInfo';
+import { MemberTypes } from '../models/MemberTypes';
+import { MessageDto } from '../models/MessageDto';
+import { MethodAttributes } from '../models/MethodAttributes';
+import { MethodBase } from '../models/MethodBase';
+import { MethodImplAttributes } from '../models/MethodImplAttributes';
+import { MethodInfo } from '../models/MethodInfo';
+import { ModelError } from '../models/ModelError';
+import { ModelStateEntry } from '../models/ModelStateEntry';
+import { ModelValidationState } from '../models/ModelValidationState';
+import { Module } from '../models/Module';
+import { ModuleHandle } from '../models/ModuleHandle';
+import { ParameterAttributes } from '../models/ParameterAttributes';
+import { ParameterInfo } from '../models/ParameterInfo';
 import { Picture } from '../models/Picture';
+import { ProblemDetails } from '../models/ProblemDetails';
+import { PropertyAttributes } from '../models/PropertyAttributes';
+import { PropertyInfo } from '../models/PropertyInfo';
 import { RegisterDto } from '../models/RegisterDto';
 import { ResetPasswordDto } from '../models/ResetPasswordDto';
+import { RuntimeFieldHandle } from '../models/RuntimeFieldHandle';
+import { RuntimeMethodHandle } from '../models/RuntimeMethodHandle';
+import { RuntimeTypeHandle } from '../models/RuntimeTypeHandle';
+import { SecurityRuleSet } from '../models/SecurityRuleSet';
+import { StructLayoutAttribute } from '../models/StructLayoutAttribute';
 import { TokenDto } from '../models/TokenDto';
+import { Type } from '../models/Type';
+import { TypeAttributes } from '../models/TypeAttributes';
+import { TypeInfo } from '../models/TypeInfo';
 import { UpdateGameDto } from '../models/UpdateGameDto';
 import { UpdateLocationDto } from '../models/UpdateLocationDto';
 import { ObservableAuthApi } from './ObservableAPI';
@@ -47,8 +86,8 @@ export class PromiseAuthApi {
     }
 
     /**
-     * Confirms the email.
-     * @param confirmMailDto The dto.
+     * Confirms the email of provided user.
+     * @param confirmMailDto ConfirmMailDto
      */
     public authConfirmEmailPost(confirmMailDto?: ConfirmMailDto, _options?: Configuration): Promise<void> {
         const result = this.api.authConfirmEmailPost(confirmMailDto, _options);
@@ -56,8 +95,8 @@ export class PromiseAuthApi {
     }
 
     /**
-     * Frogots the password.
-     * @param forgotPasswordDto The dto.
+     * Send Forgot Password Mail to user
+     * @param forgotPasswordDto ForgotPasswordDto
      */
     public authForgotPasswordPost(forgotPasswordDto?: ForgotPasswordDto, _options?: Configuration): Promise<void> {
         const result = this.api.authForgotPasswordPost(forgotPasswordDto, _options);
@@ -74,8 +113,8 @@ export class PromiseAuthApi {
 
     /**
      * {    \"username\": \"Dercraker\",    \"password\": \"NMdRx$HqyT8jX6\"  }
-     * Logins the.
-     * @param loginDto The dto.
+     * Authenticate a user
+     * @param loginDto LoginDto
      */
     public authLoginPost(loginDto?: LoginDto, _options?: Configuration): Promise<TokenDto> {
         const result = this.api.authLoginPost(loginDto, _options);
@@ -83,7 +122,8 @@ export class PromiseAuthApi {
     }
 
     /**
-     * @param registerDto 
+     * Register a user
+     * @param registerDto RegisterDto
      */
     public authRegisterPost(registerDto?: RegisterDto, _options?: Configuration): Promise<GameTripUserDto> {
         const result = this.api.authRegisterPost(registerDto, _options);
@@ -91,8 +131,8 @@ export class PromiseAuthApi {
     }
 
     /**
-     * Resets the password.
-     * @param resetPasswordDto The dto.
+     * change the user\'s password
+     * @param resetPasswordDto ResetPasswrdDto
      */
     public authResetPasswordPost(resetPasswordDto?: ResetPasswordDto, _options?: Configuration): Promise<void> {
         const result = this.api.authResetPasswordPost(resetPasswordDto, _options);
@@ -119,34 +159,38 @@ export class PromiseGameApi {
     }
 
     /**
-     * @param gameId 
-     * @param locationId 
+     * Add Game to Location by Game Id and Location Id
+     * @param gameId Id of added Game
+     * @param locationId Id of location to add Game
      * @param files 
      */
-    public gameAddGameToLocationGameGameIdLocationLocationIdPost(gameId: string, locationId: string, files: Array<HttpFile>, _options?: Configuration): Promise<void> {
+    public gameAddGameToLocationGameGameIdLocationLocationIdPost(gameId: string, locationId: string, files: Array<HttpFile>, _options?: Configuration): Promise<MessageDto> {
         const result = this.api.gameAddGameToLocationGameGameIdLocationLocationIdPost(gameId, locationId, files, _options);
         return result.toPromise();
     }
 
     /**
-     * @param createGameDto 
+     * Create new Game
+     * @param createGameDto CreateGameDto
      */
-    public gameCreateGamePost(createGameDto?: CreateGameDto, _options?: Configuration): Promise<Game> {
+    public gameCreateGamePost(createGameDto?: CreateGameDto, _options?: Configuration): Promise<MessageDto> {
         const result = this.api.gameCreateGamePost(createGameDto, _options);
         return result.toPromise();
     }
 
     /**
-     * @param gameId 
+     * Delete Game by Id
+     * @param gameId Id of deleted Game
      */
-    public gameDeleteGameIdDelete(gameId: string, _options?: Configuration): Promise<void> {
+    public gameDeleteGameIdDelete(gameId: string, _options?: Configuration): Promise<MessageDto> {
         const result = this.api.gameDeleteGameIdDelete(gameId, _options);
         return result.toPromise();
     }
 
     /**
-     * @param gameId 
-     * @param updateGameDto 
+     * Update Game
+     * @param gameId Id of game to update
+     * @param updateGameDto UpdateGameDto
      */
     public gameGameIdPut(gameId: string, updateGameDto?: UpdateGameDto, _options?: Configuration): Promise<GameDto> {
         const result = this.api.gameGameIdPut(gameId, updateGameDto, _options);
@@ -154,7 +198,8 @@ export class PromiseGameApi {
     }
 
     /**
-     * @param limit 
+     * Get All Games
+     * @param limit Set the limit of number items return
      */
     public gameGet(limit?: number, _options?: Configuration): Promise<Array<ListGameDto>> {
         const result = this.api.gameGet(limit, _options);
@@ -162,7 +207,8 @@ export class PromiseGameApi {
     }
 
     /**
-     * @param gameId 
+     * Get Game by Id
+     * @param gameId Id of Game
      */
     public gameIdGameIdGet(gameId: string, _options?: Configuration): Promise<GameDto> {
         const result = this.api.gameIdGameIdGet(gameId, _options);
@@ -170,7 +216,8 @@ export class PromiseGameApi {
     }
 
     /**
-     * @param locationId 
+     * Get all Games by related location id
+     * @param locationId Id of related location
      */
     public gameLocationIdLocationIdGet(locationId: string, _options?: Configuration): Promise<Array<ListGameDto>> {
         const result = this.api.gameLocationIdLocationIdGet(locationId, _options);
@@ -178,7 +225,8 @@ export class PromiseGameApi {
     }
 
     /**
-     * @param locationName 
+     * Get all Games by related location name
+     * @param locationName Name of related location
      */
     public gameLocationNameLocationNameGet(locationName: string, _options?: Configuration): Promise<Array<ListGameDto>> {
         const result = this.api.gameLocationNameLocationNameGet(locationName, _options);
@@ -186,7 +234,8 @@ export class PromiseGameApi {
     }
 
     /**
-     * @param gameName 
+     * Get Game by Name
+     * @param gameName Name of Game
      */
     public gameNameGameNameGet(gameName: string, _options?: Configuration): Promise<GameDto> {
         const result = this.api.gameNameGameNameGet(gameName, _options);
@@ -194,11 +243,12 @@ export class PromiseGameApi {
     }
 
     /**
-     * @param gameId 
-     * @param locationId 
+     * Remove Game from Location by Game Id and Location Id
+     * @param gameId Id of removed Game
+     * @param locationId Id of location to remove Game
      * @param files 
      */
-    public gameRemoveGameToLocationGameGameIdLocationLocationIdPost(gameId: string, locationId: string, files: Array<HttpFile>, _options?: Configuration): Promise<void> {
+    public gameRemoveGameToLocationGameGameIdLocationLocationIdPost(gameId: string, locationId: string, files: Array<HttpFile>, _options?: Configuration): Promise<MessageDto> {
         const result = this.api.gameRemoveGameToLocationGameGameIdLocationLocationIdPost(gameId, locationId, files, _options);
         return result.toPromise();
     }
@@ -223,15 +273,17 @@ export class PromiseLikeApi {
     }
 
     /**
-     * @param addLikeGameDto 
+     * Add like to game
+     * @param addLikeGameDto AddLikeGame
      */
-    public likeAddLikeToGamePost(addLikeGameDto?: AddLikeGameDto, _options?: Configuration): Promise<LikedLocationDto> {
+    public likeAddLikeToGamePost(addLikeGameDto?: AddLikeGameDto, _options?: Configuration): Promise<LikedGameDto> {
         const result = this.api.likeAddLikeToGamePost(addLikeGameDto, _options);
         return result.toPromise();
     }
 
     /**
-     * @param addLikeLocationDto 
+     * Add like to location
+     * @param addLikeLocationDto AddLikeLocationDto
      */
     public likeAddLikeToLocationPost(addLikeLocationDto?: AddLikeLocationDto, _options?: Configuration): Promise<LikedLocationDto> {
         const result = this.api.likeAddLikeToLocationPost(addLikeLocationDto, _options);
@@ -239,6 +291,7 @@ export class PromiseLikeApi {
     }
 
     /**
+     * Get all liked games
      */
     public likeAllLikedGamesGet(_options?: Configuration): Promise<Array<LikedGameDto>> {
         const result = this.api.likeAllLikedGamesGet(_options);
@@ -246,22 +299,25 @@ export class PromiseLikeApi {
     }
 
     /**
+     * Get all liked location
      */
-    public likeAllLikedLocationsGet(_options?: Configuration): Promise<Array<LikedLocationDto>> {
+    public likeAllLikedLocationsGet(_options?: Configuration): Promise<Array<ListLikedLocationDto>> {
         const result = this.api.likeAllLikedLocationsGet(_options);
         return result.toPromise();
     }
 
     /**
-     * @param userId 
+     * Get all liked game by user id
+     * @param userId Id of user who liked games
      */
-    public likeLikedGamesUserIdGet(userId: string, _options?: Configuration): Promise<Array<ListLikedLocationDto>> {
+    public likeLikedGamesUserIdGet(userId: string, _options?: Configuration): Promise<Array<ListLikedGameDto>> {
         const result = this.api.likeLikedGamesUserIdGet(userId, _options);
         return result.toPromise();
     }
 
     /**
-     * @param userId 
+     * Get all liked location by user id
+     * @param userId Id of user who liked all getted location
      */
     public likeLikedLocationsUserIdGet(userId: string, _options?: Configuration): Promise<Array<ListLikedLocationDto>> {
         const result = this.api.likeLikedLocationsUserIdGet(userId, _options);
@@ -269,23 +325,23 @@ export class PromiseLikeApi {
     }
 
     /**
-     * Remove Like from Location
-     * @param gameId 
-     * @param userId 
+     * Remove Like to game
+     * @param gameId Id of game to remove like
+     * @param userId Id of user who liked Game
      * @param files 
      */
-    public likeRemoveLikeToGameGameIdUserIdPost(gameId: string, userId: string, files: Array<HttpFile>, _options?: Configuration): Promise<void | LikedLocationDto> {
+    public likeRemoveLikeToGameGameIdUserIdPost(gameId: string, userId: string, files: Array<HttpFile>, _options?: Configuration): Promise<LikedGameDto> {
         const result = this.api.likeRemoveLikeToGameGameIdUserIdPost(gameId, userId, files, _options);
         return result.toPromise();
     }
 
     /**
-     * Remove Like from Location
-     * @param locationId 
-     * @param userId 
+     * Remove like to location
+     * @param locationId id of liked location
+     * @param userId id of user who liked location
      * @param files 
      */
-    public likeRemoveLikeToLocationLocationIdUserIdPost(locationId: string, userId: string, files: Array<HttpFile>, _options?: Configuration): Promise<void | LikedLocationDto> {
+    public likeRemoveLikeToLocationLocationIdUserIdPost(locationId: string, userId: string, files: Array<HttpFile>, _options?: Configuration): Promise<LikedLocationDto> {
         const result = this.api.likeRemoveLikeToLocationLocationIdUserIdPost(locationId, userId, files, _options);
         return result.toPromise();
     }
@@ -310,23 +366,26 @@ export class PromiseLocationApi {
     }
 
     /**
-     * @param createLocationDto 
+     * Create new location
+     * @param createLocationDto CreateLocationDto
      */
-    public locationCreateLocationPost(createLocationDto?: CreateLocationDto, _options?: Configuration): Promise<void> {
+    public locationCreateLocationPost(createLocationDto?: CreateLocationDto, _options?: Configuration): Promise<MessageDto> {
         const result = this.api.locationCreateLocationPost(createLocationDto, _options);
         return result.toPromise();
     }
 
     /**
-     * @param locationId 
+     * Delete location by id
+     * @param locationId Id of deleted location
      */
-    public locationDeleteLocationIdDelete(locationId: string, _options?: Configuration): Promise<Location> {
+    public locationDeleteLocationIdDelete(locationId: string, _options?: Configuration): Promise<MessageDto> {
         const result = this.api.locationDeleteLocationIdDelete(locationId, _options);
         return result.toPromise();
     }
 
     /**
-     * @param gameId 
+     * Get all location by game id
+     * @param gameId Id of related game
      */
     public locationGameIdGameIdGet(gameId: string, _options?: Configuration): Promise<Array<LocationDto>> {
         const result = this.api.locationGameIdGameIdGet(gameId, _options);
@@ -334,7 +393,8 @@ export class PromiseLocationApi {
     }
 
     /**
-     * @param gameName 
+     * Get all location by game name
+     * @param gameName Name of related game
      */
     public locationGameNameGameNameGet(gameName: string, _options?: Configuration): Promise<Array<LocationDto>> {
         const result = this.api.locationGameNameGameNameGet(gameName, _options);
@@ -342,7 +402,8 @@ export class PromiseLocationApi {
     }
 
     /**
-     * @param limit 
+     * Get all locations
+     * @param limit Limit of location present in return
      */
     public locationGet(limit?: number, _options?: Configuration): Promise<Array<LocationDto>> {
         const result = this.api.locationGet(limit, _options);
@@ -350,7 +411,8 @@ export class PromiseLocationApi {
     }
 
     /**
-     * @param locationId 
+     * Get location by id
+     * @param locationId Id of wanted location
      */
     public locationIdLocationIdGet(locationId: string, _options?: Configuration): Promise<GetLocationDto> {
         const result = this.api.locationIdLocationIdGet(locationId, _options);
@@ -358,16 +420,18 @@ export class PromiseLocationApi {
     }
 
     /**
-     * @param locationId 
-     * @param updateLocationDto 
+     * Update location
+     * @param locationId Id of location to update
+     * @param updateLocationDto UpdateLocationDto
      */
-    public locationLocationIdPut(locationId: string, updateLocationDto?: UpdateLocationDto, _options?: Configuration): Promise<GameDto> {
+    public locationLocationIdPut(locationId: string, updateLocationDto?: UpdateLocationDto, _options?: Configuration): Promise<LocationDto> {
         const result = this.api.locationLocationIdPut(locationId, updateLocationDto, _options);
         return result.toPromise();
     }
 
     /**
-     * @param locationName 
+     * Get location by name
+     * @param locationName Name of wanted Location
      */
     public locationNameLocationNameGet(locationName: string, _options?: Configuration): Promise<GetLocationDto> {
         const result = this.api.locationNameLocationNameGet(locationName, _options);
@@ -394,37 +458,41 @@ export class PromisePictureApi {
     }
 
     /**
-     * @param gameId 
-     * @param name 
-     * @param description 
+     * Create and Add picture to Game
+     * @param gameId Id of game to add picture
+     * @param name Name of picture
+     * @param description Description of Picture
      * @param pictureData 
      */
-    public pictureAddPictureToGameGameIdPost(gameId: string, name?: string, description?: string, pictureData?: HttpFile, _options?: Configuration): Promise<void> {
+    public pictureAddPictureToGameGameIdPost(gameId: string, name?: string, description?: string, pictureData?: HttpFile, _options?: Configuration): Promise<MessageDto> {
         const result = this.api.pictureAddPictureToGameGameIdPost(gameId, name, description, pictureData, _options);
         return result.toPromise();
     }
 
     /**
-     * @param locationId 
-     * @param name 
-     * @param description 
+     * Create and add picture to location
+     * @param locationId Id of location to add picture
+     * @param name Picture name
+     * @param description Picture description
      * @param pictureData 
      */
-    public pictureAddPictureToLocationLocationIdPost(locationId: string, name?: string, description?: string, pictureData?: HttpFile, _options?: Configuration): Promise<void> {
+    public pictureAddPictureToLocationLocationIdPost(locationId: string, name?: string, description?: string, pictureData?: HttpFile, _options?: Configuration): Promise<MessageDto> {
         const result = this.api.pictureAddPictureToLocationLocationIdPost(locationId, name, description, pictureData, _options);
         return result.toPromise();
     }
 
     /**
-     * @param pictureId 
+     * Get picture by id
+     * @param pictureId Id of deleted Picture
      */
-    public pictureDeletePicturePictureIdDelete(pictureId: string, _options?: Configuration): Promise<void> {
+    public pictureDeletePicturePictureIdDelete(pictureId: string, _options?: Configuration): Promise<MessageDto> {
         const result = this.api.pictureDeletePicturePictureIdDelete(pictureId, _options);
         return result.toPromise();
     }
 
     /**
-     * @param gameId 
+     * Get all pictures of game
+     * @param gameId Id of game
      */
     public pictureGetPicturesByGameIdGameIdGet(gameId: string, _options?: Configuration): Promise<Array<ListPictureDto>> {
         const result = this.api.pictureGetPicturesByGameIdGameIdGet(gameId, _options);
@@ -432,7 +500,8 @@ export class PromisePictureApi {
     }
 
     /**
-     * @param locationId 
+     * Get all pictures of location
+     * @param locationId Id of location
      */
     public pictureGetPicturesByLocationIdLocationIdGet(locationId: string, _options?: Configuration): Promise<Array<ListPictureDto>> {
         const result = this.api.pictureGetPicturesByLocationIdLocationIdGet(locationId, _options);

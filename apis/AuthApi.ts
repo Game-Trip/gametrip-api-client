@@ -11,7 +11,10 @@ import {SecurityAuthentication} from '../auth/auth';
 import { ConfirmMailDto } from '../models/ConfirmMailDto';
 import { ForgotPasswordDto } from '../models/ForgotPasswordDto';
 import { GameTripUserDto } from '../models/GameTripUserDto';
+import { IdentityError } from '../models/IdentityError';
 import { LoginDto } from '../models/LoginDto';
+import { MessageDto } from '../models/MessageDto';
+import { ProblemDetails } from '../models/ProblemDetails';
 import { RegisterDto } from '../models/RegisterDto';
 import { ResetPasswordDto } from '../models/ResetPasswordDto';
 import { TokenDto } from '../models/TokenDto';
@@ -22,8 +25,8 @@ import { TokenDto } from '../models/TokenDto';
 export class AuthApiRequestFactory extends BaseAPIRequestFactory {
 
     /**
-     * Confirms the email.
-     * @param confirmMailDto The dto.
+     * Confirms the email of provided user.
+     * @param confirmMailDto ConfirmMailDto
      */
     public async authConfirmEmailPost(confirmMailDto?: ConfirmMailDto, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
@@ -64,8 +67,8 @@ export class AuthApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * Frogots the password.
-     * @param forgotPasswordDto The dto.
+     * Send Forgot Password Mail to user
+     * @param forgotPasswordDto ForgotPasswordDto
      */
     public async authForgotPasswordPost(forgotPasswordDto?: ForgotPasswordDto, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
@@ -167,8 +170,8 @@ export class AuthApiRequestFactory extends BaseAPIRequestFactory {
 
     /**
      * {    \"username\": \"Dercraker\",    \"password\": \"NMdRx$HqyT8jX6\"  }
-     * Logins the.
-     * @param loginDto The dto.
+     * Authenticate a user
+     * @param loginDto LoginDto
      */
     public async authLoginPost(loginDto?: LoginDto, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
@@ -209,7 +212,8 @@ export class AuthApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * @param registerDto 
+     * Register a user
+     * @param registerDto RegisterDto
      */
     public async authRegisterPost(registerDto?: RegisterDto, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
@@ -250,8 +254,8 @@ export class AuthApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * Resets the password.
-     * @param resetPasswordDto The dto.
+     * change the user\'s password
+     * @param resetPasswordDto ResetPasswrdDto
      */
     public async authResetPasswordPost(resetPasswordDto?: ResetPasswordDto, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
@@ -307,6 +311,20 @@ export class AuthApiResponseProcessor {
         if (isCodeInRange("200", response.httpStatusCode)) {
             return;
         }
+        if (isCodeInRange("400", response.httpStatusCode)) {
+            const body: MessageDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "MessageDto", ""
+            ) as MessageDto;
+            throw new ApiException<MessageDto>(response.httpStatusCode, "Bad Request", body, response.headers);
+        }
+        if (isCodeInRange("401", response.httpStatusCode)) {
+            const body: ProblemDetails = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "ProblemDetails", ""
+            ) as ProblemDetails;
+            throw new ApiException<ProblemDetails>(response.httpStatusCode, "Unauthorized", body, response.headers);
+        }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
@@ -331,6 +349,13 @@ export class AuthApiResponseProcessor {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             return;
+        }
+        if (isCodeInRange("400", response.httpStatusCode)) {
+            const body: MessageDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "MessageDto", ""
+            ) as MessageDto;
+            throw new ApiException<MessageDto>(response.httpStatusCode, "Bad Request", body, response.headers);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
@@ -386,6 +411,13 @@ export class AuthApiResponseProcessor {
             ) as TokenDto;
             return body;
         }
+        if (isCodeInRange("401", response.httpStatusCode)) {
+            const body: MessageDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "MessageDto", ""
+            ) as MessageDto;
+            throw new ApiException<MessageDto>(response.httpStatusCode, "Unauthorized", body, response.headers);
+        }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
@@ -415,6 +447,13 @@ export class AuthApiResponseProcessor {
             ) as GameTripUserDto;
             return body;
         }
+        if (isCodeInRange("400", response.httpStatusCode)) {
+            const body: Array<IdentityError> = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Array<IdentityError>", ""
+            ) as Array<IdentityError>;
+            throw new ApiException<Array<IdentityError>>(response.httpStatusCode, "Bad Request", body, response.headers);
+        }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
@@ -439,6 +478,13 @@ export class AuthApiResponseProcessor {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             return;
+        }
+        if (isCodeInRange("401", response.httpStatusCode)) {
+            const body: MessageDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "MessageDto", ""
+            ) as MessageDto;
+            throw new ApiException<MessageDto>(response.httpStatusCode, "Unauthorized", body, response.headers);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml

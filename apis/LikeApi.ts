@@ -12,7 +12,9 @@ import { AddLikeGameDto } from '../models/AddLikeGameDto';
 import { AddLikeLocationDto } from '../models/AddLikeLocationDto';
 import { LikedGameDto } from '../models/LikedGameDto';
 import { LikedLocationDto } from '../models/LikedLocationDto';
+import { ListLikedGameDto } from '../models/ListLikedGameDto';
 import { ListLikedLocationDto } from '../models/ListLikedLocationDto';
+import { MessageDto } from '../models/MessageDto';
 
 /**
  * no description
@@ -20,7 +22,8 @@ import { ListLikedLocationDto } from '../models/ListLikedLocationDto';
 export class LikeApiRequestFactory extends BaseAPIRequestFactory {
 
     /**
-     * @param addLikeGameDto 
+     * Add like to game
+     * @param addLikeGameDto AddLikeGame
      */
     public async likeAddLikeToGamePost(addLikeGameDto?: AddLikeGameDto, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
@@ -65,7 +68,8 @@ export class LikeApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * @param addLikeLocationDto 
+     * Add like to location
+     * @param addLikeLocationDto AddLikeLocationDto
      */
     public async likeAddLikeToLocationPost(addLikeLocationDto?: AddLikeLocationDto, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
@@ -110,6 +114,7 @@ export class LikeApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
+     * Get all liked games
      */
     public async likeAllLikedGamesGet(_options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
@@ -138,6 +143,7 @@ export class LikeApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
+     * Get all liked location
      */
     public async likeAllLikedLocationsGet(_options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
@@ -166,7 +172,8 @@ export class LikeApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * @param userId 
+     * Get all liked game by user id
+     * @param userId Id of user who liked games
      */
     public async likeLikedGamesUserIdGet(userId: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
@@ -202,7 +209,8 @@ export class LikeApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * @param userId 
+     * Get all liked location by user id
+     * @param userId Id of user who liked all getted location
      */
     public async likeLikedLocationsUserIdGet(userId: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
@@ -238,9 +246,9 @@ export class LikeApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * Remove Like from Location
-     * @param gameId 
-     * @param userId 
+     * Remove Like to game
+     * @param gameId Id of game to remove like
+     * @param userId Id of user who liked Game
      * @param files 
      */
     public async likeRemoveLikeToGameGameIdUserIdPost(gameId: string, userId: string, files: Array<HttpFile>, _options?: Configuration): Promise<RequestContext> {
@@ -315,9 +323,9 @@ export class LikeApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * Remove Like from Location
-     * @param locationId 
-     * @param userId 
+     * Remove like to location
+     * @param locationId id of liked location
+     * @param userId id of user who liked location
      * @param files 
      */
     public async likeRemoveLikeToLocationLocationIdUserIdPost(locationId: string, userId: string, files: Array<HttpFile>, _options?: Configuration): Promise<RequestContext> {
@@ -402,22 +410,36 @@ export class LikeApiResponseProcessor {
      * @params response Response returned by the server for a request to likeAddLikeToGamePost
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async likeAddLikeToGamePost(response: ResponseContext): Promise<LikedLocationDto > {
+     public async likeAddLikeToGamePost(response: ResponseContext): Promise<LikedGameDto > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: LikedLocationDto = ObjectSerializer.deserialize(
+            const body: LikedGameDto = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "LikedLocationDto", ""
-            ) as LikedLocationDto;
+                "LikedGameDto", ""
+            ) as LikedGameDto;
             return body;
+        }
+        if (isCodeInRange("400", response.httpStatusCode)) {
+            const body: MessageDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "MessageDto", ""
+            ) as MessageDto;
+            throw new ApiException<MessageDto>(response.httpStatusCode, "Bad Request", body, response.headers);
+        }
+        if (isCodeInRange("404", response.httpStatusCode)) {
+            const body: MessageDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "MessageDto", ""
+            ) as MessageDto;
+            throw new ApiException<MessageDto>(response.httpStatusCode, "Not Found", body, response.headers);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: LikedLocationDto = ObjectSerializer.deserialize(
+            const body: LikedGameDto = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "LikedLocationDto", ""
-            ) as LikedLocationDto;
+                "LikedGameDto", ""
+            ) as LikedGameDto;
             return body;
         }
 
@@ -439,6 +461,20 @@ export class LikeApiResponseProcessor {
                 "LikedLocationDto", ""
             ) as LikedLocationDto;
             return body;
+        }
+        if (isCodeInRange("400", response.httpStatusCode)) {
+            const body: MessageDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "MessageDto", ""
+            ) as MessageDto;
+            throw new ApiException<MessageDto>(response.httpStatusCode, "Bad Request", body, response.headers);
+        }
+        if (isCodeInRange("404", response.httpStatusCode)) {
+            const body: MessageDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "MessageDto", ""
+            ) as MessageDto;
+            throw new ApiException<MessageDto>(response.httpStatusCode, "Not Found", body, response.headers);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
@@ -489,22 +525,22 @@ export class LikeApiResponseProcessor {
      * @params response Response returned by the server for a request to likeAllLikedLocationsGet
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async likeAllLikedLocationsGet(response: ResponseContext): Promise<Array<LikedLocationDto> > {
+     public async likeAllLikedLocationsGet(response: ResponseContext): Promise<Array<ListLikedLocationDto> > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: Array<LikedLocationDto> = ObjectSerializer.deserialize(
+            const body: Array<ListLikedLocationDto> = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "Array<LikedLocationDto>", ""
-            ) as Array<LikedLocationDto>;
+                "Array<ListLikedLocationDto>", ""
+            ) as Array<ListLikedLocationDto>;
             return body;
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: Array<LikedLocationDto> = ObjectSerializer.deserialize(
+            const body: Array<ListLikedLocationDto> = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "Array<LikedLocationDto>", ""
-            ) as Array<LikedLocationDto>;
+                "Array<ListLikedLocationDto>", ""
+            ) as Array<ListLikedLocationDto>;
             return body;
         }
 
@@ -518,22 +554,29 @@ export class LikeApiResponseProcessor {
      * @params response Response returned by the server for a request to likeLikedGamesUserIdGet
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async likeLikedGamesUserIdGet(response: ResponseContext): Promise<Array<ListLikedLocationDto> > {
+     public async likeLikedGamesUserIdGet(response: ResponseContext): Promise<Array<ListLikedGameDto> > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: Array<ListLikedLocationDto> = ObjectSerializer.deserialize(
+            const body: Array<ListLikedGameDto> = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "Array<ListLikedLocationDto>", ""
-            ) as Array<ListLikedLocationDto>;
+                "Array<ListLikedGameDto>", ""
+            ) as Array<ListLikedGameDto>;
             return body;
+        }
+        if (isCodeInRange("404", response.httpStatusCode)) {
+            const body: MessageDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "MessageDto", ""
+            ) as MessageDto;
+            throw new ApiException<MessageDto>(response.httpStatusCode, "Not Found", body, response.headers);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: Array<ListLikedLocationDto> = ObjectSerializer.deserialize(
+            const body: Array<ListLikedGameDto> = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "Array<ListLikedLocationDto>", ""
-            ) as Array<ListLikedLocationDto>;
+                "Array<ListLikedGameDto>", ""
+            ) as Array<ListLikedGameDto>;
             return body;
         }
 
@@ -556,6 +599,13 @@ export class LikeApiResponseProcessor {
             ) as Array<ListLikedLocationDto>;
             return body;
         }
+        if (isCodeInRange("404", response.httpStatusCode)) {
+            const body: MessageDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "MessageDto", ""
+            ) as MessageDto;
+            throw new ApiException<MessageDto>(response.httpStatusCode, "Not Found", body, response.headers);
+        }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
@@ -576,25 +626,36 @@ export class LikeApiResponseProcessor {
      * @params response Response returned by the server for a request to likeRemoveLikeToGameGameIdUserIdPost
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async likeRemoveLikeToGameGameIdUserIdPost(response: ResponseContext): Promise<void | LikedLocationDto > {
+     public async likeRemoveLikeToGameGameIdUserIdPost(response: ResponseContext): Promise<LikedGameDto > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: LikedLocationDto = ObjectSerializer.deserialize(
+            const body: LikedGameDto = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "LikedLocationDto", ""
-            ) as LikedLocationDto;
+                "LikedGameDto", ""
+            ) as LikedGameDto;
             return body;
         }
-        if (isCodeInRange("204", response.httpStatusCode)) {
-            return;
+        if (isCodeInRange("400", response.httpStatusCode)) {
+            const body: MessageDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "MessageDto", ""
+            ) as MessageDto;
+            throw new ApiException<MessageDto>(response.httpStatusCode, "Bad Request", body, response.headers);
+        }
+        if (isCodeInRange("404", response.httpStatusCode)) {
+            const body: MessageDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "MessageDto", ""
+            ) as MessageDto;
+            throw new ApiException<MessageDto>(response.httpStatusCode, "Not Found", body, response.headers);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: void | LikedLocationDto = ObjectSerializer.deserialize(
+            const body: LikedGameDto = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "void | LikedLocationDto", ""
-            ) as void | LikedLocationDto;
+                "LikedGameDto", ""
+            ) as LikedGameDto;
             return body;
         }
 
@@ -608,7 +669,7 @@ export class LikeApiResponseProcessor {
      * @params response Response returned by the server for a request to likeRemoveLikeToLocationLocationIdUserIdPost
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async likeRemoveLikeToLocationLocationIdUserIdPost(response: ResponseContext): Promise<void | LikedLocationDto > {
+     public async likeRemoveLikeToLocationLocationIdUserIdPost(response: ResponseContext): Promise<LikedLocationDto > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: LikedLocationDto = ObjectSerializer.deserialize(
@@ -617,16 +678,27 @@ export class LikeApiResponseProcessor {
             ) as LikedLocationDto;
             return body;
         }
-        if (isCodeInRange("204", response.httpStatusCode)) {
-            return;
+        if (isCodeInRange("400", response.httpStatusCode)) {
+            const body: MessageDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "MessageDto", ""
+            ) as MessageDto;
+            throw new ApiException<MessageDto>(response.httpStatusCode, "Bad Request", body, response.headers);
+        }
+        if (isCodeInRange("404", response.httpStatusCode)) {
+            const body: MessageDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "MessageDto", ""
+            ) as MessageDto;
+            throw new ApiException<MessageDto>(response.httpStatusCode, "Not Found", body, response.headers);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: void | LikedLocationDto = ObjectSerializer.deserialize(
+            const body: LikedLocationDto = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "void | LikedLocationDto", ""
-            ) as void | LikedLocationDto;
+                "LikedLocationDto", ""
+            ) as LikedLocationDto;
             return body;
         }
 

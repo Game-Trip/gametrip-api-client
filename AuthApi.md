@@ -4,12 +4,12 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**authConfirmEmailPost**](AuthApi.md#authConfirmEmailPost) | **POST** /Auth/ConfirmEmail | Confirms the email.
-[**authForgotPasswordPost**](AuthApi.md#authForgotPasswordPost) | **POST** /Auth/ForgotPassword | Frogots the password.
+[**authConfirmEmailPost**](AuthApi.md#authConfirmEmailPost) | **POST** /Auth/ConfirmEmail | Confirms the email of provided user.
+[**authForgotPasswordPost**](AuthApi.md#authForgotPasswordPost) | **POST** /Auth/ForgotPassword | Send Forgot Password Mail to user
 [**authInitializePost**](AuthApi.md#authInitializePost) | **POST** /Auth/Initialize | 
-[**authLoginPost**](AuthApi.md#authLoginPost) | **POST** /Auth/Login | Logins the.
-[**authRegisterPost**](AuthApi.md#authRegisterPost) | **POST** /Auth/Register | 
-[**authResetPasswordPost**](AuthApi.md#authResetPasswordPost) | **POST** /Auth/ResetPassword | Resets the password.
+[**authLoginPost**](AuthApi.md#authLoginPost) | **POST** /Auth/Login | Authenticate a user
+[**authRegisterPost**](AuthApi.md#authRegisterPost) | **POST** /Auth/Register | Register a user
+[**authResetPasswordPost**](AuthApi.md#authResetPasswordPost) | **POST** /Auth/ResetPassword | change the user\&#39;s password
 
 
 # **authConfirmEmailPost**
@@ -27,7 +27,7 @@ const configuration = .createConfiguration();
 const apiInstance = new .AuthApi(configuration);
 
 let body:.AuthApiAuthConfirmEmailPostRequest = {
-  // ConfirmMailDto | The dto. (optional)
+  // ConfirmMailDto | ConfirmMailDto (optional)
   confirmMailDto: {
     token: "token_example",
     email: "email_example",
@@ -44,7 +44,7 @@ apiInstance.authConfirmEmailPost(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **confirmMailDto** | **ConfirmMailDto**| The dto. |
+ **confirmMailDto** | **ConfirmMailDto**| ConfirmMailDto |
 
 
 ### Return type
@@ -58,13 +58,15 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Success |  -  |
+**400** | Bad Request |  -  |
+**401** | Unauthorized |  -  |
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
@@ -83,7 +85,7 @@ const configuration = .createConfiguration();
 const apiInstance = new .AuthApi(configuration);
 
 let body:.AuthApiAuthForgotPasswordPostRequest = {
-  // ForgotPasswordDto | The dto. (optional)
+  // ForgotPasswordDto | ForgotPasswordDto (optional)
   forgotPasswordDto: {
     email: "email_example",
   },
@@ -99,7 +101,7 @@ apiInstance.authForgotPasswordPost(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **forgotPasswordDto** | **ForgotPasswordDto**| The dto. |
+ **forgotPasswordDto** | **ForgotPasswordDto**| ForgotPasswordDto |
 
 
 ### Return type
@@ -113,13 +115,14 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Success |  -  |
+**400** | Bad Request |  -  |
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
@@ -194,7 +197,7 @@ const configuration = .createConfiguration();
 const apiInstance = new .AuthApi(configuration);
 
 let body:.AuthApiAuthLoginPostRequest = {
-  // LoginDto | The dto. (optional)
+  // LoginDto | LoginDto (optional)
   loginDto: {
     username: "username_example",
     password: "password_example",
@@ -211,7 +214,7 @@ apiInstance.authLoginPost(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **loginDto** | **LoginDto**| The dto. |
+ **loginDto** | **LoginDto**| LoginDto |
 
 
 ### Return type
@@ -232,6 +235,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Success |  -  |
+**401** | Unauthorized |  -  |
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
@@ -250,7 +254,7 @@ const configuration = .createConfiguration();
 const apiInstance = new .AuthApi(configuration);
 
 let body:.AuthApiAuthRegisterPostRequest = {
-  // RegisterDto (optional)
+  // RegisterDto | RegisterDto (optional)
   registerDto: {
     username: "username_example",
     email: "email_example",
@@ -269,7 +273,7 @@ apiInstance.authRegisterPost(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **registerDto** | **RegisterDto**|  |
+ **registerDto** | **RegisterDto**| RegisterDto |
 
 
 ### Return type
@@ -290,6 +294,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Success |  -  |
+**400** | Bad Request |  -  |
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
@@ -308,7 +313,7 @@ const configuration = .createConfiguration();
 const apiInstance = new .AuthApi(configuration);
 
 let body:.AuthApiAuthResetPasswordPostRequest = {
-  // ResetPasswordDto | The dto. (optional)
+  // ResetPasswordDto | ResetPasswrdDto (optional)
   resetPasswordDto: {
     email: "email_example",
     password: "password_example",
@@ -327,7 +332,7 @@ apiInstance.authResetPasswordPost(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **resetPasswordDto** | **ResetPasswordDto**| The dto. |
+ **resetPasswordDto** | **ResetPasswordDto**| ResetPasswrdDto |
 
 
 ### Return type
@@ -341,13 +346,14 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Success |  -  |
+**401** | Unauthorized |  -  |
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 

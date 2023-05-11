@@ -9,6 +9,8 @@ import {SecurityAuthentication} from '../auth/auth';
 
 
 import { ListPictureDto } from '../models/ListPictureDto';
+import { MessageDto } from '../models/MessageDto';
+import { ModelStateEntry } from '../models/ModelStateEntry';
 
 /**
  * no description
@@ -16,9 +18,10 @@ import { ListPictureDto } from '../models/ListPictureDto';
 export class PictureApiRequestFactory extends BaseAPIRequestFactory {
 
     /**
-     * @param gameId 
-     * @param name 
-     * @param description 
+     * Create and Add picture to Game
+     * @param gameId Id of game to add picture
+     * @param name Name of picture
+     * @param description Description of Picture
      * @param pictureData 
      */
     public async pictureAddPictureToGameGameIdPost(gameId: string, name?: string, description?: string, pictureData?: HttpFile, _options?: Configuration): Promise<RequestContext> {
@@ -95,9 +98,10 @@ export class PictureApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * @param locationId 
-     * @param name 
-     * @param description 
+     * Create and add picture to location
+     * @param locationId Id of location to add picture
+     * @param name Picture name
+     * @param description Picture description
      * @param pictureData 
      */
     public async pictureAddPictureToLocationLocationIdPost(locationId: string, name?: string, description?: string, pictureData?: HttpFile, _options?: Configuration): Promise<RequestContext> {
@@ -174,7 +178,8 @@ export class PictureApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * @param pictureId 
+     * Get picture by id
+     * @param pictureId Id of deleted Picture
      */
     public async pictureDeletePicturePictureIdDelete(pictureId: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
@@ -210,7 +215,8 @@ export class PictureApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * @param gameId 
+     * Get all pictures of game
+     * @param gameId Id of game
      */
     public async pictureGetPicturesByGameIdGameIdGet(gameId: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
@@ -246,7 +252,8 @@ export class PictureApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * @param locationId 
+     * Get all pictures of location
+     * @param locationId Id of location
      */
     public async pictureGetPicturesByLocationIdLocationIdGet(locationId: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
@@ -292,18 +299,36 @@ export class PictureApiResponseProcessor {
      * @params response Response returned by the server for a request to pictureAddPictureToGameGameIdPost
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async pictureAddPictureToGameGameIdPost(response: ResponseContext): Promise<void > {
+     public async pictureAddPictureToGameGameIdPost(response: ResponseContext): Promise<MessageDto > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            return;
+            const body: MessageDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "MessageDto", ""
+            ) as MessageDto;
+            return body;
+        }
+        if (isCodeInRange("400", response.httpStatusCode)) {
+            const body: { [key: string]: ModelStateEntry; } = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "{ [key: string]: ModelStateEntry; }", ""
+            ) as { [key: string]: ModelStateEntry; };
+            throw new ApiException<{ [key: string]: ModelStateEntry; }>(response.httpStatusCode, "Bad Request", body, response.headers);
+        }
+        if (isCodeInRange("404", response.httpStatusCode)) {
+            const body: MessageDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "MessageDto", ""
+            ) as MessageDto;
+            throw new ApiException<MessageDto>(response.httpStatusCode, "Not Found", body, response.headers);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: void = ObjectSerializer.deserialize(
+            const body: MessageDto = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "void", ""
-            ) as void;
+                "MessageDto", ""
+            ) as MessageDto;
             return body;
         }
 
@@ -317,18 +342,36 @@ export class PictureApiResponseProcessor {
      * @params response Response returned by the server for a request to pictureAddPictureToLocationLocationIdPost
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async pictureAddPictureToLocationLocationIdPost(response: ResponseContext): Promise<void > {
+     public async pictureAddPictureToLocationLocationIdPost(response: ResponseContext): Promise<MessageDto > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            return;
+            const body: MessageDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "MessageDto", ""
+            ) as MessageDto;
+            return body;
+        }
+        if (isCodeInRange("400", response.httpStatusCode)) {
+            const body: { [key: string]: ModelStateEntry; } = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "{ [key: string]: ModelStateEntry; }", ""
+            ) as { [key: string]: ModelStateEntry; };
+            throw new ApiException<{ [key: string]: ModelStateEntry; }>(response.httpStatusCode, "Bad Request", body, response.headers);
+        }
+        if (isCodeInRange("404", response.httpStatusCode)) {
+            const body: MessageDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "MessageDto", ""
+            ) as MessageDto;
+            throw new ApiException<MessageDto>(response.httpStatusCode, "Not Found", body, response.headers);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: void = ObjectSerializer.deserialize(
+            const body: MessageDto = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "void", ""
-            ) as void;
+                "MessageDto", ""
+            ) as MessageDto;
             return body;
         }
 
@@ -342,18 +385,29 @@ export class PictureApiResponseProcessor {
      * @params response Response returned by the server for a request to pictureDeletePicturePictureIdDelete
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async pictureDeletePicturePictureIdDelete(response: ResponseContext): Promise<void > {
+     public async pictureDeletePicturePictureIdDelete(response: ResponseContext): Promise<MessageDto > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            return;
+            const body: MessageDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "MessageDto", ""
+            ) as MessageDto;
+            return body;
+        }
+        if (isCodeInRange("404", response.httpStatusCode)) {
+            const body: MessageDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "MessageDto", ""
+            ) as MessageDto;
+            throw new ApiException<MessageDto>(response.httpStatusCode, "Not Found", body, response.headers);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: void = ObjectSerializer.deserialize(
+            const body: MessageDto = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "void", ""
-            ) as void;
+                "MessageDto", ""
+            ) as MessageDto;
             return body;
         }
 
@@ -375,6 +429,13 @@ export class PictureApiResponseProcessor {
                 "Array<ListPictureDto>", ""
             ) as Array<ListPictureDto>;
             return body;
+        }
+        if (isCodeInRange("404", response.httpStatusCode)) {
+            const body: MessageDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "MessageDto", ""
+            ) as MessageDto;
+            throw new ApiException<MessageDto>(response.httpStatusCode, "Not Found", body, response.headers);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
@@ -404,6 +465,13 @@ export class PictureApiResponseProcessor {
                 "Array<ListPictureDto>", ""
             ) as Array<ListPictureDto>;
             return body;
+        }
+        if (isCodeInRange("404", response.httpStatusCode)) {
+            const body: MessageDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "MessageDto", ""
+            ) as MessageDto;
+            throw new ApiException<MessageDto>(response.httpStatusCode, "Not Found", body, response.headers);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
