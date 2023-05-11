@@ -13,8 +13,8 @@
 import { HttpFile } from '../http/http';
 
 export class ConfirmMailDto {
-    'token': string;
-    'email': string;
+    'token'?: string | null;
+    'email'?: string | null;
 
     static readonly discriminator: string | undefined = undefined;
 

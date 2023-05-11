@@ -59,7 +59,7 @@ export class LikedLocation {
             "name": "vote",
             "baseName": "vote",
             "type": "number",
-            "format": "int32"
+            "format": "double"
         }    ];
 
     static getAttributeTypeMap() {

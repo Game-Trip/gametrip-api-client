@@ -4,18 +4,18 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**locationCreateLocationPost**](LocationApi.md#locationCreateLocationPost) | **POST** /Location/CreateLocation | 
-[**locationDeleteLocationIdDelete**](LocationApi.md#locationDeleteLocationIdDelete) | **DELETE** /Location/Delete/{locationId} | 
-[**locationGameIdGameIdGet**](LocationApi.md#locationGameIdGameIdGet) | **GET** /Location/Game/Id/{gameId} | 
-[**locationGameNameGameNameGet**](LocationApi.md#locationGameNameGameNameGet) | **GET** /Location/Game/Name/{gameName} | 
-[**locationGet**](LocationApi.md#locationGet) | **GET** /Location | 
-[**locationIdLocationIdGet**](LocationApi.md#locationIdLocationIdGet) | **GET** /Location/Id/{locationId} | 
-[**locationLocationIdPut**](LocationApi.md#locationLocationIdPut) | **PUT** /Location/{locationId} | 
-[**locationNameLocationNameGet**](LocationApi.md#locationNameLocationNameGet) | **GET** /Location/Name/{locationName} | 
+[**locationCreateLocationPost**](LocationApi.md#locationCreateLocationPost) | **POST** /Location/CreateLocation | Create new location
+[**locationDeleteLocationIdDelete**](LocationApi.md#locationDeleteLocationIdDelete) | **DELETE** /Location/Delete/{locationId} | Delete location by id
+[**locationGameIdGameIdGet**](LocationApi.md#locationGameIdGameIdGet) | **GET** /Location/Game/Id/{gameId} | Get all location by game id
+[**locationGameNameGameNameGet**](LocationApi.md#locationGameNameGameNameGet) | **GET** /Location/Game/Name/{gameName} | Get all location by game name
+[**locationGet**](LocationApi.md#locationGet) | **GET** /Location | Get all locations
+[**locationIdLocationIdGet**](LocationApi.md#locationIdLocationIdGet) | **GET** /Location/Id/{locationId} | Get location by id
+[**locationLocationIdPut**](LocationApi.md#locationLocationIdPut) | **PUT** /Location/{locationId} | Update location
+[**locationNameLocationNameGet**](LocationApi.md#locationNameLocationNameGet) | **GET** /Location/Name/{locationName} | Get location by name
 
 
 # **locationCreateLocationPost**
-> void locationCreateLocationPost()
+> MessageDto locationCreateLocationPost()
 
 
 ### Example
@@ -29,7 +29,7 @@ const configuration = .createConfiguration();
 const apiInstance = new .LocationApi(configuration);
 
 let body:.LocationApiLocationCreateLocationPostRequest = {
-  // CreateLocationDto (optional)
+  // CreateLocationDto | CreateLocationDto (optional)
   createLocationDto: {
     name: "name_example",
     description: "description_example",
@@ -48,12 +48,12 @@ apiInstance.locationCreateLocationPost(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **createLocationDto** | **CreateLocationDto**|  |
+ **createLocationDto** | **CreateLocationDto**| CreateLocationDto |
 
 
 ### Return type
 
-**void**
+**MessageDto**
 
 ### Authorization
 
@@ -62,18 +62,19 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json, text/json, application/*+json
- - **Accept**: Not defined
+ - **Accept**: text/plain, application/json, text/json
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Success |  -  |
+**400** | Bad Request |  -  |
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **locationDeleteLocationIdDelete**
-> Location locationDeleteLocationIdDelete()
+> MessageDto locationDeleteLocationIdDelete()
 
 
 ### Example
@@ -87,7 +88,7 @@ const configuration = .createConfiguration();
 const apiInstance = new .LocationApi(configuration);
 
 let body:.LocationApiLocationDeleteLocationIdDeleteRequest = {
-  // string
+  // string | Id of deleted location
   locationId: "locationId_example",
 };
 
@@ -101,12 +102,12 @@ apiInstance.locationDeleteLocationIdDelete(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **locationId** | [**string**] |  | defaults to undefined
+ **locationId** | [**string**] | Id of deleted location | defaults to undefined
 
 
 ### Return type
 
-**Location**
+**MessageDto**
 
 ### Authorization
 
@@ -122,6 +123,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Success |  -  |
+**404** | Not Found |  -  |
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
@@ -140,7 +142,7 @@ const configuration = .createConfiguration();
 const apiInstance = new .LocationApi(configuration);
 
 let body:.LocationApiLocationGameIdGameIdGetRequest = {
-  // string
+  // string | Id of related game
   gameId: "gameId_example",
 };
 
@@ -154,7 +156,7 @@ apiInstance.locationGameIdGameIdGet(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **gameId** | [**string**] |  | defaults to undefined
+ **gameId** | [**string**] | Id of related game | defaults to undefined
 
 
 ### Return type
@@ -175,6 +177,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Success |  -  |
+**404** | Not Found |  -  |
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
@@ -193,7 +196,7 @@ const configuration = .createConfiguration();
 const apiInstance = new .LocationApi(configuration);
 
 let body:.LocationApiLocationGameNameGameNameGetRequest = {
-  // string
+  // string | Name of related game
   gameName: "gameName_example",
 };
 
@@ -207,7 +210,7 @@ apiInstance.locationGameNameGameNameGet(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **gameName** | [**string**] |  | defaults to undefined
+ **gameName** | [**string**] | Name of related game | defaults to undefined
 
 
 ### Return type
@@ -228,6 +231,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Success |  -  |
+**404** | Not Found |  -  |
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
@@ -246,7 +250,7 @@ const configuration = .createConfiguration();
 const apiInstance = new .LocationApi(configuration);
 
 let body:.LocationApiLocationGetRequest = {
-  // number (optional)
+  // number | Limit of location present in return (optional)
   limit: 1,
 };
 
@@ -260,7 +264,7 @@ apiInstance.locationGet(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | [**number**] |  | (optional) defaults to undefined
+ **limit** | [**number**] | Limit of location present in return | (optional) defaults to undefined
 
 
 ### Return type
@@ -299,7 +303,7 @@ const configuration = .createConfiguration();
 const apiInstance = new .LocationApi(configuration);
 
 let body:.LocationApiLocationIdLocationIdGetRequest = {
-  // string
+  // string | Id of wanted location
   locationId: "locationId_example",
 };
 
@@ -313,7 +317,7 @@ apiInstance.locationIdLocationIdGet(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **locationId** | [**string**] |  | defaults to undefined
+ **locationId** | [**string**] | Id of wanted location | defaults to undefined
 
 
 ### Return type
@@ -334,11 +338,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Success |  -  |
+**404** | Not Found |  -  |
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **locationLocationIdPut**
-> GameDto locationLocationIdPut()
+> LocationDto locationLocationIdPut()
 
 
 ### Example
@@ -352,9 +357,9 @@ const configuration = .createConfiguration();
 const apiInstance = new .LocationApi(configuration);
 
 let body:.LocationApiLocationLocationIdPutRequest = {
-  // string
+  // string | Id of location to update
   locationId: "locationId_example",
-  // UpdateLocationDto (optional)
+  // UpdateLocationDto | UpdateLocationDto (optional)
   updateLocationDto: {
     locationId: "locationId_example",
     name: "name_example",
@@ -374,13 +379,13 @@ apiInstance.locationLocationIdPut(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **updateLocationDto** | **UpdateLocationDto**|  |
- **locationId** | [**string**] |  | defaults to undefined
+ **updateLocationDto** | **UpdateLocationDto**| UpdateLocationDto |
+ **locationId** | [**string**] | Id of location to update | defaults to undefined
 
 
 ### Return type
 
-**GameDto**
+**LocationDto**
 
 ### Authorization
 
@@ -396,6 +401,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Success |  -  |
+**400** | Bad Request |  -  |
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
@@ -414,7 +420,7 @@ const configuration = .createConfiguration();
 const apiInstance = new .LocationApi(configuration);
 
 let body:.LocationApiLocationNameLocationNameGetRequest = {
-  // string
+  // string | Name of wanted Location
   locationName: "locationName_example",
 };
 
@@ -428,7 +434,7 @@ apiInstance.locationNameLocationNameGet(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **locationName** | [**string**] |  | defaults to undefined
+ **locationName** | [**string**] | Name of wanted Location | defaults to undefined
 
 
 ### Return type
@@ -449,6 +455,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Success |  -  |
+**404** | Not Found |  -  |
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 

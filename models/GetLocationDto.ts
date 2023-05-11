@@ -11,9 +11,9 @@
  */
 
 import { Comment } from '../models/Comment';
-import { LikedLocation } from '../models/LikedLocation';
 import { ListGameDto } from '../models/ListGameDto';
-import { Picture } from '../models/Picture';
+import { ListLikedLocationDto } from '../models/ListLikedLocationDto';
+import { ListPictureDto } from '../models/ListPictureDto';
 import { HttpFile } from '../http/http';
 
 export class GetLocationDto {
@@ -22,10 +22,10 @@ export class GetLocationDto {
     'description'?: string | null;
     'latitude'?: number;
     'longitude'?: number;
-    'pictures'?: Array<Picture> | null;
+    'pictures'?: Array<ListPictureDto> | null;
     'games'?: Array<ListGameDto> | null;
     'comments'?: Array<Comment> | null;
-    'likedLocations'?: Array<LikedLocation> | null;
+    'likedLocations'?: Array<ListLikedLocationDto> | null;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -63,7 +63,7 @@ export class GetLocationDto {
         {
             "name": "pictures",
             "baseName": "pictures",
-            "type": "Array<Picture>",
+            "type": "Array<ListPictureDto>",
             "format": ""
         },
         {
@@ -81,7 +81,7 @@ export class GetLocationDto {
         {
             "name": "likedLocations",
             "baseName": "likedLocations",
-            "type": "Array<LikedLocation>",
+            "type": "Array<ListLikedLocationDto>",
             "format": ""
         }    ];
 

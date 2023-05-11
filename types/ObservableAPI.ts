@@ -2,26 +2,74 @@ import { ResponseContext, RequestContext, HttpFile } from '../http/http';
 import { Configuration} from '../configuration'
 import { Observable, of, from } from '../rxjsStub';
 import {mergeMap, map} from  '../rxjsStub';
+import { AddLikeGameDto } from '../models/AddLikeGameDto';
+import { AddLikeLocationDto } from '../models/AddLikeLocationDto';
+import { Assembly } from '../models/Assembly';
+import { CallingConventions } from '../models/CallingConventions';
 import { Comment } from '../models/Comment';
 import { ConfirmMailDto } from '../models/ConfirmMailDto';
+import { ConstructorInfo } from '../models/ConstructorInfo';
 import { CreateGameDto } from '../models/CreateGameDto';
 import { CreateLocationDto } from '../models/CreateLocationDto';
-import { FrogotPasswordDto } from '../models/FrogotPasswordDto';
+import { CustomAttributeData } from '../models/CustomAttributeData';
+import { CustomAttributeNamedArgument } from '../models/CustomAttributeNamedArgument';
+import { CustomAttributeTypedArgument } from '../models/CustomAttributeTypedArgument';
+import { EventAttributes } from '../models/EventAttributes';
+import { EventInfo } from '../models/EventInfo';
+import { Exception } from '../models/Exception';
+import { FieldAttributes } from '../models/FieldAttributes';
+import { FieldInfo } from '../models/FieldInfo';
+import { ForgotPasswordDto } from '../models/ForgotPasswordDto';
 import { Game } from '../models/Game';
 import { GameDto } from '../models/GameDto';
+import { GameNameDto } from '../models/GameNameDto';
 import { GameTripUser } from '../models/GameTripUser';
-import { GameTripUserDTO } from '../models/GameTripUserDTO';
+import { GameTripUserDto } from '../models/GameTripUserDto';
+import { GenericParameterAttributes } from '../models/GenericParameterAttributes';
 import { GetLocationDto } from '../models/GetLocationDto';
+import { IdentityError } from '../models/IdentityError';
+import { LayoutKind } from '../models/LayoutKind';
 import { LikedGame } from '../models/LikedGame';
+import { LikedGameDto } from '../models/LikedGameDto';
 import { LikedLocation } from '../models/LikedLocation';
+import { LikedLocationDto } from '../models/LikedLocationDto';
 import { ListGameDto } from '../models/ListGameDto';
+import { ListLikedGameDto } from '../models/ListLikedGameDto';
+import { ListLikedLocationDto } from '../models/ListLikedLocationDto';
+import { ListPictureDto } from '../models/ListPictureDto';
 import { Location } from '../models/Location';
 import { LocationDto } from '../models/LocationDto';
-import { LoginDTO } from '../models/LoginDTO';
+import { LocationNameDto } from '../models/LocationNameDto';
+import { LoginDto } from '../models/LoginDto';
+import { MemberInfo } from '../models/MemberInfo';
+import { MemberTypes } from '../models/MemberTypes';
+import { MessageDto } from '../models/MessageDto';
+import { MethodAttributes } from '../models/MethodAttributes';
+import { MethodBase } from '../models/MethodBase';
+import { MethodImplAttributes } from '../models/MethodImplAttributes';
+import { MethodInfo } from '../models/MethodInfo';
+import { ModelError } from '../models/ModelError';
+import { ModelStateEntry } from '../models/ModelStateEntry';
+import { ModelValidationState } from '../models/ModelValidationState';
+import { Module } from '../models/Module';
+import { ModuleHandle } from '../models/ModuleHandle';
+import { ParameterAttributes } from '../models/ParameterAttributes';
+import { ParameterInfo } from '../models/ParameterInfo';
 import { Picture } from '../models/Picture';
-import { RegisterDTO } from '../models/RegisterDTO';
-import { ResetPasswordDTO } from '../models/ResetPasswordDTO';
-import { TokenDTO } from '../models/TokenDTO';
+import { ProblemDetails } from '../models/ProblemDetails';
+import { PropertyAttributes } from '../models/PropertyAttributes';
+import { PropertyInfo } from '../models/PropertyInfo';
+import { RegisterDto } from '../models/RegisterDto';
+import { ResetPasswordDto } from '../models/ResetPasswordDto';
+import { RuntimeFieldHandle } from '../models/RuntimeFieldHandle';
+import { RuntimeMethodHandle } from '../models/RuntimeMethodHandle';
+import { RuntimeTypeHandle } from '../models/RuntimeTypeHandle';
+import { SecurityRuleSet } from '../models/SecurityRuleSet';
+import { StructLayoutAttribute } from '../models/StructLayoutAttribute';
+import { TokenDto } from '../models/TokenDto';
+import { Type } from '../models/Type';
+import { TypeAttributes } from '../models/TypeAttributes';
+import { TypeInfo } from '../models/TypeInfo';
 import { UpdateGameDto } from '../models/UpdateGameDto';
 import { UpdateLocationDto } from '../models/UpdateLocationDto';
 
@@ -42,8 +90,8 @@ export class ObservableAuthApi {
     }
 
     /**
-     * Confirms the email.
-     * @param confirmMailDto The dto.
+     * Confirms the email of provided user.
+     * @param confirmMailDto ConfirmMailDto
      */
     public authConfirmEmailPost(confirmMailDto?: ConfirmMailDto, _options?: Configuration): Observable<void> {
         const requestContextPromise = this.requestFactory.authConfirmEmailPost(confirmMailDto, _options);
@@ -65,11 +113,11 @@ export class ObservableAuthApi {
     }
 
     /**
-     * Frogots the password.
-     * @param frogotPasswordDto The dto.
+     * Send Forgot Password Mail to user
+     * @param forgotPasswordDto ForgotPasswordDto
      */
-    public authFrogotPasswordPost(frogotPasswordDto?: FrogotPasswordDto, _options?: Configuration): Observable<void> {
-        const requestContextPromise = this.requestFactory.authFrogotPasswordPost(frogotPasswordDto, _options);
+    public authForgotPasswordPost(forgotPasswordDto?: ForgotPasswordDto, _options?: Configuration): Observable<void> {
+        const requestContextPromise = this.requestFactory.authForgotPasswordPost(forgotPasswordDto, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -83,14 +131,15 @@ export class ObservableAuthApi {
                 for (let middleware of this.configuration.middleware) {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.authFrogotPasswordPost(rsp)));
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.authForgotPasswordPost(rsp)));
             }));
     }
 
     /**
+     * @param files 
      */
-    public authInitializePost(_options?: Configuration): Observable<void> {
-        const requestContextPromise = this.requestFactory.authInitializePost(_options);
+    public authInitializePost(files: Array<HttpFile>, _options?: Configuration): Observable<void> {
+        const requestContextPromise = this.requestFactory.authInitializePost(files, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -110,11 +159,11 @@ export class ObservableAuthApi {
 
     /**
      * {    \"username\": \"Dercraker\",    \"password\": \"NMdRx$HqyT8jX6\"  }
-     * Logins the.
-     * @param loginDTO The dto.
+     * Authenticate a user
+     * @param loginDto LoginDto
      */
-    public authLoginPost(loginDTO?: LoginDTO, _options?: Configuration): Observable<TokenDTO> {
-        const requestContextPromise = this.requestFactory.authLoginPost(loginDTO, _options);
+    public authLoginPost(loginDto?: LoginDto, _options?: Configuration): Observable<TokenDto> {
+        const requestContextPromise = this.requestFactory.authLoginPost(loginDto, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -133,11 +182,11 @@ export class ObservableAuthApi {
     }
 
     /**
-     * Registers the.
-     * @param registerDTO The dto.
+     * Register a user
+     * @param registerDto RegisterDto
      */
-    public authRegisterPost(registerDTO?: RegisterDTO, _options?: Configuration): Observable<GameTripUserDTO> {
-        const requestContextPromise = this.requestFactory.authRegisterPost(registerDTO, _options);
+    public authRegisterPost(registerDto?: RegisterDto, _options?: Configuration): Observable<GameTripUserDto> {
+        const requestContextPromise = this.requestFactory.authRegisterPost(registerDto, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -156,11 +205,11 @@ export class ObservableAuthApi {
     }
 
     /**
-     * Resets the password.
-     * @param resetPasswordDTO The dto.
+     * change the user\'s password
+     * @param resetPasswordDto ResetPasswrdDto
      */
-    public authResetPasswordPost(resetPasswordDTO?: ResetPasswordDTO, _options?: Configuration): Observable<void> {
-        const requestContextPromise = this.requestFactory.authResetPasswordPost(resetPasswordDTO, _options);
+    public authResetPasswordPost(resetPasswordDto?: ResetPasswordDto, _options?: Configuration): Observable<void> {
+        const requestContextPromise = this.requestFactory.authResetPasswordPost(resetPasswordDto, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -197,11 +246,13 @@ export class ObservableGameApi {
     }
 
     /**
-     * @param gameId 
-     * @param locationId 
+     * Add Game to Location by Game Id and Location Id
+     * @param gameId Id of added Game
+     * @param locationId Id of location to add Game
+     * @param files 
      */
-    public gameAddGameToLocationGameGameIdLocationLocationIdPost(gameId: string, locationId: string, _options?: Configuration): Observable<void> {
-        const requestContextPromise = this.requestFactory.gameAddGameToLocationGameGameIdLocationLocationIdPost(gameId, locationId, _options);
+    public gameAddGameToLocationGameGameIdLocationLocationIdPost(gameId: string, locationId: string, files: Array<HttpFile>, _options?: Configuration): Observable<MessageDto> {
+        const requestContextPromise = this.requestFactory.gameAddGameToLocationGameGameIdLocationLocationIdPost(gameId, locationId, files, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -220,9 +271,10 @@ export class ObservableGameApi {
     }
 
     /**
-     * @param createGameDto 
+     * Create new Game
+     * @param createGameDto CreateGameDto
      */
-    public gameCreateGamePost(createGameDto?: CreateGameDto, _options?: Configuration): Observable<Game> {
+    public gameCreateGamePost(createGameDto?: CreateGameDto, _options?: Configuration): Observable<MessageDto> {
         const requestContextPromise = this.requestFactory.gameCreateGamePost(createGameDto, _options);
 
         // build promise chain
@@ -242,9 +294,10 @@ export class ObservableGameApi {
     }
 
     /**
-     * @param gameId 
+     * Delete Game by Id
+     * @param gameId Id of deleted Game
      */
-    public gameDeleteGameIdDelete(gameId: string, _options?: Configuration): Observable<void> {
+    public gameDeleteGameIdDelete(gameId: string, _options?: Configuration): Observable<MessageDto> {
         const requestContextPromise = this.requestFactory.gameDeleteGameIdDelete(gameId, _options);
 
         // build promise chain
@@ -264,8 +317,9 @@ export class ObservableGameApi {
     }
 
     /**
-     * @param gameId 
-     * @param updateGameDto 
+     * Update Game
+     * @param gameId Id of game to update
+     * @param updateGameDto UpdateGameDto
      */
     public gameGameIdPut(gameId: string, updateGameDto?: UpdateGameDto, _options?: Configuration): Observable<GameDto> {
         const requestContextPromise = this.requestFactory.gameGameIdPut(gameId, updateGameDto, _options);
@@ -287,7 +341,8 @@ export class ObservableGameApi {
     }
 
     /**
-     * @param limit 
+     * Get All Games
+     * @param limit Set the limit of number items return
      */
     public gameGet(limit?: number, _options?: Configuration): Observable<Array<ListGameDto>> {
         const requestContextPromise = this.requestFactory.gameGet(limit, _options);
@@ -309,7 +364,8 @@ export class ObservableGameApi {
     }
 
     /**
-     * @param gameId 
+     * Get Game by Id
+     * @param gameId Id of Game
      */
     public gameIdGameIdGet(gameId: string, _options?: Configuration): Observable<GameDto> {
         const requestContextPromise = this.requestFactory.gameIdGameIdGet(gameId, _options);
@@ -331,7 +387,8 @@ export class ObservableGameApi {
     }
 
     /**
-     * @param locationId 
+     * Get all Games by related location id
+     * @param locationId Id of related location
      */
     public gameLocationIdLocationIdGet(locationId: string, _options?: Configuration): Observable<Array<ListGameDto>> {
         const requestContextPromise = this.requestFactory.gameLocationIdLocationIdGet(locationId, _options);
@@ -353,7 +410,8 @@ export class ObservableGameApi {
     }
 
     /**
-     * @param locationName 
+     * Get all Games by related location name
+     * @param locationName Name of related location
      */
     public gameLocationNameLocationNameGet(locationName: string, _options?: Configuration): Observable<Array<ListGameDto>> {
         const requestContextPromise = this.requestFactory.gameLocationNameLocationNameGet(locationName, _options);
@@ -375,7 +433,8 @@ export class ObservableGameApi {
     }
 
     /**
-     * @param gameName 
+     * Get Game by Name
+     * @param gameName Name of Game
      */
     public gameNameGameNameGet(gameName: string, _options?: Configuration): Observable<GameDto> {
         const requestContextPromise = this.requestFactory.gameNameGameNameGet(gameName, _options);
@@ -397,11 +456,13 @@ export class ObservableGameApi {
     }
 
     /**
-     * @param gameId 
-     * @param locationId 
+     * Remove Game from Location by Game Id and Location Id
+     * @param gameId Id of removed Game
+     * @param locationId Id of location to remove Game
+     * @param files 
      */
-    public gameRemoveGameToLocationGameGameIdLocationLocationIdPost(gameId: string, locationId: string, _options?: Configuration): Observable<void> {
-        const requestContextPromise = this.requestFactory.gameRemoveGameToLocationGameGameIdLocationLocationIdPost(gameId, locationId, _options);
+    public gameRemoveGameToLocationGameGameIdLocationLocationIdPost(gameId: string, locationId: string, files: Array<HttpFile>, _options?: Configuration): Observable<MessageDto> {
+        const requestContextPromise = this.requestFactory.gameRemoveGameToLocationGameGameIdLocationLocationIdPost(gameId, locationId, files, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -416,6 +477,210 @@ export class ObservableGameApi {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
                 return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.gameRemoveGameToLocationGameGameIdLocationLocationIdPost(rsp)));
+            }));
+    }
+
+}
+
+import { LikeApiRequestFactory, LikeApiResponseProcessor} from "../apis/LikeApi";
+export class ObservableLikeApi {
+    private requestFactory: LikeApiRequestFactory;
+    private responseProcessor: LikeApiResponseProcessor;
+    private configuration: Configuration;
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: LikeApiRequestFactory,
+        responseProcessor?: LikeApiResponseProcessor
+    ) {
+        this.configuration = configuration;
+        this.requestFactory = requestFactory || new LikeApiRequestFactory(configuration);
+        this.responseProcessor = responseProcessor || new LikeApiResponseProcessor();
+    }
+
+    /**
+     * Add like to game
+     * @param addLikeGameDto AddLikeGame
+     */
+    public likeAddLikeToGamePost(addLikeGameDto?: AddLikeGameDto, _options?: Configuration): Observable<LikedGameDto> {
+        const requestContextPromise = this.requestFactory.likeAddLikeToGamePost(addLikeGameDto, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.likeAddLikeToGamePost(rsp)));
+            }));
+    }
+
+    /**
+     * Add like to location
+     * @param addLikeLocationDto AddLikeLocationDto
+     */
+    public likeAddLikeToLocationPost(addLikeLocationDto?: AddLikeLocationDto, _options?: Configuration): Observable<LikedLocationDto> {
+        const requestContextPromise = this.requestFactory.likeAddLikeToLocationPost(addLikeLocationDto, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.likeAddLikeToLocationPost(rsp)));
+            }));
+    }
+
+    /**
+     * Get all liked games
+     */
+    public likeAllLikedGamesGet(_options?: Configuration): Observable<Array<LikedGameDto>> {
+        const requestContextPromise = this.requestFactory.likeAllLikedGamesGet(_options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.likeAllLikedGamesGet(rsp)));
+            }));
+    }
+
+    /**
+     * Get all liked location
+     */
+    public likeAllLikedLocationsGet(_options?: Configuration): Observable<Array<ListLikedLocationDto>> {
+        const requestContextPromise = this.requestFactory.likeAllLikedLocationsGet(_options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.likeAllLikedLocationsGet(rsp)));
+            }));
+    }
+
+    /**
+     * Get all liked game by user id
+     * @param userId Id of user who liked games
+     */
+    public likeLikedGamesUserIdGet(userId: string, _options?: Configuration): Observable<Array<ListLikedGameDto>> {
+        const requestContextPromise = this.requestFactory.likeLikedGamesUserIdGet(userId, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.likeLikedGamesUserIdGet(rsp)));
+            }));
+    }
+
+    /**
+     * Get all liked location by user id
+     * @param userId Id of user who liked all getted location
+     */
+    public likeLikedLocationsUserIdGet(userId: string, _options?: Configuration): Observable<Array<ListLikedLocationDto>> {
+        const requestContextPromise = this.requestFactory.likeLikedLocationsUserIdGet(userId, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.likeLikedLocationsUserIdGet(rsp)));
+            }));
+    }
+
+    /**
+     * Remove Like to game
+     * @param gameId Id of game to remove like
+     * @param userId Id of user who liked Game
+     * @param files 
+     */
+    public likeRemoveLikeToGameGameIdUserIdPost(gameId: string, userId: string, files: Array<HttpFile>, _options?: Configuration): Observable<LikedGameDto> {
+        const requestContextPromise = this.requestFactory.likeRemoveLikeToGameGameIdUserIdPost(gameId, userId, files, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.likeRemoveLikeToGameGameIdUserIdPost(rsp)));
+            }));
+    }
+
+    /**
+     * Remove like to location
+     * @param locationId id of liked location
+     * @param userId id of user who liked location
+     * @param files 
+     */
+    public likeRemoveLikeToLocationLocationIdUserIdPost(locationId: string, userId: string, files: Array<HttpFile>, _options?: Configuration): Observable<LikedLocationDto> {
+        const requestContextPromise = this.requestFactory.likeRemoveLikeToLocationLocationIdUserIdPost(locationId, userId, files, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.likeRemoveLikeToLocationLocationIdUserIdPost(rsp)));
             }));
     }
 
@@ -438,9 +703,10 @@ export class ObservableLocationApi {
     }
 
     /**
-     * @param createLocationDto 
+     * Create new location
+     * @param createLocationDto CreateLocationDto
      */
-    public locationCreateLocationPost(createLocationDto?: CreateLocationDto, _options?: Configuration): Observable<void> {
+    public locationCreateLocationPost(createLocationDto?: CreateLocationDto, _options?: Configuration): Observable<MessageDto> {
         const requestContextPromise = this.requestFactory.locationCreateLocationPost(createLocationDto, _options);
 
         // build promise chain
@@ -460,9 +726,10 @@ export class ObservableLocationApi {
     }
 
     /**
-     * @param locationId 
+     * Delete location by id
+     * @param locationId Id of deleted location
      */
-    public locationDeleteLocationIdDelete(locationId: string, _options?: Configuration): Observable<Location> {
+    public locationDeleteLocationIdDelete(locationId: string, _options?: Configuration): Observable<MessageDto> {
         const requestContextPromise = this.requestFactory.locationDeleteLocationIdDelete(locationId, _options);
 
         // build promise chain
@@ -482,7 +749,8 @@ export class ObservableLocationApi {
     }
 
     /**
-     * @param gameId 
+     * Get all location by game id
+     * @param gameId Id of related game
      */
     public locationGameIdGameIdGet(gameId: string, _options?: Configuration): Observable<Array<LocationDto>> {
         const requestContextPromise = this.requestFactory.locationGameIdGameIdGet(gameId, _options);
@@ -504,7 +772,8 @@ export class ObservableLocationApi {
     }
 
     /**
-     * @param gameName 
+     * Get all location by game name
+     * @param gameName Name of related game
      */
     public locationGameNameGameNameGet(gameName: string, _options?: Configuration): Observable<Array<LocationDto>> {
         const requestContextPromise = this.requestFactory.locationGameNameGameNameGet(gameName, _options);
@@ -526,7 +795,8 @@ export class ObservableLocationApi {
     }
 
     /**
-     * @param limit 
+     * Get all locations
+     * @param limit Limit of location present in return
      */
     public locationGet(limit?: number, _options?: Configuration): Observable<Array<LocationDto>> {
         const requestContextPromise = this.requestFactory.locationGet(limit, _options);
@@ -548,7 +818,8 @@ export class ObservableLocationApi {
     }
 
     /**
-     * @param locationId 
+     * Get location by id
+     * @param locationId Id of wanted location
      */
     public locationIdLocationIdGet(locationId: string, _options?: Configuration): Observable<GetLocationDto> {
         const requestContextPromise = this.requestFactory.locationIdLocationIdGet(locationId, _options);
@@ -570,10 +841,11 @@ export class ObservableLocationApi {
     }
 
     /**
-     * @param locationId 
-     * @param updateLocationDto 
+     * Update location
+     * @param locationId Id of location to update
+     * @param updateLocationDto UpdateLocationDto
      */
-    public locationLocationIdPut(locationId: string, updateLocationDto?: UpdateLocationDto, _options?: Configuration): Observable<GameDto> {
+    public locationLocationIdPut(locationId: string, updateLocationDto?: UpdateLocationDto, _options?: Configuration): Observable<LocationDto> {
         const requestContextPromise = this.requestFactory.locationLocationIdPut(locationId, updateLocationDto, _options);
 
         // build promise chain
@@ -593,7 +865,8 @@ export class ObservableLocationApi {
     }
 
     /**
-     * @param locationName 
+     * Get location by name
+     * @param locationName Name of wanted Location
      */
     public locationNameLocationNameGet(locationName: string, _options?: Configuration): Observable<GetLocationDto> {
         const requestContextPromise = this.requestFactory.locationNameLocationNameGet(locationName, _options);
@@ -611,6 +884,145 @@ export class ObservableLocationApi {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
                 return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.locationNameLocationNameGet(rsp)));
+            }));
+    }
+
+}
+
+import { PictureApiRequestFactory, PictureApiResponseProcessor} from "../apis/PictureApi";
+export class ObservablePictureApi {
+    private requestFactory: PictureApiRequestFactory;
+    private responseProcessor: PictureApiResponseProcessor;
+    private configuration: Configuration;
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: PictureApiRequestFactory,
+        responseProcessor?: PictureApiResponseProcessor
+    ) {
+        this.configuration = configuration;
+        this.requestFactory = requestFactory || new PictureApiRequestFactory(configuration);
+        this.responseProcessor = responseProcessor || new PictureApiResponseProcessor();
+    }
+
+    /**
+     * Create and Add picture to Game
+     * @param gameId Id of game to add picture
+     * @param name Name of picture
+     * @param description Description of Picture
+     * @param pictureData 
+     */
+    public pictureAddPictureToGameGameIdPost(gameId: string, name?: string, description?: string, pictureData?: HttpFile, _options?: Configuration): Observable<MessageDto> {
+        const requestContextPromise = this.requestFactory.pictureAddPictureToGameGameIdPost(gameId, name, description, pictureData, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.pictureAddPictureToGameGameIdPost(rsp)));
+            }));
+    }
+
+    /**
+     * Create and add picture to location
+     * @param locationId Id of location to add picture
+     * @param name Picture name
+     * @param description Picture description
+     * @param pictureData 
+     */
+    public pictureAddPictureToLocationLocationIdPost(locationId: string, name?: string, description?: string, pictureData?: HttpFile, _options?: Configuration): Observable<MessageDto> {
+        const requestContextPromise = this.requestFactory.pictureAddPictureToLocationLocationIdPost(locationId, name, description, pictureData, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.pictureAddPictureToLocationLocationIdPost(rsp)));
+            }));
+    }
+
+    /**
+     * Get picture by id
+     * @param pictureId Id of deleted Picture
+     */
+    public pictureDeletePicturePictureIdDelete(pictureId: string, _options?: Configuration): Observable<MessageDto> {
+        const requestContextPromise = this.requestFactory.pictureDeletePicturePictureIdDelete(pictureId, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.pictureDeletePicturePictureIdDelete(rsp)));
+            }));
+    }
+
+    /**
+     * Get all pictures of game
+     * @param gameId Id of game
+     */
+    public pictureGetPicturesByGameIdGameIdGet(gameId: string, _options?: Configuration): Observable<Array<ListPictureDto>> {
+        const requestContextPromise = this.requestFactory.pictureGetPicturesByGameIdGameIdGet(gameId, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.pictureGetPicturesByGameIdGameIdGet(rsp)));
+            }));
+    }
+
+    /**
+     * Get all pictures of location
+     * @param locationId Id of location
+     */
+    public pictureGetPicturesByLocationIdLocationIdGet(locationId: string, _options?: Configuration): Observable<Array<ListPictureDto>> {
+        const requestContextPromise = this.requestFactory.pictureGetPicturesByLocationIdLocationIdGet(locationId, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.pictureGetPicturesByLocationIdLocationIdGet(rsp)));
             }));
     }
 

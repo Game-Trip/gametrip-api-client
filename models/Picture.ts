@@ -18,7 +18,7 @@ export class Picture {
     'idPicture'?: string;
     'name'?: string | null;
     'description'?: string | null;
-    'path'?: string | null;
+    'data'?: string | null;
     'locationId'?: string | null;
     'location'?: Location;
     'gameId'?: string | null;
@@ -46,10 +46,10 @@ export class Picture {
             "format": ""
         },
         {
-            "name": "path",
-            "baseName": "path",
+            "name": "data",
+            "baseName": "data",
             "type": "string",
-            "format": ""
+            "format": "byte"
         },
         {
             "name": "locationId",

@@ -4,20 +4,20 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**gameAddGameToLocationGameGameIdLocationLocationIdPost**](GameApi.md#gameAddGameToLocationGameGameIdLocationLocationIdPost) | **POST** /Game/AddGameToLocation/Game/{gameId}/Location/{locationId} | 
-[**gameCreateGamePost**](GameApi.md#gameCreateGamePost) | **POST** /Game/CreateGame | 
-[**gameDeleteGameIdDelete**](GameApi.md#gameDeleteGameIdDelete) | **DELETE** /Game/Delete/{gameId} | 
-[**gameGameIdPut**](GameApi.md#gameGameIdPut) | **PUT** /Game/{gameId} | 
-[**gameGet**](GameApi.md#gameGet) | **GET** /Game | 
-[**gameIdGameIdGet**](GameApi.md#gameIdGameIdGet) | **GET** /Game/Id/{gameId} | 
-[**gameLocationIdLocationIdGet**](GameApi.md#gameLocationIdLocationIdGet) | **GET** /Game/Location/Id/{locationId} | 
-[**gameLocationNameLocationNameGet**](GameApi.md#gameLocationNameLocationNameGet) | **GET** /Game/Location/Name/{locationName} | 
-[**gameNameGameNameGet**](GameApi.md#gameNameGameNameGet) | **GET** /Game/Name/{gameName} | 
-[**gameRemoveGameToLocationGameGameIdLocationLocationIdPost**](GameApi.md#gameRemoveGameToLocationGameGameIdLocationLocationIdPost) | **POST** /Game/RemoveGameToLocation/Game/{gameId}/Location/{locationId} | 
+[**gameAddGameToLocationGameGameIdLocationLocationIdPost**](GameApi.md#gameAddGameToLocationGameGameIdLocationLocationIdPost) | **POST** /Game/AddGameToLocation/Game/{gameId}/Location/{locationId} | Add Game to Location by Game Id and Location Id
+[**gameCreateGamePost**](GameApi.md#gameCreateGamePost) | **POST** /Game/CreateGame | Create new Game
+[**gameDeleteGameIdDelete**](GameApi.md#gameDeleteGameIdDelete) | **DELETE** /Game/Delete/{gameId} | Delete Game by Id
+[**gameGameIdPut**](GameApi.md#gameGameIdPut) | **PUT** /Game/{gameId} | Update Game
+[**gameGet**](GameApi.md#gameGet) | **GET** /Game | Get All Games
+[**gameIdGameIdGet**](GameApi.md#gameIdGameIdGet) | **GET** /Game/Id/{gameId} | Get Game by Id
+[**gameLocationIdLocationIdGet**](GameApi.md#gameLocationIdLocationIdGet) | **GET** /Game/Location/Id/{locationId} | Get all Games by related location id
+[**gameLocationNameLocationNameGet**](GameApi.md#gameLocationNameLocationNameGet) | **GET** /Game/Location/Name/{locationName} | Get all Games by related location name
+[**gameNameGameNameGet**](GameApi.md#gameNameGameNameGet) | **GET** /Game/Name/{gameName} | Get Game by Name
+[**gameRemoveGameToLocationGameGameIdLocationLocationIdPost**](GameApi.md#gameRemoveGameToLocationGameGameIdLocationLocationIdPost) | **POST** /Game/RemoveGameToLocation/Game/{gameId}/Location/{locationId} | Remove Game from Location by Game Id and Location Id
 
 
 # **gameAddGameToLocationGameGameIdLocationLocationIdPost**
-> void gameAddGameToLocationGameGameIdLocationLocationIdPost()
+> MessageDto gameAddGameToLocationGameGameIdLocationLocationIdPost()
 
 
 ### Example
@@ -31,10 +31,14 @@ const configuration = .createConfiguration();
 const apiInstance = new .GameApi(configuration);
 
 let body:.GameApiGameAddGameToLocationGameGameIdLocationLocationIdPostRequest = {
-  // string
+  // string | Id of added Game
   gameId: "gameId_example",
-  // string
+  // string | Id of location to add Game
   locationId: "locationId_example",
+  // Array<HttpFile>
+  files: [
+    { data: Buffer.from(fs.readFileSync('/path/to/file', 'utf-8')), name: '/path/to/file' },
+  ],
 };
 
 apiInstance.gameAddGameToLocationGameGameIdLocationLocationIdPost(body).then((data:any) => {
@@ -47,13 +51,14 @@ apiInstance.gameAddGameToLocationGameGameIdLocationLocationIdPost(body).then((da
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **gameId** | [**string**] |  | defaults to undefined
- **locationId** | [**string**] |  | defaults to undefined
+ **gameId** | [**string**] | Id of added Game | defaults to undefined
+ **locationId** | [**string**] | Id of location to add Game | defaults to undefined
+ **files** | **Array&lt;HttpFile&gt;** |  | defaults to undefined
 
 
 ### Return type
 
-**void**
+**MessageDto**
 
 ### Authorization
 
@@ -61,19 +66,21 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Content-Type**: multipart/form-data
+ - **Accept**: text/plain, application/json, text/json
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Success |  -  |
+**400** | Bad Request |  -  |
+**404** | Not Found |  -  |
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **gameCreateGamePost**
-> Game gameCreateGamePost()
+> MessageDto gameCreateGamePost()
 
 
 ### Example
@@ -87,7 +94,7 @@ const configuration = .createConfiguration();
 const apiInstance = new .GameApi(configuration);
 
 let body:.GameApiGameCreateGamePostRequest = {
-  // CreateGameDto (optional)
+  // CreateGameDto | CreateGameDto (optional)
   createGameDto: {
     name: "name_example",
     description: "description_example",
@@ -106,12 +113,12 @@ apiInstance.gameCreateGamePost(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **createGameDto** | **CreateGameDto**|  |
+ **createGameDto** | **CreateGameDto**| CreateGameDto |
 
 
 ### Return type
 
-**Game**
+**MessageDto**
 
 ### Authorization
 
@@ -127,11 +134,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Success |  -  |
+**400** | Bad Request |  -  |
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **gameDeleteGameIdDelete**
-> void gameDeleteGameIdDelete()
+> MessageDto gameDeleteGameIdDelete()
 
 
 ### Example
@@ -145,7 +153,7 @@ const configuration = .createConfiguration();
 const apiInstance = new .GameApi(configuration);
 
 let body:.GameApiGameDeleteGameIdDeleteRequest = {
-  // string
+  // string | Id of deleted Game
   gameId: "gameId_example",
 };
 
@@ -159,12 +167,12 @@ apiInstance.gameDeleteGameIdDelete(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **gameId** | [**string**] |  | defaults to undefined
+ **gameId** | [**string**] | Id of deleted Game | defaults to undefined
 
 
 ### Return type
 
-**void**
+**MessageDto**
 
 ### Authorization
 
@@ -173,13 +181,14 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: text/plain, application/json, text/json
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Success |  -  |
+**404** | Not Found |  -  |
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
@@ -198,9 +207,9 @@ const configuration = .createConfiguration();
 const apiInstance = new .GameApi(configuration);
 
 let body:.GameApiGameGameIdPutRequest = {
-  // string
+  // string | Id of game to update
   gameId: "gameId_example",
-  // UpdateGameDto (optional)
+  // UpdateGameDto | UpdateGameDto (optional)
   updateGameDto: {
     gameId: "gameId_example",
     name: "name_example",
@@ -220,8 +229,8 @@ apiInstance.gameGameIdPut(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **updateGameDto** | **UpdateGameDto**|  |
- **gameId** | [**string**] |  | defaults to undefined
+ **updateGameDto** | **UpdateGameDto**| UpdateGameDto |
+ **gameId** | [**string**] | Id of game to update | defaults to undefined
 
 
 ### Return type
@@ -242,6 +251,8 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Success |  -  |
+**400** | Bad Request |  -  |
+**404** | Not Found |  -  |
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
@@ -260,7 +271,7 @@ const configuration = .createConfiguration();
 const apiInstance = new .GameApi(configuration);
 
 let body:.GameApiGameGetRequest = {
-  // number (optional)
+  // number | Set the limit of number items return (optional)
   limit: 1,
 };
 
@@ -274,7 +285,7 @@ apiInstance.gameGet(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | [**number**] |  | (optional) defaults to undefined
+ **limit** | [**number**] | Set the limit of number items return | (optional) defaults to undefined
 
 
 ### Return type
@@ -313,7 +324,7 @@ const configuration = .createConfiguration();
 const apiInstance = new .GameApi(configuration);
 
 let body:.GameApiGameIdGameIdGetRequest = {
-  // string
+  // string | Id of Game
   gameId: "gameId_example",
 };
 
@@ -327,7 +338,7 @@ apiInstance.gameIdGameIdGet(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **gameId** | [**string**] |  | defaults to undefined
+ **gameId** | [**string**] | Id of Game | defaults to undefined
 
 
 ### Return type
@@ -348,6 +359,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Success |  -  |
+**404** | Not Found |  -  |
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
@@ -366,7 +378,7 @@ const configuration = .createConfiguration();
 const apiInstance = new .GameApi(configuration);
 
 let body:.GameApiGameLocationIdLocationIdGetRequest = {
-  // string
+  // string | Id of related location
   locationId: "locationId_example",
 };
 
@@ -380,7 +392,7 @@ apiInstance.gameLocationIdLocationIdGet(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **locationId** | [**string**] |  | defaults to undefined
+ **locationId** | [**string**] | Id of related location | defaults to undefined
 
 
 ### Return type
@@ -401,6 +413,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Success |  -  |
+**404** | Not Found |  -  |
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
@@ -419,7 +432,7 @@ const configuration = .createConfiguration();
 const apiInstance = new .GameApi(configuration);
 
 let body:.GameApiGameLocationNameLocationNameGetRequest = {
-  // string
+  // string | Name of related location
   locationName: "locationName_example",
 };
 
@@ -433,7 +446,7 @@ apiInstance.gameLocationNameLocationNameGet(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **locationName** | [**string**] |  | defaults to undefined
+ **locationName** | [**string**] | Name of related location | defaults to undefined
 
 
 ### Return type
@@ -454,6 +467,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Success |  -  |
+**404** | Not Found |  -  |
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
@@ -472,7 +486,7 @@ const configuration = .createConfiguration();
 const apiInstance = new .GameApi(configuration);
 
 let body:.GameApiGameNameGameNameGetRequest = {
-  // string
+  // string | Name of Game
   gameName: "gameName_example",
 };
 
@@ -486,7 +500,7 @@ apiInstance.gameNameGameNameGet(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **gameName** | [**string**] |  | defaults to undefined
+ **gameName** | [**string**] | Name of Game | defaults to undefined
 
 
 ### Return type
@@ -507,11 +521,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Success |  -  |
+**404** | Not Found |  -  |
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **gameRemoveGameToLocationGameGameIdLocationLocationIdPost**
-> void gameRemoveGameToLocationGameGameIdLocationLocationIdPost()
+> MessageDto gameRemoveGameToLocationGameGameIdLocationLocationIdPost()
 
 
 ### Example
@@ -525,10 +540,14 @@ const configuration = .createConfiguration();
 const apiInstance = new .GameApi(configuration);
 
 let body:.GameApiGameRemoveGameToLocationGameGameIdLocationLocationIdPostRequest = {
-  // string
+  // string | Id of removed Game
   gameId: "gameId_example",
-  // string
+  // string | Id of location to remove Game
   locationId: "locationId_example",
+  // Array<HttpFile>
+  files: [
+    { data: Buffer.from(fs.readFileSync('/path/to/file', 'utf-8')), name: '/path/to/file' },
+  ],
 };
 
 apiInstance.gameRemoveGameToLocationGameGameIdLocationLocationIdPost(body).then((data:any) => {
@@ -541,13 +560,14 @@ apiInstance.gameRemoveGameToLocationGameGameIdLocationLocationIdPost(body).then(
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **gameId** | [**string**] |  | defaults to undefined
- **locationId** | [**string**] |  | defaults to undefined
+ **gameId** | [**string**] | Id of removed Game | defaults to undefined
+ **locationId** | [**string**] | Id of location to remove Game | defaults to undefined
+ **files** | **Array&lt;HttpFile&gt;** |  | defaults to undefined
 
 
 ### Return type
 
-**void**
+**MessageDto**
 
 ### Authorization
 
@@ -555,14 +575,15 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Content-Type**: multipart/form-data
+ - **Accept**: text/plain, application/json, text/json
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Success |  -  |
+**404** | Not Found |  -  |
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 

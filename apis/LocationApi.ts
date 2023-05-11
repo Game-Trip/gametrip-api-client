@@ -9,10 +9,9 @@ import {SecurityAuthentication} from '../auth/auth';
 
 
 import { CreateLocationDto } from '../models/CreateLocationDto';
-import { GameDto } from '../models/GameDto';
 import { GetLocationDto } from '../models/GetLocationDto';
-import { Location } from '../models/Location';
 import { LocationDto } from '../models/LocationDto';
+import { MessageDto } from '../models/MessageDto';
 import { UpdateLocationDto } from '../models/UpdateLocationDto';
 
 /**
@@ -21,7 +20,8 @@ import { UpdateLocationDto } from '../models/UpdateLocationDto';
 export class LocationApiRequestFactory extends BaseAPIRequestFactory {
 
     /**
-     * @param createLocationDto 
+     * Create new location
+     * @param createLocationDto CreateLocationDto
      */
     public async locationCreateLocationPost(createLocationDto?: CreateLocationDto, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
@@ -66,7 +66,8 @@ export class LocationApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * @param locationId 
+     * Delete location by id
+     * @param locationId Id of deleted location
      */
     public async locationDeleteLocationIdDelete(locationId: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
@@ -102,7 +103,8 @@ export class LocationApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * @param gameId 
+     * Get all location by game id
+     * @param gameId Id of related game
      */
     public async locationGameIdGameIdGet(gameId: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
@@ -138,7 +140,8 @@ export class LocationApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * @param gameName 
+     * Get all location by game name
+     * @param gameName Name of related game
      */
     public async locationGameNameGameNameGet(gameName: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
@@ -174,7 +177,8 @@ export class LocationApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * @param limit 
+     * Get all locations
+     * @param limit Limit of location present in return
      */
     public async locationGet(limit?: number, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
@@ -209,7 +213,8 @@ export class LocationApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * @param locationId 
+     * Get location by id
+     * @param locationId Id of wanted location
      */
     public async locationIdLocationIdGet(locationId: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
@@ -245,8 +250,9 @@ export class LocationApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * @param locationId 
-     * @param updateLocationDto 
+     * Update location
+     * @param locationId Id of location to update
+     * @param updateLocationDto UpdateLocationDto
      */
     public async locationLocationIdPut(locationId: string, updateLocationDto?: UpdateLocationDto, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
@@ -298,7 +304,8 @@ export class LocationApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * @param locationName 
+     * Get location by name
+     * @param locationName Name of wanted Location
      */
     public async locationNameLocationNameGet(locationName: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
@@ -344,18 +351,29 @@ export class LocationApiResponseProcessor {
      * @params response Response returned by the server for a request to locationCreateLocationPost
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async locationCreateLocationPost(response: ResponseContext): Promise<void > {
+     public async locationCreateLocationPost(response: ResponseContext): Promise<MessageDto > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            return;
+            const body: MessageDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "MessageDto", ""
+            ) as MessageDto;
+            return body;
+        }
+        if (isCodeInRange("400", response.httpStatusCode)) {
+            const body: MessageDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "MessageDto", ""
+            ) as MessageDto;
+            throw new ApiException<MessageDto>(response.httpStatusCode, "Bad Request", body, response.headers);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: void = ObjectSerializer.deserialize(
+            const body: MessageDto = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "void", ""
-            ) as void;
+                "MessageDto", ""
+            ) as MessageDto;
             return body;
         }
 
@@ -369,22 +387,29 @@ export class LocationApiResponseProcessor {
      * @params response Response returned by the server for a request to locationDeleteLocationIdDelete
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async locationDeleteLocationIdDelete(response: ResponseContext): Promise<Location > {
+     public async locationDeleteLocationIdDelete(response: ResponseContext): Promise<MessageDto > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: Location = ObjectSerializer.deserialize(
+            const body: MessageDto = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "Location", ""
-            ) as Location;
+                "MessageDto", ""
+            ) as MessageDto;
             return body;
+        }
+        if (isCodeInRange("404", response.httpStatusCode)) {
+            const body: MessageDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "MessageDto", ""
+            ) as MessageDto;
+            throw new ApiException<MessageDto>(response.httpStatusCode, "Not Found", body, response.headers);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: Location = ObjectSerializer.deserialize(
+            const body: MessageDto = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "Location", ""
-            ) as Location;
+                "MessageDto", ""
+            ) as MessageDto;
             return body;
         }
 
@@ -406,6 +431,13 @@ export class LocationApiResponseProcessor {
                 "Array<LocationDto>", ""
             ) as Array<LocationDto>;
             return body;
+        }
+        if (isCodeInRange("404", response.httpStatusCode)) {
+            const body: MessageDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "MessageDto", ""
+            ) as MessageDto;
+            throw new ApiException<MessageDto>(response.httpStatusCode, "Not Found", body, response.headers);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
@@ -435,6 +467,13 @@ export class LocationApiResponseProcessor {
                 "Array<LocationDto>", ""
             ) as Array<LocationDto>;
             return body;
+        }
+        if (isCodeInRange("404", response.httpStatusCode)) {
+            const body: MessageDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "MessageDto", ""
+            ) as MessageDto;
+            throw new ApiException<MessageDto>(response.httpStatusCode, "Not Found", body, response.headers);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
@@ -494,6 +533,13 @@ export class LocationApiResponseProcessor {
             ) as GetLocationDto;
             return body;
         }
+        if (isCodeInRange("404", response.httpStatusCode)) {
+            const body: MessageDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "MessageDto", ""
+            ) as MessageDto;
+            throw new ApiException<MessageDto>(response.httpStatusCode, "Not Found", body, response.headers);
+        }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
@@ -514,22 +560,29 @@ export class LocationApiResponseProcessor {
      * @params response Response returned by the server for a request to locationLocationIdPut
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async locationLocationIdPut(response: ResponseContext): Promise<GameDto > {
+     public async locationLocationIdPut(response: ResponseContext): Promise<LocationDto > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: GameDto = ObjectSerializer.deserialize(
+            const body: LocationDto = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "GameDto", ""
-            ) as GameDto;
+                "LocationDto", ""
+            ) as LocationDto;
             return body;
+        }
+        if (isCodeInRange("400", response.httpStatusCode)) {
+            const body: MessageDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "MessageDto", ""
+            ) as MessageDto;
+            throw new ApiException<MessageDto>(response.httpStatusCode, "Bad Request", body, response.headers);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: GameDto = ObjectSerializer.deserialize(
+            const body: LocationDto = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "GameDto", ""
-            ) as GameDto;
+                "LocationDto", ""
+            ) as LocationDto;
             return body;
         }
 
@@ -551,6 +604,13 @@ export class LocationApiResponseProcessor {
                 "GetLocationDto", ""
             ) as GetLocationDto;
             return body;
+        }
+        if (isCodeInRange("404", response.httpStatusCode)) {
+            const body: MessageDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "MessageDto", ""
+            ) as MessageDto;
+            throw new ApiException<MessageDto>(response.httpStatusCode, "Not Found", body, response.headers);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
