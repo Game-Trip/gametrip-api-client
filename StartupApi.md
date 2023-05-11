@@ -9,7 +9,7 @@ Method | HTTP request | Description
 
 
 # **startupLocationsGet**
-> Array<LocationDTO> startupLocationsGet()
+> Array<LocationDto> startupLocationsGet()
 
 
 ### Example
@@ -36,7 +36,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**Array<LocationDTO>**
+**Array<LocationDto>**
 
 ### Authorization
 
