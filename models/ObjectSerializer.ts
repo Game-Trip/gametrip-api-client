@@ -1,8 +1,8 @@
+export * from '../models/AddCommentToLocationDto';
 export * from '../models/AddLikeGameDto';
 export * from '../models/AddLikeLocationDto';
 export * from '../models/Assembly';
 export * from '../models/CallingConventions';
-export * from '../models/Comment';
 export * from '../models/ConfirmMailDto';
 export * from '../models/ConstructorInfo';
 export * from '../models/CreateGameDto';
@@ -16,24 +16,20 @@ export * from '../models/Exception';
 export * from '../models/FieldAttributes';
 export * from '../models/FieldInfo';
 export * from '../models/ForgotPasswordDto';
-export * from '../models/Game';
 export * from '../models/GameDto';
 export * from '../models/GameNameDto';
-export * from '../models/GameTripUser';
 export * from '../models/GameTripUserDto';
 export * from '../models/GenericParameterAttributes';
 export * from '../models/GetLocationDto';
 export * from '../models/IdentityError';
 export * from '../models/LayoutKind';
-export * from '../models/LikedGame';
 export * from '../models/LikedGameDto';
-export * from '../models/LikedLocation';
 export * from '../models/LikedLocationDto';
+export * from '../models/ListCommentDto';
 export * from '../models/ListGameDto';
 export * from '../models/ListLikedGameDto';
 export * from '../models/ListLikedLocationDto';
 export * from '../models/ListPictureDto';
-export * from '../models/Location';
 export * from '../models/LocationDto';
 export * from '../models/LocationNameDto';
 export * from '../models/LoginDto';
@@ -51,7 +47,6 @@ export * from '../models/Module';
 export * from '../models/ModuleHandle';
 export * from '../models/ParameterAttributes';
 export * from '../models/ParameterInfo';
-export * from '../models/Picture';
 export * from '../models/ProblemDetails';
 export * from '../models/PropertyAttributes';
 export * from '../models/PropertyInfo';
@@ -66,15 +61,16 @@ export * from '../models/TokenDto';
 export * from '../models/Type';
 export * from '../models/TypeAttributes';
 export * from '../models/TypeInfo';
+export * from '../models/UpdateCommentDto';
 export * from '../models/UpdateGameDto';
 export * from '../models/UpdateGameTripUserDto';
 export * from '../models/UpdateLocationDto';
 
+import { AddCommentToLocationDto } from '../models/AddCommentToLocationDto';
 import { AddLikeGameDto } from '../models/AddLikeGameDto';
 import { AddLikeLocationDto } from '../models/AddLikeLocationDto';
 import { Assembly                   } from '../models/Assembly';
 import { CallingConventions } from '../models/CallingConventions';
-import { Comment } from '../models/Comment';
 import { ConfirmMailDto } from '../models/ConfirmMailDto';
 import { ConstructorInfo                                 } from '../models/ConstructorInfo';
 import { CreateGameDto } from '../models/CreateGameDto';
@@ -88,24 +84,20 @@ import { Exception } from '../models/Exception';
 import { FieldAttributes } from '../models/FieldAttributes';
 import { FieldInfo                           } from '../models/FieldInfo';
 import { ForgotPasswordDto } from '../models/ForgotPasswordDto';
-import { Game } from '../models/Game';
 import { GameDto } from '../models/GameDto';
 import { GameNameDto } from '../models/GameNameDto';
-import { GameTripUser } from '../models/GameTripUser';
 import { GameTripUserDto } from '../models/GameTripUserDto';
 import { GenericParameterAttributes } from '../models/GenericParameterAttributes';
 import { GetLocationDto } from '../models/GetLocationDto';
 import { IdentityError } from '../models/IdentityError';
 import { LayoutKind } from '../models/LayoutKind';
-import { LikedGame } from '../models/LikedGame';
 import { LikedGameDto } from '../models/LikedGameDto';
-import { LikedLocation } from '../models/LikedLocation';
 import { LikedLocationDto } from '../models/LikedLocationDto';
+import { ListCommentDto } from '../models/ListCommentDto';
 import { ListGameDto } from '../models/ListGameDto';
 import { ListLikedGameDto } from '../models/ListLikedGameDto';
 import { ListLikedLocationDto } from '../models/ListLikedLocationDto';
 import { ListPictureDto } from '../models/ListPictureDto';
-import { Location } from '../models/Location';
 import { LocationDto } from '../models/LocationDto';
 import { LocationNameDto } from '../models/LocationNameDto';
 import { LoginDto } from '../models/LoginDto';
@@ -123,7 +115,6 @@ import { Module } from '../models/Module';
 import { ModuleHandle } from '../models/ModuleHandle';
 import { ParameterAttributes } from '../models/ParameterAttributes';
 import { ParameterInfo                } from '../models/ParameterInfo';
-import { Picture } from '../models/Picture';
 import { ProblemDetails } from '../models/ProblemDetails';
 import { PropertyAttributes } from '../models/PropertyAttributes';
 import { PropertyInfo                } from '../models/PropertyInfo';
@@ -138,6 +129,7 @@ import { TokenDto } from '../models/TokenDto';
 import { Type                                                                        } from '../models/Type';
 import { TypeAttributes } from '../models/TypeAttributes';
 import { TypeInfo                                                                                 } from '../models/TypeInfo';
+import { UpdateCommentDto } from '../models/UpdateCommentDto';
 import { UpdateGameDto } from '../models/UpdateGameDto';
 import { UpdateGameTripUserDto } from '../models/UpdateGameTripUserDto';
 import { UpdateLocationDto } from '../models/UpdateLocationDto';
@@ -178,10 +170,10 @@ let enumsMap: Set<string> = new Set<string>([
 ]);
 
 let typeMap: {[index: string]: any} = {
+    "AddCommentToLocationDto": AddCommentToLocationDto,
     "AddLikeGameDto": AddLikeGameDto,
     "AddLikeLocationDto": AddLikeLocationDto,
     "Assembly": Assembly,
-    "Comment": Comment,
     "ConfirmMailDto": ConfirmMailDto,
     "ConstructorInfo": ConstructorInfo,
     "CreateGameDto": CreateGameDto,
@@ -193,22 +185,18 @@ let typeMap: {[index: string]: any} = {
     "Exception": Exception,
     "FieldInfo": FieldInfo,
     "ForgotPasswordDto": ForgotPasswordDto,
-    "Game": Game,
     "GameDto": GameDto,
     "GameNameDto": GameNameDto,
-    "GameTripUser": GameTripUser,
     "GameTripUserDto": GameTripUserDto,
     "GetLocationDto": GetLocationDto,
     "IdentityError": IdentityError,
-    "LikedGame": LikedGame,
     "LikedGameDto": LikedGameDto,
-    "LikedLocation": LikedLocation,
     "LikedLocationDto": LikedLocationDto,
+    "ListCommentDto": ListCommentDto,
     "ListGameDto": ListGameDto,
     "ListLikedGameDto": ListLikedGameDto,
     "ListLikedLocationDto": ListLikedLocationDto,
     "ListPictureDto": ListPictureDto,
-    "Location": Location,
     "LocationDto": LocationDto,
     "LocationNameDto": LocationNameDto,
     "LoginDto": LoginDto,
@@ -221,7 +209,6 @@ let typeMap: {[index: string]: any} = {
     "Module": Module,
     "ModuleHandle": ModuleHandle,
     "ParameterInfo": ParameterInfo,
-    "Picture": Picture,
     "ProblemDetails": ProblemDetails,
     "PropertyInfo": PropertyInfo,
     "RegisterDto": RegisterDto,
@@ -233,6 +220,7 @@ let typeMap: {[index: string]: any} = {
     "TokenDto": TokenDto,
     "Type": Type,
     "TypeInfo": TypeInfo,
+    "UpdateCommentDto": UpdateCommentDto,
     "UpdateGameDto": UpdateGameDto,
     "UpdateGameTripUserDto": UpdateGameTripUserDto,
     "UpdateLocationDto": UpdateLocationDto,

@@ -10,7 +10,7 @@
  * Do not edit the class manually.
  */
 
-import { Comment } from '../models/Comment';
+import { ListCommentDto } from '../models/ListCommentDto';
 import { ListLikedGameDto } from '../models/ListLikedGameDto';
 import { ListLikedLocationDto } from '../models/ListLikedLocationDto';
 import { HttpFile } from '../http/http';
@@ -19,7 +19,7 @@ export class GameTripUserDto {
     'userId'?: string | null;
     'userName'?: string | null;
     'email'?: string | null;
-    'comments'?: Array<Comment> | null;
+    'comments'?: Array<ListCommentDto> | null;
     'likedGames'?: Array<ListLikedGameDto> | null;
     'likedLocations'?: Array<ListLikedLocationDto> | null;
 
@@ -47,7 +47,7 @@ export class GameTripUserDto {
         {
             "name": "comments",
             "baseName": "comments",
-            "type": "Array<Comment>",
+            "type": "Array<ListCommentDto>",
             "format": ""
         },
         {
