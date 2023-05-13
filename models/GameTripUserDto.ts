@@ -10,15 +10,28 @@
  * Do not edit the class manually.
  */
 
+import { Comment } from '../models/Comment';
+import { ListLikedGameDto } from '../models/ListLikedGameDto';
+import { ListLikedLocationDto } from '../models/ListLikedLocationDto';
 import { HttpFile } from '../http/http';
 
 export class GameTripUserDto {
+    'userId'?: string | null;
     'userName'?: string | null;
     'email'?: string | null;
+    'comments'?: Array<Comment> | null;
+    'likedGames'?: Array<ListLikedGameDto> | null;
+    'likedLocations'?: Array<ListLikedLocationDto> | null;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
+        {
+            "name": "userId",
+            "baseName": "userId",
+            "type": "string",
+            "format": "uuid"
+        },
         {
             "name": "userName",
             "baseName": "userName",
@@ -29,6 +42,24 @@ export class GameTripUserDto {
             "name": "email",
             "baseName": "email",
             "type": "string",
+            "format": ""
+        },
+        {
+            "name": "comments",
+            "baseName": "comments",
+            "type": "Array<Comment>",
+            "format": ""
+        },
+        {
+            "name": "likedGames",
+            "baseName": "likedGames",
+            "type": "Array<ListLikedGameDto>",
+            "format": ""
+        },
+        {
+            "name": "likedLocations",
+            "baseName": "likedLocations",
+            "type": "Array<ListLikedLocationDto>",
             "format": ""
         }    ];
 

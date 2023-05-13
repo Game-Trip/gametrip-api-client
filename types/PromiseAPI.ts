@@ -70,6 +70,7 @@ import { Type } from '../models/Type';
 import { TypeAttributes } from '../models/TypeAttributes';
 import { TypeInfo } from '../models/TypeInfo';
 import { UpdateGameDto } from '../models/UpdateGameDto';
+import { UpdateGameTripUserDto } from '../models/UpdateGameTripUserDto';
 import { UpdateLocationDto } from '../models/UpdateLocationDto';
 import { ObservableAuthApi } from './ObservableAPI';
 
@@ -505,6 +506,71 @@ export class PromisePictureApi {
      */
     public pictureGetPicturesByLocationIdLocationIdGet(locationId: string, _options?: Configuration): Promise<Array<ListPictureDto>> {
         const result = this.api.pictureGetPicturesByLocationIdLocationIdGet(locationId, _options);
+        return result.toPromise();
+    }
+
+
+}
+
+
+
+import { ObservableUserApi } from './ObservableAPI';
+
+import { UserApiRequestFactory, UserApiResponseProcessor} from "../apis/UserApi";
+export class PromiseUserApi {
+    private api: ObservableUserApi
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: UserApiRequestFactory,
+        responseProcessor?: UserApiResponseProcessor
+    ) {
+        this.api = new ObservableUserApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * Get user by Mail
+     * @param userMail Mail of user
+     */
+    public userEmailUserMailGet(userMail: string, _options?: Configuration): Promise<GameTripUserDto> {
+        const result = this.api.userEmailUserMailGet(userMail, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Get user by id
+     * @param userId Id of user
+     */
+    public userIdUserIdGet(userId: string, _options?: Configuration): Promise<GameTripUserDto> {
+        const result = this.api.userIdUserIdGet(userId, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Get user by Name
+     * @param userName Name of user
+     */
+    public userNameUserNameGet(userName: string, _options?: Configuration): Promise<GameTripUserDto> {
+        const result = this.api.userNameUserNameGet(userName, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Delete User By Id
+     * @param userId Id of user
+     */
+    public userUserIdDelete(userId: string, _options?: Configuration): Promise<GameTripUserDto> {
+        const result = this.api.userUserIdDelete(userId, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Update User
+     * @param userId Id of user to delete
+     * @param updateGameTripUserDto UpdateGameTripUserDto
+     */
+    public userUserIdPut(userId: string, updateGameTripUserDto?: UpdateGameTripUserDto, _options?: Configuration): Promise<GameTripUserDto> {
+        const result = this.api.userUserIdPut(userId, updateGameTripUserDto, _options);
         return result.toPromise();
     }
 

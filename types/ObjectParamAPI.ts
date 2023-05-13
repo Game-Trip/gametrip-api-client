@@ -70,6 +70,7 @@ import { Type } from '../models/Type';
 import { TypeAttributes } from '../models/TypeAttributes';
 import { TypeInfo } from '../models/TypeInfo';
 import { UpdateGameDto } from '../models/UpdateGameDto';
+import { UpdateGameTripUserDto } from '../models/UpdateGameTripUserDto';
 import { UpdateLocationDto } from '../models/UpdateLocationDto';
 
 import { ObservableAuthApi } from "./ObservableAPI";
@@ -841,6 +842,109 @@ export class ObjectPictureApi {
      */
     public pictureGetPicturesByLocationIdLocationIdGet(param: PictureApiPictureGetPicturesByLocationIdLocationIdGetRequest, options?: Configuration): Promise<Array<ListPictureDto>> {
         return this.api.pictureGetPicturesByLocationIdLocationIdGet(param.locationId,  options).toPromise();
+    }
+
+}
+
+import { ObservableUserApi } from "./ObservableAPI";
+import { UserApiRequestFactory, UserApiResponseProcessor} from "../apis/UserApi";
+
+export interface UserApiUserEmailUserMailGetRequest {
+    /**
+     * Mail of user
+     * @type string
+     * @memberof UserApiuserEmailUserMailGet
+     */
+    userMail: string
+}
+
+export interface UserApiUserIdUserIdGetRequest {
+    /**
+     * Id of user
+     * @type string
+     * @memberof UserApiuserIdUserIdGet
+     */
+    userId: string
+}
+
+export interface UserApiUserNameUserNameGetRequest {
+    /**
+     * Name of user
+     * @type string
+     * @memberof UserApiuserNameUserNameGet
+     */
+    userName: string
+}
+
+export interface UserApiUserUserIdDeleteRequest {
+    /**
+     * Id of user
+     * @type string
+     * @memberof UserApiuserUserIdDelete
+     */
+    userId: string
+}
+
+export interface UserApiUserUserIdPutRequest {
+    /**
+     * Id of user to delete
+     * @type string
+     * @memberof UserApiuserUserIdPut
+     */
+    userId: string
+    /**
+     * UpdateGameTripUserDto
+     * @type UpdateGameTripUserDto
+     * @memberof UserApiuserUserIdPut
+     */
+    updateGameTripUserDto?: UpdateGameTripUserDto
+}
+
+export class ObjectUserApi {
+    private api: ObservableUserApi
+
+    public constructor(configuration: Configuration, requestFactory?: UserApiRequestFactory, responseProcessor?: UserApiResponseProcessor) {
+        this.api = new ObservableUserApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * Get user by Mail
+     * @param param the request object
+     */
+    public userEmailUserMailGet(param: UserApiUserEmailUserMailGetRequest, options?: Configuration): Promise<GameTripUserDto> {
+        return this.api.userEmailUserMailGet(param.userMail,  options).toPromise();
+    }
+
+    /**
+     * Get user by id
+     * @param param the request object
+     */
+    public userIdUserIdGet(param: UserApiUserIdUserIdGetRequest, options?: Configuration): Promise<GameTripUserDto> {
+        return this.api.userIdUserIdGet(param.userId,  options).toPromise();
+    }
+
+    /**
+     * Get user by Name
+     * @param param the request object
+     */
+    public userNameUserNameGet(param: UserApiUserNameUserNameGetRequest, options?: Configuration): Promise<GameTripUserDto> {
+        return this.api.userNameUserNameGet(param.userName,  options).toPromise();
+    }
+
+    /**
+     * Delete User By Id
+     * @param param the request object
+     */
+    public userUserIdDelete(param: UserApiUserUserIdDeleteRequest, options?: Configuration): Promise<GameTripUserDto> {
+        return this.api.userUserIdDelete(param.userId,  options).toPromise();
+    }
+
+    /**
+     * Update User
+     * @param param the request object
+     */
+    public userUserIdPut(param: UserApiUserUserIdPutRequest, options?: Configuration): Promise<GameTripUserDto> {
+        return this.api.userUserIdPut(param.userId, param.updateGameTripUserDto,  options).toPromise();
     }
 
 }

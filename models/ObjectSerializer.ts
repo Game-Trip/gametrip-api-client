@@ -67,6 +67,7 @@ export * from '../models/Type';
 export * from '../models/TypeAttributes';
 export * from '../models/TypeInfo';
 export * from '../models/UpdateGameDto';
+export * from '../models/UpdateGameTripUserDto';
 export * from '../models/UpdateLocationDto';
 
 import { AddLikeGameDto } from '../models/AddLikeGameDto';
@@ -138,6 +139,7 @@ import { Type                                                                   
 import { TypeAttributes } from '../models/TypeAttributes';
 import { TypeInfo                                                                                 } from '../models/TypeInfo';
 import { UpdateGameDto } from '../models/UpdateGameDto';
+import { UpdateGameTripUserDto } from '../models/UpdateGameTripUserDto';
 import { UpdateLocationDto } from '../models/UpdateLocationDto';
 
 /* tslint:disable:no-unused-variable */
@@ -232,6 +234,7 @@ let typeMap: {[index: string]: any} = {
     "Type": Type,
     "TypeInfo": TypeInfo,
     "UpdateGameDto": UpdateGameDto,
+    "UpdateGameTripUserDto": UpdateGameTripUserDto,
     "UpdateLocationDto": UpdateLocationDto,
 }
 

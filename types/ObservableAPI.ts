@@ -71,6 +71,7 @@ import { Type } from '../models/Type';
 import { TypeAttributes } from '../models/TypeAttributes';
 import { TypeInfo } from '../models/TypeInfo';
 import { UpdateGameDto } from '../models/UpdateGameDto';
+import { UpdateGameTripUserDto } from '../models/UpdateGameTripUserDto';
 import { UpdateLocationDto } from '../models/UpdateLocationDto';
 
 import { AuthApiRequestFactory, AuthApiResponseProcessor} from "../apis/AuthApi";
@@ -1023,6 +1024,140 @@ export class ObservablePictureApi {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
                 return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.pictureGetPicturesByLocationIdLocationIdGet(rsp)));
+            }));
+    }
+
+}
+
+import { UserApiRequestFactory, UserApiResponseProcessor} from "../apis/UserApi";
+export class ObservableUserApi {
+    private requestFactory: UserApiRequestFactory;
+    private responseProcessor: UserApiResponseProcessor;
+    private configuration: Configuration;
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: UserApiRequestFactory,
+        responseProcessor?: UserApiResponseProcessor
+    ) {
+        this.configuration = configuration;
+        this.requestFactory = requestFactory || new UserApiRequestFactory(configuration);
+        this.responseProcessor = responseProcessor || new UserApiResponseProcessor();
+    }
+
+    /**
+     * Get user by Mail
+     * @param userMail Mail of user
+     */
+    public userEmailUserMailGet(userMail: string, _options?: Configuration): Observable<GameTripUserDto> {
+        const requestContextPromise = this.requestFactory.userEmailUserMailGet(userMail, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.userEmailUserMailGet(rsp)));
+            }));
+    }
+
+    /**
+     * Get user by id
+     * @param userId Id of user
+     */
+    public userIdUserIdGet(userId: string, _options?: Configuration): Observable<GameTripUserDto> {
+        const requestContextPromise = this.requestFactory.userIdUserIdGet(userId, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.userIdUserIdGet(rsp)));
+            }));
+    }
+
+    /**
+     * Get user by Name
+     * @param userName Name of user
+     */
+    public userNameUserNameGet(userName: string, _options?: Configuration): Observable<GameTripUserDto> {
+        const requestContextPromise = this.requestFactory.userNameUserNameGet(userName, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.userNameUserNameGet(rsp)));
+            }));
+    }
+
+    /**
+     * Delete User By Id
+     * @param userId Id of user
+     */
+    public userUserIdDelete(userId: string, _options?: Configuration): Observable<GameTripUserDto> {
+        const requestContextPromise = this.requestFactory.userUserIdDelete(userId, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.userUserIdDelete(rsp)));
+            }));
+    }
+
+    /**
+     * Update User
+     * @param userId Id of user to delete
+     * @param updateGameTripUserDto UpdateGameTripUserDto
+     */
+    public userUserIdPut(userId: string, updateGameTripUserDto?: UpdateGameTripUserDto, _options?: Configuration): Observable<GameTripUserDto> {
+        const requestContextPromise = this.requestFactory.userUserIdPut(userId, updateGameTripUserDto, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.userUserIdPut(rsp)));
             }));
     }
 

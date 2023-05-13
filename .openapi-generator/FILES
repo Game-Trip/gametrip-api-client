@@ -5,11 +5,13 @@ LikeApi.md
 LocationApi.md
 PictureApi.md
 README.md
+UserApi.md
 apis/AuthApi.ts
 apis/GameApi.ts
 apis/LikeApi.ts
 apis/LocationApi.ts
 apis/PictureApi.ts
+apis/UserApi.ts
 apis/baseapi.ts
 apis/exception.ts
 auth/auth.ts
@@ -89,6 +91,7 @@ models/Type.ts
 models/TypeAttributes.ts
 models/TypeInfo.ts
 models/UpdateGameDto.ts
+models/UpdateGameTripUserDto.ts
 models/UpdateLocationDto.ts
 models/all.ts
 package.json
