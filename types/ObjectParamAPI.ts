@@ -967,6 +967,29 @@ export class ObjectPictureApi {
 
 }
 
+import { ObservableStatusApi } from "./ObservableAPI";
+import { StatusApiRequestFactory, StatusApiResponseProcessor} from "../apis/StatusApi";
+
+export interface StatusApiStatusGetRequest {
+}
+
+export class ObjectStatusApi {
+    private api: ObservableStatusApi
+
+    public constructor(configuration: Configuration, requestFactory?: StatusApiRequestFactory, responseProcessor?: StatusApiResponseProcessor) {
+        this.api = new ObservableStatusApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * Ping API
+     * @param param the request object
+     */
+    public statusGet(param: StatusApiStatusGetRequest = {}, options?: Configuration): Promise<void> {
+        return this.api.statusGet( options).toPromise();
+    }
+
+}
+
 import { ObservableUserApi } from "./ObservableAPI";
 import { UserApiRequestFactory, UserApiResponseProcessor} from "../apis/UserApi";
 
