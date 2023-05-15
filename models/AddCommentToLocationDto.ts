@@ -12,28 +12,35 @@
 
 import { HttpFile } from '../http/http';
 
-export class TokenDto {
-    'token': string;
-    'expirationDate'?: Date | null;
+export class AddCommentToLocationDto {
+    'text'?: string | null;
+    'userId'?: string;
+    'locationId'?: string;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "token",
-            "baseName": "token",
+            "name": "text",
+            "baseName": "text",
             "type": "string",
             "format": ""
         },
         {
-            "name": "expirationDate",
-            "baseName": "expirationDate",
-            "type": "Date",
-            "format": "date-time"
+            "name": "userId",
+            "baseName": "userId",
+            "type": "string",
+            "format": "uuid"
+        },
+        {
+            "name": "locationId",
+            "baseName": "locationId",
+            "type": "string",
+            "format": "uuid"
         }    ];
 
     static getAttributeTypeMap() {
-        return TokenDto.attributeTypeMap;
+        return AddCommentToLocationDto.attributeTypeMap;
     }
 
     public constructor() {

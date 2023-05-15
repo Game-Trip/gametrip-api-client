@@ -10,7 +10,7 @@
  * Do not edit the class manually.
  */
 
-import { Comment } from '../models/Comment';
+import { ListCommentDto } from '../models/ListCommentDto';
 import { ListGameDto } from '../models/ListGameDto';
 import { ListLikedLocationDto } from '../models/ListLikedLocationDto';
 import { ListPictureDto } from '../models/ListPictureDto';
@@ -24,7 +24,7 @@ export class GetLocationDto {
     'longitude'?: number;
     'pictures'?: Array<ListPictureDto> | null;
     'games'?: Array<ListGameDto> | null;
-    'comments'?: Array<Comment> | null;
+    'comments'?: Array<ListCommentDto> | null;
     'likedLocations'?: Array<ListLikedLocationDto> | null;
 
     static readonly discriminator: string | undefined = undefined;
@@ -75,7 +75,7 @@ export class GetLocationDto {
         {
             "name": "comments",
             "baseName": "comments",
-            "type": "Array<Comment>",
+            "type": "Array<ListCommentDto>",
             "format": ""
         },
         {

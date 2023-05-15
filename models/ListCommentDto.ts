@@ -12,28 +12,42 @@
 
 import { HttpFile } from '../http/http';
 
-export class LoginDto {
-    'username'?: string | null;
-    'password'?: string | null;
+export class ListCommentDto {
+    'commentId'?: string;
+    'text'?: string | null;
+    'userId'?: string;
+    'locationId'?: string;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "username",
-            "baseName": "username",
+            "name": "commentId",
+            "baseName": "commentId",
+            "type": "string",
+            "format": "uuid"
+        },
+        {
+            "name": "text",
+            "baseName": "text",
             "type": "string",
             "format": ""
         },
         {
-            "name": "password",
-            "baseName": "password",
+            "name": "userId",
+            "baseName": "userId",
             "type": "string",
-            "format": ""
+            "format": "uuid"
+        },
+        {
+            "name": "locationId",
+            "baseName": "locationId",
+            "type": "string",
+            "format": "uuid"
         }    ];
 
     static getAttributeTypeMap() {
-        return LoginDto.attributeTypeMap;
+        return ListCommentDto.attributeTypeMap;
     }
 
     public constructor() {

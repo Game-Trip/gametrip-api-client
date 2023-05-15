@@ -1,11 +1,11 @@
 import { ResponseContext, RequestContext, HttpFile } from '../http/http';
 import { Configuration} from '../configuration'
 
+import { AddCommentToLocationDto } from '../models/AddCommentToLocationDto';
 import { AddLikeGameDto } from '../models/AddLikeGameDto';
 import { AddLikeLocationDto } from '../models/AddLikeLocationDto';
 import { Assembly } from '../models/Assembly';
 import { CallingConventions } from '../models/CallingConventions';
-import { Comment } from '../models/Comment';
 import { ConfirmMailDto } from '../models/ConfirmMailDto';
 import { ConstructorInfo } from '../models/ConstructorInfo';
 import { CreateGameDto } from '../models/CreateGameDto';
@@ -19,24 +19,20 @@ import { Exception } from '../models/Exception';
 import { FieldAttributes } from '../models/FieldAttributes';
 import { FieldInfo } from '../models/FieldInfo';
 import { ForgotPasswordDto } from '../models/ForgotPasswordDto';
-import { Game } from '../models/Game';
 import { GameDto } from '../models/GameDto';
 import { GameNameDto } from '../models/GameNameDto';
-import { GameTripUser } from '../models/GameTripUser';
 import { GameTripUserDto } from '../models/GameTripUserDto';
 import { GenericParameterAttributes } from '../models/GenericParameterAttributes';
 import { GetLocationDto } from '../models/GetLocationDto';
 import { IdentityError } from '../models/IdentityError';
 import { LayoutKind } from '../models/LayoutKind';
-import { LikedGame } from '../models/LikedGame';
 import { LikedGameDto } from '../models/LikedGameDto';
-import { LikedLocation } from '../models/LikedLocation';
 import { LikedLocationDto } from '../models/LikedLocationDto';
+import { ListCommentDto } from '../models/ListCommentDto';
 import { ListGameDto } from '../models/ListGameDto';
 import { ListLikedGameDto } from '../models/ListLikedGameDto';
 import { ListLikedLocationDto } from '../models/ListLikedLocationDto';
 import { ListPictureDto } from '../models/ListPictureDto';
-import { Location } from '../models/Location';
 import { LocationDto } from '../models/LocationDto';
 import { LocationNameDto } from '../models/LocationNameDto';
 import { LoginDto } from '../models/LoginDto';
@@ -54,7 +50,6 @@ import { Module } from '../models/Module';
 import { ModuleHandle } from '../models/ModuleHandle';
 import { ParameterAttributes } from '../models/ParameterAttributes';
 import { ParameterInfo } from '../models/ParameterInfo';
-import { Picture } from '../models/Picture';
 import { ProblemDetails } from '../models/ProblemDetails';
 import { PropertyAttributes } from '../models/PropertyAttributes';
 import { PropertyInfo } from '../models/PropertyInfo';
@@ -69,7 +64,9 @@ import { TokenDto } from '../models/TokenDto';
 import { Type } from '../models/Type';
 import { TypeAttributes } from '../models/TypeAttributes';
 import { TypeInfo } from '../models/TypeInfo';
+import { UpdateCommentDto } from '../models/UpdateCommentDto';
 import { UpdateGameDto } from '../models/UpdateGameDto';
+import { UpdateGameTripUserDto } from '../models/UpdateGameTripUserDto';
 import { UpdateLocationDto } from '../models/UpdateLocationDto';
 import { ObservableAuthApi } from './ObservableAPI';
 
@@ -136,6 +133,80 @@ export class PromiseAuthApi {
      */
     public authResetPasswordPost(resetPasswordDto?: ResetPasswordDto, _options?: Configuration): Promise<void> {
         const result = this.api.authResetPasswordPost(resetPasswordDto, _options);
+        return result.toPromise();
+    }
+
+
+}
+
+
+
+import { ObservableCommentApi } from './ObservableAPI';
+
+import { CommentApiRequestFactory, CommentApiResponseProcessor} from "../apis/CommentApi";
+export class PromiseCommentApi {
+    private api: ObservableCommentApi
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: CommentApiRequestFactory,
+        responseProcessor?: CommentApiResponseProcessor
+    ) {
+        this.api = new ObservableCommentApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * Add Comment To location
+     * @param locationId Id of location where add comment
+     * @param addCommentToLocationDto AddCommentToLocationDto
+     */
+    public commentAddLocationIdPost(locationId: string, addCommentToLocationDto?: AddCommentToLocationDto, _options?: Configuration): Promise<MessageDto> {
+        const result = this.api.commentAddLocationIdPost(locationId, addCommentToLocationDto, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Get Comment By Id
+     * @param commentId Id of wanted Comment
+     */
+    public commentCommentIdGet(commentId: string, _options?: Configuration): Promise<void | Array<ListCommentDto>> {
+        const result = this.api.commentCommentIdGet(commentId, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param commentId 
+     * @param updateCommentDto 
+     */
+    public commentCommentIdPut(commentId: string, updateCommentDto?: UpdateCommentDto, _options?: Configuration): Promise<void | Array<ListCommentDto>> {
+        const result = this.api.commentCommentIdPut(commentId, updateCommentDto, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Get All Comment By Location
+     * @param locationId Id of location related of Comments
+     */
+    public commentLocationLocationIdGet(locationId: string, _options?: Configuration): Promise<void | Array<ListCommentDto>> {
+        const result = this.api.commentLocationLocationIdGet(locationId, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Remove Comment By Id
+     * @param commentId Id of comment to be removed
+     */
+    public commentRemoveCommentIdDelete(commentId: string, _options?: Configuration): Promise<void> {
+        const result = this.api.commentRemoveCommentIdDelete(commentId, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Get All Comment By User
+     * @param userId Id of User related of Comment
+     */
+    public commentUserUserIdGet(userId: string, _options?: Configuration): Promise<void | Array<ListCommentDto>> {
+        const result = this.api.commentUserUserIdGet(userId, _options);
         return result.toPromise();
     }
 
@@ -505,6 +576,139 @@ export class PromisePictureApi {
      */
     public pictureGetPicturesByLocationIdLocationIdGet(locationId: string, _options?: Configuration): Promise<Array<ListPictureDto>> {
         const result = this.api.pictureGetPicturesByLocationIdLocationIdGet(locationId, _options);
+        return result.toPromise();
+    }
+
+
+}
+
+
+
+import { ObservableSearchApi } from './ObservableAPI';
+
+import { SearchApiRequestFactory, SearchApiResponseProcessor} from "../apis/SearchApi";
+export class PromiseSearchApi {
+    private api: ObservableSearchApi
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: SearchApiRequestFactory,
+        responseProcessor?: SearchApiResponseProcessor
+    ) {
+        this.api = new ObservableSearchApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * @param name 
+     * @param description 
+     * @param editor 
+     * @param releaseDate 
+     */
+    public searchSearchGameGet(name?: string, description?: string, editor?: string, releaseDate?: number, _options?: Configuration): Promise<Array<GameNameDto>> {
+        const result = this.api.searchSearchGameGet(name, description, editor, releaseDate, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param name 
+     * @param description 
+     * @param latitude 
+     * @param longitude 
+     */
+    public searchSearchLocationGet(name?: string, description?: string, latitude?: number, longitude?: number, _options?: Configuration): Promise<Array<LocationNameDto>> {
+        const result = this.api.searchSearchLocationGet(name, description, latitude, longitude, _options);
+        return result.toPromise();
+    }
+
+
+}
+
+
+
+import { ObservableStatusApi } from './ObservableAPI';
+
+import { StatusApiRequestFactory, StatusApiResponseProcessor} from "../apis/StatusApi";
+export class PromiseStatusApi {
+    private api: ObservableStatusApi
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: StatusApiRequestFactory,
+        responseProcessor?: StatusApiResponseProcessor
+    ) {
+        this.api = new ObservableStatusApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * Ping API
+     */
+    public statusGet(_options?: Configuration): Promise<void> {
+        const result = this.api.statusGet(_options);
+        return result.toPromise();
+    }
+
+
+}
+
+
+
+import { ObservableUserApi } from './ObservableAPI';
+
+import { UserApiRequestFactory, UserApiResponseProcessor} from "../apis/UserApi";
+export class PromiseUserApi {
+    private api: ObservableUserApi
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: UserApiRequestFactory,
+        responseProcessor?: UserApiResponseProcessor
+    ) {
+        this.api = new ObservableUserApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * Get user by Mail
+     * @param userMail Mail of user
+     */
+    public userEmailUserMailGet(userMail: string, _options?: Configuration): Promise<GameTripUserDto> {
+        const result = this.api.userEmailUserMailGet(userMail, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Get user by id
+     * @param userId Id of user
+     */
+    public userIdUserIdGet(userId: string, _options?: Configuration): Promise<GameTripUserDto> {
+        const result = this.api.userIdUserIdGet(userId, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Get user by Name
+     * @param userName Name of user
+     */
+    public userNameUserNameGet(userName: string, _options?: Configuration): Promise<GameTripUserDto> {
+        const result = this.api.userNameUserNameGet(userName, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Delete User By Id
+     * @param userId Id of user
+     */
+    public userUserIdDelete(userId: string, _options?: Configuration): Promise<GameTripUserDto> {
+        const result = this.api.userUserIdDelete(userId, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Update User
+     * @param userId Id of user to delete
+     * @param updateGameTripUserDto UpdateGameTripUserDto
+     */
+    public userUserIdPut(userId: string, updateGameTripUserDto?: UpdateGameTripUserDto, _options?: Configuration): Promise<GameTripUserDto> {
+        const result = this.api.userUserIdPut(userId, updateGameTripUserDto, _options);
         return result.toPromise();
     }
 
