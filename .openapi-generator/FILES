@@ -6,6 +6,7 @@ LikeApi.md
 LocationApi.md
 PictureApi.md
 README.md
+SearchApi.md
 StatusApi.md
 UserApi.md
 apis/AuthApi.ts
@@ -14,6 +15,7 @@ apis/GameApi.ts
 apis/LikeApi.ts
 apis/LocationApi.ts
 apis/PictureApi.ts
+apis/SearchApi.ts
 apis/StatusApi.ts
 apis/UserApi.ts
 apis/baseapi.ts

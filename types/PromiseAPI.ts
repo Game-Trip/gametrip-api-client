@@ -584,6 +584,47 @@ export class PromisePictureApi {
 
 
 
+import { ObservableSearchApi } from './ObservableAPI';
+
+import { SearchApiRequestFactory, SearchApiResponseProcessor} from "../apis/SearchApi";
+export class PromiseSearchApi {
+    private api: ObservableSearchApi
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: SearchApiRequestFactory,
+        responseProcessor?: SearchApiResponseProcessor
+    ) {
+        this.api = new ObservableSearchApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * @param name 
+     * @param description 
+     * @param editor 
+     * @param releaseDate 
+     */
+    public searchSearchGameGet(name?: string, description?: string, editor?: string, releaseDate?: number, _options?: Configuration): Promise<Array<GameNameDto>> {
+        const result = this.api.searchSearchGameGet(name, description, editor, releaseDate, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param name 
+     * @param description 
+     * @param latitude 
+     * @param longitude 
+     */
+    public searchSearchLocationGet(name?: string, description?: string, latitude?: number, longitude?: number, _options?: Configuration): Promise<Array<LocationNameDto>> {
+        const result = this.api.searchSearchLocationGet(name, description, latitude, longitude, _options);
+        return result.toPromise();
+    }
+
+
+}
+
+
+
 import { ObservableStatusApi } from './ObservableAPI';
 
 import { StatusApiRequestFactory, StatusApiResponseProcessor} from "../apis/StatusApi";

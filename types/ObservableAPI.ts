@@ -1182,6 +1182,74 @@ export class ObservablePictureApi {
 
 }
 
+import { SearchApiRequestFactory, SearchApiResponseProcessor} from "../apis/SearchApi";
+export class ObservableSearchApi {
+    private requestFactory: SearchApiRequestFactory;
+    private responseProcessor: SearchApiResponseProcessor;
+    private configuration: Configuration;
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: SearchApiRequestFactory,
+        responseProcessor?: SearchApiResponseProcessor
+    ) {
+        this.configuration = configuration;
+        this.requestFactory = requestFactory || new SearchApiRequestFactory(configuration);
+        this.responseProcessor = responseProcessor || new SearchApiResponseProcessor();
+    }
+
+    /**
+     * @param name 
+     * @param description 
+     * @param editor 
+     * @param releaseDate 
+     */
+    public searchSearchGameGet(name?: string, description?: string, editor?: string, releaseDate?: number, _options?: Configuration): Observable<Array<GameNameDto>> {
+        const requestContextPromise = this.requestFactory.searchSearchGameGet(name, description, editor, releaseDate, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.searchSearchGameGet(rsp)));
+            }));
+    }
+
+    /**
+     * @param name 
+     * @param description 
+     * @param latitude 
+     * @param longitude 
+     */
+    public searchSearchLocationGet(name?: string, description?: string, latitude?: number, longitude?: number, _options?: Configuration): Observable<Array<LocationNameDto>> {
+        const requestContextPromise = this.requestFactory.searchSearchLocationGet(name, description, latitude, longitude, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.searchSearchLocationGet(rsp)));
+            }));
+    }
+
+}
+
 import { StatusApiRequestFactory, StatusApiResponseProcessor} from "../apis/StatusApi";
 export class ObservableStatusApi {
     private requestFactory: StatusApiRequestFactory;

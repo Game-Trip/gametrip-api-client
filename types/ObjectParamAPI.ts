@@ -967,6 +967,86 @@ export class ObjectPictureApi {
 
 }
 
+import { ObservableSearchApi } from "./ObservableAPI";
+import { SearchApiRequestFactory, SearchApiResponseProcessor} from "../apis/SearchApi";
+
+export interface SearchApiSearchSearchGameGetRequest {
+    /**
+     * 
+     * @type string
+     * @memberof SearchApisearchSearchGameGet
+     */
+    name?: string
+    /**
+     * 
+     * @type string
+     * @memberof SearchApisearchSearchGameGet
+     */
+    description?: string
+    /**
+     * 
+     * @type string
+     * @memberof SearchApisearchSearchGameGet
+     */
+    editor?: string
+    /**
+     * 
+     * @type number
+     * @memberof SearchApisearchSearchGameGet
+     */
+    releaseDate?: number
+}
+
+export interface SearchApiSearchSearchLocationGetRequest {
+    /**
+     * 
+     * @type string
+     * @memberof SearchApisearchSearchLocationGet
+     */
+    name?: string
+    /**
+     * 
+     * @type string
+     * @memberof SearchApisearchSearchLocationGet
+     */
+    description?: string
+    /**
+     * 
+     * @type number
+     * @memberof SearchApisearchSearchLocationGet
+     */
+    latitude?: number
+    /**
+     * 
+     * @type number
+     * @memberof SearchApisearchSearchLocationGet
+     */
+    longitude?: number
+}
+
+export class ObjectSearchApi {
+    private api: ObservableSearchApi
+
+    public constructor(configuration: Configuration, requestFactory?: SearchApiRequestFactory, responseProcessor?: SearchApiResponseProcessor) {
+        this.api = new ObservableSearchApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * @param param the request object
+     */
+    public searchSearchGameGet(param: SearchApiSearchSearchGameGetRequest = {}, options?: Configuration): Promise<Array<GameNameDto>> {
+        return this.api.searchSearchGameGet(param.name, param.description, param.editor, param.releaseDate,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public searchSearchLocationGet(param: SearchApiSearchSearchLocationGetRequest = {}, options?: Configuration): Promise<Array<LocationNameDto>> {
+        return this.api.searchSearchLocationGet(param.name, param.description, param.latitude, param.longitude,  options).toPromise();
+    }
+
+}
+
 import { ObservableStatusApi } from "./ObservableAPI";
 import { StatusApiRequestFactory, StatusApiResponseProcessor} from "../apis/StatusApi";
 
