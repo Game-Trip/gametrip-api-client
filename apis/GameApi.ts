@@ -98,10 +98,12 @@ export class GameApiRequestFactory extends BaseAPIRequestFactory {
 
     /**
      * Create new Game
+     * @param force 
      * @param createGameDto CreateGameDto
      */
-    public async gameCreateGamePost(createGameDto?: CreateGameDto, _options?: Configuration): Promise<RequestContext> {
+    public async gameCreateGamePost(force?: boolean, createGameDto?: CreateGameDto, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
+
 
 
         // Path Params
@@ -110,6 +112,11 @@ export class GameApiRequestFactory extends BaseAPIRequestFactory {
         // Make Request Context
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
         requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+        // Query Params
+        if (force !== undefined) {
+            requestContext.setQueryParam("force", ObjectSerializer.serialize(force, "boolean", ""));
+        }
 
 
         // Body Params

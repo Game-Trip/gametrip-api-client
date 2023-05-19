@@ -245,10 +245,11 @@ export class ObservableCommentApi {
     /**
      * Add Comment To location
      * @param locationId Id of location where add comment
+     * @param froce Force Validation for this comment
      * @param addCommentToLocationDto AddCommentToLocationDto
      */
-    public commentAddLocationIdPost(locationId: string, addCommentToLocationDto?: AddCommentToLocationDto, _options?: Configuration): Observable<MessageDto> {
-        const requestContextPromise = this.requestFactory.commentAddLocationIdPost(locationId, addCommentToLocationDto, _options);
+    public commentAddLocationIdPost(locationId: string, froce?: boolean, addCommentToLocationDto?: AddCommentToLocationDto, _options?: Configuration): Observable<MessageDto> {
+        const requestContextPromise = this.requestFactory.commentAddLocationIdPost(locationId, froce, addCommentToLocationDto, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -426,10 +427,11 @@ export class ObservableGameApi {
 
     /**
      * Create new Game
+     * @param force 
      * @param createGameDto CreateGameDto
      */
-    public gameCreateGamePost(createGameDto?: CreateGameDto, _options?: Configuration): Observable<MessageDto> {
-        const requestContextPromise = this.requestFactory.gameCreateGamePost(createGameDto, _options);
+    public gameCreateGamePost(force?: boolean, createGameDto?: CreateGameDto, _options?: Configuration): Observable<MessageDto> {
+        const requestContextPromise = this.requestFactory.gameCreateGamePost(force, createGameDto, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -858,10 +860,11 @@ export class ObservableLocationApi {
 
     /**
      * Create new location
+     * @param force 
      * @param createLocationDto CreateLocationDto
      */
-    public locationCreateLocationPost(createLocationDto?: CreateLocationDto, _options?: Configuration): Observable<MessageDto> {
-        const requestContextPromise = this.requestFactory.locationCreateLocationPost(createLocationDto, _options);
+    public locationCreateLocationPost(force?: boolean, createLocationDto?: CreateLocationDto, _options?: Configuration): Observable<MessageDto> {
+        const requestContextPromise = this.requestFactory.locationCreateLocationPost(force, createLocationDto, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);

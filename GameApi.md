@@ -94,12 +94,15 @@ const configuration = .createConfiguration();
 const apiInstance = new .GameApi(configuration);
 
 let body:.GameApiGameCreateGamePostRequest = {
+  // boolean (optional)
+  force: true,
   // CreateGameDto | CreateGameDto (optional)
   createGameDto: {
     name: "name_example",
     description: "description_example",
     editor: "editor_example",
     releaseDate: 1,
+    authorId: "authorId_example",
   },
 };
 
@@ -114,6 +117,7 @@ apiInstance.gameCreateGamePost(body).then((data:any) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **createGameDto** | **CreateGameDto**| CreateGameDto |
+ **force** | [**boolean**] |  | (optional) defaults to undefined
 
 
 ### Return type

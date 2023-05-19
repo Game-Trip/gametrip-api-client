@@ -194,6 +194,12 @@ export interface CommentApiCommentAddLocationIdPostRequest {
      */
     locationId: string
     /**
+     * Force Validation for this comment
+     * @type boolean
+     * @memberof CommentApicommentAddLocationIdPost
+     */
+    froce?: boolean
+    /**
      * AddCommentToLocationDto
      * @type AddCommentToLocationDto
      * @memberof CommentApicommentAddLocationIdPost
@@ -264,7 +270,7 @@ export class ObjectCommentApi {
      * @param param the request object
      */
     public commentAddLocationIdPost(param: CommentApiCommentAddLocationIdPostRequest, options?: Configuration): Promise<MessageDto> {
-        return this.api.commentAddLocationIdPost(param.locationId, param.addCommentToLocationDto,  options).toPromise();
+        return this.api.commentAddLocationIdPost(param.locationId, param.froce, param.addCommentToLocationDto,  options).toPromise();
     }
 
     /**
@@ -333,6 +339,12 @@ export interface GameApiGameAddGameToLocationGameGameIdLocationLocationIdPostReq
 }
 
 export interface GameApiGameCreateGamePostRequest {
+    /**
+     * 
+     * @type boolean
+     * @memberof GameApigameCreateGamePost
+     */
+    force?: boolean
     /**
      * CreateGameDto
      * @type CreateGameDto
@@ -451,7 +463,7 @@ export class ObjectGameApi {
      * @param param the request object
      */
     public gameCreateGamePost(param: GameApiGameCreateGamePostRequest = {}, options?: Configuration): Promise<MessageDto> {
-        return this.api.gameCreateGamePost(param.createGameDto,  options).toPromise();
+        return this.api.gameCreateGamePost(param.force, param.createGameDto,  options).toPromise();
     }
 
     /**
@@ -685,6 +697,12 @@ import { LocationApiRequestFactory, LocationApiResponseProcessor} from "../apis/
 
 export interface LocationApiLocationCreateLocationPostRequest {
     /**
+     * 
+     * @type boolean
+     * @memberof LocationApilocationCreateLocationPost
+     */
+    force?: boolean
+    /**
      * CreateLocationDto
      * @type CreateLocationDto
      * @memberof LocationApilocationCreateLocationPost
@@ -773,7 +791,7 @@ export class ObjectLocationApi {
      * @param param the request object
      */
     public locationCreateLocationPost(param: LocationApiLocationCreateLocationPostRequest = {}, options?: Configuration): Promise<MessageDto> {
-        return this.api.locationCreateLocationPost(param.createLocationDto,  options).toPromise();
+        return this.api.locationCreateLocationPost(param.force, param.createLocationDto,  options).toPromise();
     }
 
     /**

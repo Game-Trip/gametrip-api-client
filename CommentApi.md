@@ -29,6 +29,8 @@ const apiInstance = new .CommentApi(configuration);
 let body:.CommentApiCommentAddLocationIdPostRequest = {
   // string | Id of location where add comment
   locationId: "locationId_example",
+  // boolean | Force Validation for this comment (optional)
+  froce: true,
   // AddCommentToLocationDto | AddCommentToLocationDto (optional)
   addCommentToLocationDto: {
     text: "text_example",
@@ -49,6 +51,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **addCommentToLocationDto** | **AddCommentToLocationDto**| AddCommentToLocationDto |
  **locationId** | [**string**] | Id of location where add comment | defaults to undefined
+ **froce** | [**boolean**] | Force Validation for this comment | (optional) defaults to undefined
 
 
 ### Return type

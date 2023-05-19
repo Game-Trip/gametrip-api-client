@@ -29,12 +29,15 @@ const configuration = .createConfiguration();
 const apiInstance = new .LocationApi(configuration);
 
 let body:.LocationApiLocationCreateLocationPostRequest = {
+  // boolean (optional)
+  force: true,
   // CreateLocationDto | CreateLocationDto (optional)
   createLocationDto: {
     name: "name_example",
     description: "description_example",
     latitude: 3.14,
     longitude: 3.14,
+    authorId: "authorId_example",
   },
 };
 
@@ -49,6 +52,7 @@ apiInstance.locationCreateLocationPost(body).then((data:any) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **createLocationDto** | **CreateLocationDto**| CreateLocationDto |
+ **force** | [**boolean**] |  | (optional) defaults to undefined
 
 
 ### Return type

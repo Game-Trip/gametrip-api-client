@@ -158,10 +158,11 @@ export class PromiseCommentApi {
     /**
      * Add Comment To location
      * @param locationId Id of location where add comment
+     * @param froce Force Validation for this comment
      * @param addCommentToLocationDto AddCommentToLocationDto
      */
-    public commentAddLocationIdPost(locationId: string, addCommentToLocationDto?: AddCommentToLocationDto, _options?: Configuration): Promise<MessageDto> {
-        const result = this.api.commentAddLocationIdPost(locationId, addCommentToLocationDto, _options);
+    public commentAddLocationIdPost(locationId: string, froce?: boolean, addCommentToLocationDto?: AddCommentToLocationDto, _options?: Configuration): Promise<MessageDto> {
+        const result = this.api.commentAddLocationIdPost(locationId, froce, addCommentToLocationDto, _options);
         return result.toPromise();
     }
 
@@ -242,10 +243,11 @@ export class PromiseGameApi {
 
     /**
      * Create new Game
+     * @param force 
      * @param createGameDto CreateGameDto
      */
-    public gameCreateGamePost(createGameDto?: CreateGameDto, _options?: Configuration): Promise<MessageDto> {
-        const result = this.api.gameCreateGamePost(createGameDto, _options);
+    public gameCreateGamePost(force?: boolean, createGameDto?: CreateGameDto, _options?: Configuration): Promise<MessageDto> {
+        const result = this.api.gameCreateGamePost(force, createGameDto, _options);
         return result.toPromise();
     }
 
@@ -438,10 +440,11 @@ export class PromiseLocationApi {
 
     /**
      * Create new location
+     * @param force 
      * @param createLocationDto CreateLocationDto
      */
-    public locationCreateLocationPost(createLocationDto?: CreateLocationDto, _options?: Configuration): Promise<MessageDto> {
-        const result = this.api.locationCreateLocationPost(createLocationDto, _options);
+    public locationCreateLocationPost(force?: boolean, createLocationDto?: CreateLocationDto, _options?: Configuration): Promise<MessageDto> {
+        const result = this.api.locationCreateLocationPost(force, createLocationDto, _options);
         return result.toPromise();
     }
 
