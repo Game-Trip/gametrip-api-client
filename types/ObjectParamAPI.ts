@@ -855,56 +855,80 @@ export class ObjectLocationApi {
 import { ObservablePictureApi } from "./ObservableAPI";
 import { PictureApiRequestFactory, PictureApiResponseProcessor} from "../apis/PictureApi";
 
-export interface PictureApiPictureAddPictureToGameGameIdPostRequest {
+export interface PictureApiPictureAddPictureToGameGameIdUserIdPostRequest {
     /**
      * Id of game to add picture
      * @type string
-     * @memberof PictureApipictureAddPictureToGameGameIdPost
+     * @memberof PictureApipictureAddPictureToGameGameIdUserIdPost
      */
     gameId: string
     /**
+     * 
+     * @type string
+     * @memberof PictureApipictureAddPictureToGameGameIdUserIdPost
+     */
+    userId: string
+    /**
      * Name of picture
      * @type string
-     * @memberof PictureApipictureAddPictureToGameGameIdPost
+     * @memberof PictureApipictureAddPictureToGameGameIdUserIdPost
      */
     name?: string
     /**
      * Description of Picture
      * @type string
-     * @memberof PictureApipictureAddPictureToGameGameIdPost
+     * @memberof PictureApipictureAddPictureToGameGameIdUserIdPost
      */
     description?: string
     /**
      * 
+     * @type boolean
+     * @memberof PictureApipictureAddPictureToGameGameIdUserIdPost
+     */
+    force?: boolean
+    /**
+     * 
      * @type HttpFile
-     * @memberof PictureApipictureAddPictureToGameGameIdPost
+     * @memberof PictureApipictureAddPictureToGameGameIdUserIdPost
      */
     pictureData?: HttpFile
 }
 
-export interface PictureApiPictureAddPictureToLocationLocationIdPostRequest {
+export interface PictureApiPictureAddPictureToLocationLocationIdUserIdPostRequest {
     /**
      * Id of location to add picture
      * @type string
-     * @memberof PictureApipictureAddPictureToLocationLocationIdPost
+     * @memberof PictureApipictureAddPictureToLocationLocationIdUserIdPost
      */
     locationId: string
     /**
+     * 
+     * @type string
+     * @memberof PictureApipictureAddPictureToLocationLocationIdUserIdPost
+     */
+    userId: string
+    /**
      * Picture name
      * @type string
-     * @memberof PictureApipictureAddPictureToLocationLocationIdPost
+     * @memberof PictureApipictureAddPictureToLocationLocationIdUserIdPost
      */
     name?: string
     /**
      * Picture description
      * @type string
-     * @memberof PictureApipictureAddPictureToLocationLocationIdPost
+     * @memberof PictureApipictureAddPictureToLocationLocationIdUserIdPost
      */
     description?: string
     /**
      * 
+     * @type boolean
+     * @memberof PictureApipictureAddPictureToLocationLocationIdUserIdPost
+     */
+    force?: boolean
+    /**
+     * 
      * @type HttpFile
-     * @memberof PictureApipictureAddPictureToLocationLocationIdPost
+     * @memberof PictureApipictureAddPictureToLocationLocationIdUserIdPost
      */
     pictureData?: HttpFile
 }
@@ -947,16 +971,16 @@ export class ObjectPictureApi {
      * Create and Add picture to Game
      * @param param the request object
      */
-    public pictureAddPictureToGameGameIdPost(param: PictureApiPictureAddPictureToGameGameIdPostRequest, options?: Configuration): Promise<MessageDto> {
-        return this.api.pictureAddPictureToGameGameIdPost(param.gameId, param.name, param.description, param.pictureData,  options).toPromise();
+    public pictureAddPictureToGameGameIdUserIdPost(param: PictureApiPictureAddPictureToGameGameIdUserIdPostRequest, options?: Configuration): Promise<MessageDto> {
+        return this.api.pictureAddPictureToGameGameIdUserIdPost(param.gameId, param.userId, param.name, param.description, param.force, param.pictureData,  options).toPromise();
     }
 
     /**
      * Create and add picture to location
      * @param param the request object
      */
-    public pictureAddPictureToLocationLocationIdPost(param: PictureApiPictureAddPictureToLocationLocationIdPostRequest, options?: Configuration): Promise<MessageDto> {
-        return this.api.pictureAddPictureToLocationLocationIdPost(param.locationId, param.name, param.description, param.pictureData,  options).toPromise();
+    public pictureAddPictureToLocationLocationIdUserIdPost(param: PictureApiPictureAddPictureToLocationLocationIdUserIdPostRequest, options?: Configuration): Promise<MessageDto> {
+        return this.api.pictureAddPictureToLocationLocationIdUserIdPost(param.locationId, param.userId, param.name, param.description, param.force, param.pictureData,  options).toPromise();
     }
 
     /**
@@ -1187,6 +1211,130 @@ export class ObjectUserApi {
      */
     public userUserIdPut(param: UserApiUserUserIdPutRequest, options?: Configuration): Promise<GameTripUserDto> {
         return this.api.userUserIdPut(param.userId, param.updateGameTripUserDto,  options).toPromise();
+    }
+
+}
+
+import { ObservableValidationApi } from "./ObservableAPI";
+import { ValidationApiRequestFactory, ValidationApiResponseProcessor} from "../apis/ValidationApi";
+
+export interface ValidationApiValidationSwitchCommentValidateStateCommentIdUserIdPostRequest {
+    /**
+     * 
+     * @type string
+     * @memberof ValidationApivalidationSwitchCommentValidateStateCommentIdUserIdPost
+     */
+    commentId: string
+    /**
+     * 
+     * @type string
+     * @memberof ValidationApivalidationSwitchCommentValidateStateCommentIdUserIdPost
+     */
+    userId: string
+    /**
+     * 
+     * @type Array&lt;HttpFile&gt;
+     * @memberof ValidationApivalidationSwitchCommentValidateStateCommentIdUserIdPost
+     */
+    files: Array<HttpFile>
+}
+
+export interface ValidationApiValidationSwitchGameValidateStateGameIdUserIdPostRequest {
+    /**
+     * 
+     * @type string
+     * @memberof ValidationApivalidationSwitchGameValidateStateGameIdUserIdPost
+     */
+    gameId: string
+    /**
+     * 
+     * @type string
+     * @memberof ValidationApivalidationSwitchGameValidateStateGameIdUserIdPost
+     */
+    userId: string
+    /**
+     * 
+     * @type Array&lt;HttpFile&gt;
+     * @memberof ValidationApivalidationSwitchGameValidateStateGameIdUserIdPost
+     */
+    files: Array<HttpFile>
+}
+
+export interface ValidationApiValidationSwitchLocationValidateStateLocationIdUserIdPostRequest {
+    /**
+     * 
+     * @type string
+     * @memberof ValidationApivalidationSwitchLocationValidateStateLocationIdUserIdPost
+     */
+    locationId: string
+    /**
+     * 
+     * @type string
+     * @memberof ValidationApivalidationSwitchLocationValidateStateLocationIdUserIdPost
+     */
+    userId: string
+    /**
+     * 
+     * @type Array&lt;HttpFile&gt;
+     * @memberof ValidationApivalidationSwitchLocationValidateStateLocationIdUserIdPost
+     */
+    files: Array<HttpFile>
+}
+
+export interface ValidationApiValidationSwitchPictureValidateStatePictureIdUserIdPostRequest {
+    /**
+     * 
+     * @type string
+     * @memberof ValidationApivalidationSwitchPictureValidateStatePictureIdUserIdPost
+     */
+    pictureId: string
+    /**
+     * 
+     * @type string
+     * @memberof ValidationApivalidationSwitchPictureValidateStatePictureIdUserIdPost
+     */
+    userId: string
+    /**
+     * 
+     * @type Array&lt;HttpFile&gt;
+     * @memberof ValidationApivalidationSwitchPictureValidateStatePictureIdUserIdPost
+     */
+    files: Array<HttpFile>
+}
+
+export class ObjectValidationApi {
+    private api: ObservableValidationApi
+
+    public constructor(configuration: Configuration, requestFactory?: ValidationApiRequestFactory, responseProcessor?: ValidationApiResponseProcessor) {
+        this.api = new ObservableValidationApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * @param param the request object
+     */
+    public validationSwitchCommentValidateStateCommentIdUserIdPost(param: ValidationApiValidationSwitchCommentValidateStateCommentIdUserIdPostRequest, options?: Configuration): Promise<MessageDto> {
+        return this.api.validationSwitchCommentValidateStateCommentIdUserIdPost(param.commentId, param.userId, param.files,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public validationSwitchGameValidateStateGameIdUserIdPost(param: ValidationApiValidationSwitchGameValidateStateGameIdUserIdPostRequest, options?: Configuration): Promise<MessageDto> {
+        return this.api.validationSwitchGameValidateStateGameIdUserIdPost(param.gameId, param.userId, param.files,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public validationSwitchLocationValidateStateLocationIdUserIdPost(param: ValidationApiValidationSwitchLocationValidateStateLocationIdUserIdPostRequest, options?: Configuration): Promise<MessageDto> {
+        return this.api.validationSwitchLocationValidateStateLocationIdUserIdPost(param.locationId, param.userId, param.files,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public validationSwitchPictureValidateStatePictureIdUserIdPost(param: ValidationApiValidationSwitchPictureValidateStatePictureIdUserIdPostRequest, options?: Configuration): Promise<MessageDto> {
+        return this.api.validationSwitchPictureValidateStatePictureIdUserIdPost(param.pictureId, param.userId, param.files,  options).toPromise();
     }
 
 }

@@ -1065,12 +1065,14 @@ export class ObservablePictureApi {
     /**
      * Create and Add picture to Game
      * @param gameId Id of game to add picture
+     * @param userId 
      * @param name Name of picture
      * @param description Description of Picture
+     * @param force 
      * @param pictureData 
      */
-    public pictureAddPictureToGameGameIdPost(gameId: string, name?: string, description?: string, pictureData?: HttpFile, _options?: Configuration): Observable<MessageDto> {
-        const requestContextPromise = this.requestFactory.pictureAddPictureToGameGameIdPost(gameId, name, description, pictureData, _options);
+    public pictureAddPictureToGameGameIdUserIdPost(gameId: string, userId: string, name?: string, description?: string, force?: boolean, pictureData?: HttpFile, _options?: Configuration): Observable<MessageDto> {
+        const requestContextPromise = this.requestFactory.pictureAddPictureToGameGameIdUserIdPost(gameId, userId, name, description, force, pictureData, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -1084,19 +1086,21 @@ export class ObservablePictureApi {
                 for (let middleware of this.configuration.middleware) {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.pictureAddPictureToGameGameIdPost(rsp)));
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.pictureAddPictureToGameGameIdUserIdPost(rsp)));
             }));
     }
 
     /**
      * Create and add picture to location
      * @param locationId Id of location to add picture
+     * @param userId 
      * @param name Picture name
      * @param description Picture description
+     * @param force 
      * @param pictureData 
      */
-    public pictureAddPictureToLocationLocationIdPost(locationId: string, name?: string, description?: string, pictureData?: HttpFile, _options?: Configuration): Observable<MessageDto> {
-        const requestContextPromise = this.requestFactory.pictureAddPictureToLocationLocationIdPost(locationId, name, description, pictureData, _options);
+    public pictureAddPictureToLocationLocationIdUserIdPost(locationId: string, userId: string, name?: string, description?: string, force?: boolean, pictureData?: HttpFile, _options?: Configuration): Observable<MessageDto> {
+        const requestContextPromise = this.requestFactory.pictureAddPictureToLocationLocationIdUserIdPost(locationId, userId, name, description, force, pictureData, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -1110,7 +1114,7 @@ export class ObservablePictureApi {
                 for (let middleware of this.configuration.middleware) {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.pictureAddPictureToLocationLocationIdPost(rsp)));
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.pictureAddPictureToLocationLocationIdUserIdPost(rsp)));
             }));
     }
 
@@ -1422,6 +1426,120 @@ export class ObservableUserApi {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
                 return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.userUserIdPut(rsp)));
+            }));
+    }
+
+}
+
+import { ValidationApiRequestFactory, ValidationApiResponseProcessor} from "../apis/ValidationApi";
+export class ObservableValidationApi {
+    private requestFactory: ValidationApiRequestFactory;
+    private responseProcessor: ValidationApiResponseProcessor;
+    private configuration: Configuration;
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: ValidationApiRequestFactory,
+        responseProcessor?: ValidationApiResponseProcessor
+    ) {
+        this.configuration = configuration;
+        this.requestFactory = requestFactory || new ValidationApiRequestFactory(configuration);
+        this.responseProcessor = responseProcessor || new ValidationApiResponseProcessor();
+    }
+
+    /**
+     * @param commentId 
+     * @param userId 
+     * @param files 
+     */
+    public validationSwitchCommentValidateStateCommentIdUserIdPost(commentId: string, userId: string, files: Array<HttpFile>, _options?: Configuration): Observable<MessageDto> {
+        const requestContextPromise = this.requestFactory.validationSwitchCommentValidateStateCommentIdUserIdPost(commentId, userId, files, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.validationSwitchCommentValidateStateCommentIdUserIdPost(rsp)));
+            }));
+    }
+
+    /**
+     * @param gameId 
+     * @param userId 
+     * @param files 
+     */
+    public validationSwitchGameValidateStateGameIdUserIdPost(gameId: string, userId: string, files: Array<HttpFile>, _options?: Configuration): Observable<MessageDto> {
+        const requestContextPromise = this.requestFactory.validationSwitchGameValidateStateGameIdUserIdPost(gameId, userId, files, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.validationSwitchGameValidateStateGameIdUserIdPost(rsp)));
+            }));
+    }
+
+    /**
+     * @param locationId 
+     * @param userId 
+     * @param files 
+     */
+    public validationSwitchLocationValidateStateLocationIdUserIdPost(locationId: string, userId: string, files: Array<HttpFile>, _options?: Configuration): Observable<MessageDto> {
+        const requestContextPromise = this.requestFactory.validationSwitchLocationValidateStateLocationIdUserIdPost(locationId, userId, files, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.validationSwitchLocationValidateStateLocationIdUserIdPost(rsp)));
+            }));
+    }
+
+    /**
+     * @param pictureId 
+     * @param userId 
+     * @param files 
+     */
+    public validationSwitchPictureValidateStatePictureIdUserIdPost(pictureId: string, userId: string, files: Array<HttpFile>, _options?: Configuration): Observable<MessageDto> {
+        const requestContextPromise = this.requestFactory.validationSwitchPictureValidateStatePictureIdUserIdPost(pictureId, userId, files, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.validationSwitchPictureValidateStatePictureIdUserIdPost(rsp)));
             }));
     }
 

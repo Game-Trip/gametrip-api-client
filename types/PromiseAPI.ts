@@ -534,24 +534,28 @@ export class PromisePictureApi {
     /**
      * Create and Add picture to Game
      * @param gameId Id of game to add picture
+     * @param userId 
      * @param name Name of picture
      * @param description Description of Picture
+     * @param force 
      * @param pictureData 
      */
-    public pictureAddPictureToGameGameIdPost(gameId: string, name?: string, description?: string, pictureData?: HttpFile, _options?: Configuration): Promise<MessageDto> {
-        const result = this.api.pictureAddPictureToGameGameIdPost(gameId, name, description, pictureData, _options);
+    public pictureAddPictureToGameGameIdUserIdPost(gameId: string, userId: string, name?: string, description?: string, force?: boolean, pictureData?: HttpFile, _options?: Configuration): Promise<MessageDto> {
+        const result = this.api.pictureAddPictureToGameGameIdUserIdPost(gameId, userId, name, description, force, pictureData, _options);
         return result.toPromise();
     }
 
     /**
      * Create and add picture to location
      * @param locationId Id of location to add picture
+     * @param userId 
      * @param name Picture name
      * @param description Picture description
+     * @param force 
      * @param pictureData 
      */
-    public pictureAddPictureToLocationLocationIdPost(locationId: string, name?: string, description?: string, pictureData?: HttpFile, _options?: Configuration): Promise<MessageDto> {
-        const result = this.api.pictureAddPictureToLocationLocationIdPost(locationId, name, description, pictureData, _options);
+    public pictureAddPictureToLocationLocationIdUserIdPost(locationId: string, userId: string, name?: string, description?: string, force?: boolean, pictureData?: HttpFile, _options?: Configuration): Promise<MessageDto> {
+        const result = this.api.pictureAddPictureToLocationLocationIdUserIdPost(locationId, userId, name, description, force, pictureData, _options);
         return result.toPromise();
     }
 
@@ -712,6 +716,65 @@ export class PromiseUserApi {
      */
     public userUserIdPut(userId: string, updateGameTripUserDto?: UpdateGameTripUserDto, _options?: Configuration): Promise<GameTripUserDto> {
         const result = this.api.userUserIdPut(userId, updateGameTripUserDto, _options);
+        return result.toPromise();
+    }
+
+
+}
+
+
+
+import { ObservableValidationApi } from './ObservableAPI';
+
+import { ValidationApiRequestFactory, ValidationApiResponseProcessor} from "../apis/ValidationApi";
+export class PromiseValidationApi {
+    private api: ObservableValidationApi
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: ValidationApiRequestFactory,
+        responseProcessor?: ValidationApiResponseProcessor
+    ) {
+        this.api = new ObservableValidationApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * @param commentId 
+     * @param userId 
+     * @param files 
+     */
+    public validationSwitchCommentValidateStateCommentIdUserIdPost(commentId: string, userId: string, files: Array<HttpFile>, _options?: Configuration): Promise<MessageDto> {
+        const result = this.api.validationSwitchCommentValidateStateCommentIdUserIdPost(commentId, userId, files, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param gameId 
+     * @param userId 
+     * @param files 
+     */
+    public validationSwitchGameValidateStateGameIdUserIdPost(gameId: string, userId: string, files: Array<HttpFile>, _options?: Configuration): Promise<MessageDto> {
+        const result = this.api.validationSwitchGameValidateStateGameIdUserIdPost(gameId, userId, files, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param locationId 
+     * @param userId 
+     * @param files 
+     */
+    public validationSwitchLocationValidateStateLocationIdUserIdPost(locationId: string, userId: string, files: Array<HttpFile>, _options?: Configuration): Promise<MessageDto> {
+        const result = this.api.validationSwitchLocationValidateStateLocationIdUserIdPost(locationId, userId, files, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param pictureId 
+     * @param userId 
+     * @param files 
+     */
+    public validationSwitchPictureValidateStatePictureIdUserIdPost(pictureId: string, userId: string, files: Array<HttpFile>, _options?: Configuration): Promise<MessageDto> {
+        const result = this.api.validationSwitchPictureValidateStatePictureIdUserIdPost(pictureId, userId, files, _options);
         return result.toPromise();
     }
 

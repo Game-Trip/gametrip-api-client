@@ -9,6 +9,7 @@ README.md
 SearchApi.md
 StatusApi.md
 UserApi.md
+ValidationApi.md
 apis/AuthApi.ts
 apis/CommentApi.ts
 apis/GameApi.ts
@@ -18,6 +19,7 @@ apis/PictureApi.ts
 apis/SearchApi.ts
 apis/StatusApi.ts
 apis/UserApi.ts
+apis/ValidationApi.ts
 apis/baseapi.ts
 apis/exception.ts
 auth/auth.ts

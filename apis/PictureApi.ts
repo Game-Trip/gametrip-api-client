@@ -20,25 +20,35 @@ export class PictureApiRequestFactory extends BaseAPIRequestFactory {
     /**
      * Create and Add picture to Game
      * @param gameId Id of game to add picture
+     * @param userId 
      * @param name Name of picture
      * @param description Description of Picture
+     * @param force 
      * @param pictureData 
      */
-    public async pictureAddPictureToGameGameIdPost(gameId: string, name?: string, description?: string, pictureData?: HttpFile, _options?: Configuration): Promise<RequestContext> {
+    public async pictureAddPictureToGameGameIdUserIdPost(gameId: string, userId: string, name?: string, description?: string, force?: boolean, pictureData?: HttpFile, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'gameId' is not null or undefined
         if (gameId === null || gameId === undefined) {
-            throw new RequiredError("PictureApi", "pictureAddPictureToGameGameIdPost", "gameId");
+            throw new RequiredError("PictureApi", "pictureAddPictureToGameGameIdUserIdPost", "gameId");
+        }
+
+
+        // verify required parameter 'userId' is not null or undefined
+        if (userId === null || userId === undefined) {
+            throw new RequiredError("PictureApi", "pictureAddPictureToGameGameIdUserIdPost", "userId");
         }
 
 
 
 
 
+
         // Path Params
-        const localVarPath = '/Picture/AddPictureToGame/{gameId}'
-            .replace('{' + 'gameId' + '}', encodeURIComponent(String(gameId)));
+        const localVarPath = '/Picture/AddPictureToGame/{gameId}/{userId}'
+            .replace('{' + 'gameId' + '}', encodeURIComponent(String(gameId)))
+            .replace('{' + 'userId' + '}', encodeURIComponent(String(userId)));
 
         // Make Request Context
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
@@ -52,6 +62,11 @@ export class PictureApiRequestFactory extends BaseAPIRequestFactory {
         // Query Params
         if (description !== undefined) {
             requestContext.setQueryParam("description", ObjectSerializer.serialize(description, "string", ""));
+        }
+
+        // Query Params
+        if (force !== undefined) {
+            requestContext.setQueryParam("force", ObjectSerializer.serialize(force, "boolean", ""));
         }
 
         // Form Params
@@ -100,25 +115,35 @@ export class PictureApiRequestFactory extends BaseAPIRequestFactory {
     /**
      * Create and add picture to location
      * @param locationId Id of location to add picture
+     * @param userId 
      * @param name Picture name
      * @param description Picture description
+     * @param force 
      * @param pictureData 
      */
-    public async pictureAddPictureToLocationLocationIdPost(locationId: string, name?: string, description?: string, pictureData?: HttpFile, _options?: Configuration): Promise<RequestContext> {
+    public async pictureAddPictureToLocationLocationIdUserIdPost(locationId: string, userId: string, name?: string, description?: string, force?: boolean, pictureData?: HttpFile, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'locationId' is not null or undefined
         if (locationId === null || locationId === undefined) {
-            throw new RequiredError("PictureApi", "pictureAddPictureToLocationLocationIdPost", "locationId");
+            throw new RequiredError("PictureApi", "pictureAddPictureToLocationLocationIdUserIdPost", "locationId");
+        }
+
+
+        // verify required parameter 'userId' is not null or undefined
+        if (userId === null || userId === undefined) {
+            throw new RequiredError("PictureApi", "pictureAddPictureToLocationLocationIdUserIdPost", "userId");
         }
 
 
 
 
 
+
         // Path Params
-        const localVarPath = '/Picture/AddPictureToLocation/{locationId}'
-            .replace('{' + 'locationId' + '}', encodeURIComponent(String(locationId)));
+        const localVarPath = '/Picture/AddPictureToLocation/{locationId}/{userId}'
+            .replace('{' + 'locationId' + '}', encodeURIComponent(String(locationId)))
+            .replace('{' + 'userId' + '}', encodeURIComponent(String(userId)));
 
         // Make Request Context
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
@@ -132,6 +157,11 @@ export class PictureApiRequestFactory extends BaseAPIRequestFactory {
         // Query Params
         if (description !== undefined) {
             requestContext.setQueryParam("description", ObjectSerializer.serialize(description, "string", ""));
+        }
+
+        // Query Params
+        if (force !== undefined) {
+            requestContext.setQueryParam("force", ObjectSerializer.serialize(force, "boolean", ""));
         }
 
         // Form Params
@@ -296,10 +326,10 @@ export class PictureApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to pictureAddPictureToGameGameIdPost
+     * @params response Response returned by the server for a request to pictureAddPictureToGameGameIdUserIdPost
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async pictureAddPictureToGameGameIdPost(response: ResponseContext): Promise<MessageDto > {
+     public async pictureAddPictureToGameGameIdUserIdPost(response: ResponseContext): Promise<MessageDto > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: MessageDto = ObjectSerializer.deserialize(
@@ -339,10 +369,10 @@ export class PictureApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to pictureAddPictureToLocationLocationIdPost
+     * @params response Response returned by the server for a request to pictureAddPictureToLocationLocationIdUserIdPost
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async pictureAddPictureToLocationLocationIdPost(response: ResponseContext): Promise<MessageDto > {
+     public async pictureAddPictureToLocationLocationIdUserIdPost(response: ResponseContext): Promise<MessageDto > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: MessageDto = ObjectSerializer.deserialize(
