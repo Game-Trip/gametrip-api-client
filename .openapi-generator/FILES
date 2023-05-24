@@ -63,6 +63,7 @@ models/ListLikedLocationDto.ts
 models/ListPictureDto.ts
 models/LocationDto.ts
 models/LocationNameDto.ts
+models/LocationUpdateRequestDto.ts
 models/LoginDto.ts
 models/MemberInfo.ts
 models/MemberTypes.ts

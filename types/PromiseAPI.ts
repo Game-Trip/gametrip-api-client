@@ -35,6 +35,7 @@ import { ListLikedLocationDto } from '../models/ListLikedLocationDto';
 import { ListPictureDto } from '../models/ListPictureDto';
 import { LocationDto } from '../models/LocationDto';
 import { LocationNameDto } from '../models/LocationNameDto';
+import { LocationUpdateRequestDto } from '../models/LocationUpdateRequestDto';
 import { LoginDto } from '../models/LoginDto';
 import { MemberInfo } from '../models/MemberInfo';
 import { MemberTypes } from '../models/MemberTypes';
@@ -494,12 +495,23 @@ export class PromiseLocationApi {
     }
 
     /**
-     * Update location
+     * Make a request to update a location
+     * @param locationId Id of location to request an update
+     * @param locationUpdateRequestDto LocationUpdateRequestDto
+     */
+    public locationLocationIdPost(locationId: string, locationUpdateRequestDto?: LocationUpdateRequestDto, _options?: Configuration): Promise<MessageDto> {
+        const result = this.api.locationLocationIdPost(locationId, locationUpdateRequestDto, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Update location -> For Admin only
      * @param locationId Id of location to update
+     * @param isRequestUpdate Bool -&gt; Define if the update is due to an update request or not
      * @param updateLocationDto UpdateLocationDto
      */
-    public locationLocationIdPut(locationId: string, updateLocationDto?: UpdateLocationDto, _options?: Configuration): Promise<LocationDto> {
-        const result = this.api.locationLocationIdPut(locationId, updateLocationDto, _options);
+    public locationLocationIdPut(locationId: string, isRequestUpdate?: boolean, updateLocationDto?: UpdateLocationDto, _options?: Configuration): Promise<GetLocationDto> {
+        const result = this.api.locationLocationIdPut(locationId, isRequestUpdate, updateLocationDto, _options);
         return result.toPromise();
     }
 
@@ -509,6 +521,15 @@ export class PromiseLocationApi {
      */
     public locationNameLocationNameGet(locationName: string, _options?: Configuration): Promise<GetLocationDto> {
         const result = this.api.locationNameLocationNameGet(locationName, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param locationId 
+     * @param files 
+     */
+    public locationRequestUpdateLocationIdPost(locationId: string, files: Array<HttpFile>, _options?: Configuration): Promise<MessageDto> {
+        const result = this.api.locationRequestUpdateLocationIdPost(locationId, files, _options);
         return result.toPromise();
     }
 

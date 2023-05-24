@@ -36,6 +36,7 @@ import { ListLikedLocationDto } from '../models/ListLikedLocationDto';
 import { ListPictureDto } from '../models/ListPictureDto';
 import { LocationDto } from '../models/LocationDto';
 import { LocationNameDto } from '../models/LocationNameDto';
+import { LocationUpdateRequestDto } from '../models/LocationUpdateRequestDto';
 import { LoginDto } from '../models/LoginDto';
 import { MemberInfo } from '../models/MemberInfo';
 import { MemberTypes } from '../models/MemberTypes';
@@ -998,12 +999,37 @@ export class ObservableLocationApi {
     }
 
     /**
-     * Update location
+     * Make a request to update a location
+     * @param locationId Id of location to request an update
+     * @param locationUpdateRequestDto LocationUpdateRequestDto
+     */
+    public locationLocationIdPost(locationId: string, locationUpdateRequestDto?: LocationUpdateRequestDto, _options?: Configuration): Observable<MessageDto> {
+        const requestContextPromise = this.requestFactory.locationLocationIdPost(locationId, locationUpdateRequestDto, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.locationLocationIdPost(rsp)));
+            }));
+    }
+
+    /**
+     * Update location -> For Admin only
      * @param locationId Id of location to update
+     * @param isRequestUpdate Bool -&gt; Define if the update is due to an update request or not
      * @param updateLocationDto UpdateLocationDto
      */
-    public locationLocationIdPut(locationId: string, updateLocationDto?: UpdateLocationDto, _options?: Configuration): Observable<LocationDto> {
-        const requestContextPromise = this.requestFactory.locationLocationIdPut(locationId, updateLocationDto, _options);
+    public locationLocationIdPut(locationId: string, isRequestUpdate?: boolean, updateLocationDto?: UpdateLocationDto, _options?: Configuration): Observable<GetLocationDto> {
+        const requestContextPromise = this.requestFactory.locationLocationIdPut(locationId, isRequestUpdate, updateLocationDto, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -1041,6 +1067,29 @@ export class ObservableLocationApi {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
                 return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.locationNameLocationNameGet(rsp)));
+            }));
+    }
+
+    /**
+     * @param locationId 
+     * @param files 
+     */
+    public locationRequestUpdateLocationIdPost(locationId: string, files: Array<HttpFile>, _options?: Configuration): Observable<MessageDto> {
+        const requestContextPromise = this.requestFactory.locationRequestUpdateLocationIdPost(locationId, files, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.locationRequestUpdateLocationIdPost(rsp)));
             }));
     }
 

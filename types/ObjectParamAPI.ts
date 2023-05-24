@@ -35,6 +35,7 @@ import { ListLikedLocationDto } from '../models/ListLikedLocationDto';
 import { ListPictureDto } from '../models/ListPictureDto';
 import { LocationDto } from '../models/LocationDto';
 import { LocationNameDto } from '../models/LocationNameDto';
+import { LocationUpdateRequestDto } from '../models/LocationUpdateRequestDto';
 import { LoginDto } from '../models/LoginDto';
 import { MemberInfo } from '../models/MemberInfo';
 import { MemberTypes } from '../models/MemberTypes';
@@ -755,6 +756,21 @@ export interface LocationApiLocationIdLocationIdGetRequest {
     locationId: string
 }
 
+export interface LocationApiLocationLocationIdPostRequest {
+    /**
+     * Id of location to request an update
+     * @type string
+     * @memberof LocationApilocationLocationIdPost
+     */
+    locationId: string
+    /**
+     * LocationUpdateRequestDto
+     * @type LocationUpdateRequestDto
+     * @memberof LocationApilocationLocationIdPost
+     */
+    locationUpdateRequestDto?: LocationUpdateRequestDto
+}
+
 export interface LocationApiLocationLocationIdPutRequest {
     /**
      * Id of location to update
@@ -762,6 +778,12 @@ export interface LocationApiLocationLocationIdPutRequest {
      * @memberof LocationApilocationLocationIdPut
      */
     locationId: string
+    /**
+     * Bool -&gt; Define if the update is due to an update request or not
+     * @type boolean
+     * @memberof LocationApilocationLocationIdPut
+     */
+    isRequestUpdate?: boolean
     /**
      * UpdateLocationDto
      * @type UpdateLocationDto
@@ -777,6 +799,21 @@ export interface LocationApiLocationNameLocationNameGetRequest {
      * @memberof LocationApilocationNameLocationNameGet
      */
     locationName: string
+}
+
+export interface LocationApiLocationRequestUpdateLocationIdPostRequest {
+    /**
+     * 
+     * @type string
+     * @memberof LocationApilocationRequestUpdateLocationIdPost
+     */
+    locationId: string
+    /**
+     * 
+     * @type Array&lt;HttpFile&gt;
+     * @memberof LocationApilocationRequestUpdateLocationIdPost
+     */
+    files: Array<HttpFile>
 }
 
 export class ObjectLocationApi {
@@ -835,11 +872,19 @@ export class ObjectLocationApi {
     }
 
     /**
-     * Update location
+     * Make a request to update a location
      * @param param the request object
      */
-    public locationLocationIdPut(param: LocationApiLocationLocationIdPutRequest, options?: Configuration): Promise<LocationDto> {
-        return this.api.locationLocationIdPut(param.locationId, param.updateLocationDto,  options).toPromise();
+    public locationLocationIdPost(param: LocationApiLocationLocationIdPostRequest, options?: Configuration): Promise<MessageDto> {
+        return this.api.locationLocationIdPost(param.locationId, param.locationUpdateRequestDto,  options).toPromise();
+    }
+
+    /**
+     * Update location -> For Admin only
+     * @param param the request object
+     */
+    public locationLocationIdPut(param: LocationApiLocationLocationIdPutRequest, options?: Configuration): Promise<GetLocationDto> {
+        return this.api.locationLocationIdPut(param.locationId, param.isRequestUpdate, param.updateLocationDto,  options).toPromise();
     }
 
     /**
@@ -848,6 +893,13 @@ export class ObjectLocationApi {
      */
     public locationNameLocationNameGet(param: LocationApiLocationNameLocationNameGetRequest, options?: Configuration): Promise<GetLocationDto> {
         return this.api.locationNameLocationNameGet(param.locationName,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public locationRequestUpdateLocationIdPost(param: LocationApiLocationRequestUpdateLocationIdPostRequest, options?: Configuration): Promise<MessageDto> {
+        return this.api.locationRequestUpdateLocationIdPost(param.locationId, param.files,  options).toPromise();
     }
 
 }

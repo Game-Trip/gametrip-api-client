@@ -32,6 +32,7 @@ export * from '../models/ListLikedLocationDto';
 export * from '../models/ListPictureDto';
 export * from '../models/LocationDto';
 export * from '../models/LocationNameDto';
+export * from '../models/LocationUpdateRequestDto';
 export * from '../models/LoginDto';
 export * from '../models/MemberInfo';
 export * from '../models/MemberTypes';
@@ -100,6 +101,7 @@ import { ListLikedLocationDto } from '../models/ListLikedLocationDto';
 import { ListPictureDto } from '../models/ListPictureDto';
 import { LocationDto } from '../models/LocationDto';
 import { LocationNameDto } from '../models/LocationNameDto';
+import { LocationUpdateRequestDto } from '../models/LocationUpdateRequestDto';
 import { LoginDto } from '../models/LoginDto';
 import { MemberInfo         } from '../models/MemberInfo';
 import { MemberTypes } from '../models/MemberTypes';
@@ -199,6 +201,7 @@ let typeMap: {[index: string]: any} = {
     "ListPictureDto": ListPictureDto,
     "LocationDto": LocationDto,
     "LocationNameDto": LocationNameDto,
+    "LocationUpdateRequestDto": LocationUpdateRequestDto,
     "LoginDto": LoginDto,
     "MemberInfo": MemberInfo,
     "MessageDto": MessageDto,

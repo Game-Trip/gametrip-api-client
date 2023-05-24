@@ -11,6 +11,7 @@ import {SecurityAuthentication} from '../auth/auth';
 import { CreateLocationDto } from '../models/CreateLocationDto';
 import { GetLocationDto } from '../models/GetLocationDto';
 import { LocationDto } from '../models/LocationDto';
+import { LocationUpdateRequestDto } from '../models/LocationUpdateRequestDto';
 import { MessageDto } from '../models/MessageDto';
 import { UpdateLocationDto } from '../models/UpdateLocationDto';
 
@@ -257,17 +258,73 @@ export class LocationApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * Update location
+     * Make a request to update a location
+     * @param locationId Id of location to request an update
+     * @param locationUpdateRequestDto LocationUpdateRequestDto
+     */
+    public async locationLocationIdPost(locationId: string, locationUpdateRequestDto?: LocationUpdateRequestDto, _options?: Configuration): Promise<RequestContext> {
+        let _config = _options || this.configuration;
+
+        // verify required parameter 'locationId' is not null or undefined
+        if (locationId === null || locationId === undefined) {
+            throw new RequiredError("LocationApi", "locationLocationIdPost", "locationId");
+        }
+
+
+
+        // Path Params
+        const localVarPath = '/Location/{locationId}'
+            .replace('{' + 'locationId' + '}', encodeURIComponent(String(locationId)));
+
+        // Make Request Context
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+
+        // Body Params
+        const contentType = ObjectSerializer.getPreferredMediaType([
+            "application/json",
+        
+            "text/json",
+        
+            "application/*+json"
+        ]);
+        requestContext.setHeaderParam("Content-Type", contentType);
+        const serializedBody = ObjectSerializer.stringify(
+            ObjectSerializer.serialize(locationUpdateRequestDto, "LocationUpdateRequestDto", ""),
+            contentType
+        );
+        requestContext.setBody(serializedBody);
+
+        let authMethod: SecurityAuthentication | undefined;
+        // Apply auth methods
+        authMethod = _config.authMethods["Bearer"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        
+        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        if (defaultAuth?.applySecurityAuthentication) {
+            await defaultAuth?.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
+    }
+
+    /**
+     * Update location -> For Admin only
      * @param locationId Id of location to update
+     * @param isRequestUpdate Bool -&gt; Define if the update is due to an update request or not
      * @param updateLocationDto UpdateLocationDto
      */
-    public async locationLocationIdPut(locationId: string, updateLocationDto?: UpdateLocationDto, _options?: Configuration): Promise<RequestContext> {
+    public async locationLocationIdPut(locationId: string, isRequestUpdate?: boolean, updateLocationDto?: UpdateLocationDto, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'locationId' is not null or undefined
         if (locationId === null || locationId === undefined) {
             throw new RequiredError("LocationApi", "locationLocationIdPut", "locationId");
         }
+
 
 
 
@@ -278,6 +335,11 @@ export class LocationApiRequestFactory extends BaseAPIRequestFactory {
         // Make Request Context
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.PUT);
         requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+        // Query Params
+        if (isRequestUpdate !== undefined) {
+            requestContext.setQueryParam("IsRequestUpdate", ObjectSerializer.serialize(isRequestUpdate, "boolean", ""));
+        }
 
 
         // Body Params
@@ -331,6 +393,74 @@ export class LocationApiRequestFactory extends BaseAPIRequestFactory {
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
         requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
+
+        let authMethod: SecurityAuthentication | undefined;
+        // Apply auth methods
+        authMethod = _config.authMethods["Bearer"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        
+        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        if (defaultAuth?.applySecurityAuthentication) {
+            await defaultAuth?.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
+    }
+
+    /**
+     * @param locationId 
+     * @param files 
+     */
+    public async locationRequestUpdateLocationIdPost(locationId: string, files: Array<HttpFile>, _options?: Configuration): Promise<RequestContext> {
+        let _config = _options || this.configuration;
+
+        // verify required parameter 'locationId' is not null or undefined
+        if (locationId === null || locationId === undefined) {
+            throw new RequiredError("LocationApi", "locationRequestUpdateLocationIdPost", "locationId");
+        }
+
+
+        // verify required parameter 'files' is not null or undefined
+        if (files === null || files === undefined) {
+            throw new RequiredError("LocationApi", "locationRequestUpdateLocationIdPost", "files");
+        }
+
+
+        // Path Params
+        const localVarPath = '/Location/Request_Update/{locationId}'
+            .replace('{' + 'locationId' + '}', encodeURIComponent(String(locationId)));
+
+        // Make Request Context
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+        // Form Params
+        const useForm = canConsumeForm([
+            'multipart/form-data',
+        ]);
+
+        let localVarFormParams
+        if (useForm) {
+            localVarFormParams = new FormData();
+        } else {
+            localVarFormParams = new URLSearchParams();
+        }
+
+        if (files) {
+            // TODO: replace .append with .set
+            localVarFormParams.append('files', files.join(COLLECTION_FORMATS["csv"]));
+        }
+
+        requestContext.setBody(localVarFormParams);
+
+        if(!useForm) {
+            const contentType = ObjectSerializer.getPreferredMediaType([
+                "multipart/form-data"
+            ]);
+            requestContext.setHeaderParam("Content-Type", contentType);
+        }
 
         let authMethod: SecurityAuthentication | undefined;
         // Apply auth methods
@@ -564,16 +694,16 @@ export class LocationApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to locationLocationIdPut
+     * @params response Response returned by the server for a request to locationLocationIdPost
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async locationLocationIdPut(response: ResponseContext): Promise<LocationDto > {
+     public async locationLocationIdPost(response: ResponseContext): Promise<MessageDto > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: LocationDto = ObjectSerializer.deserialize(
+            const body: MessageDto = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "LocationDto", ""
-            ) as LocationDto;
+                "MessageDto", ""
+            ) as MessageDto;
             return body;
         }
         if (isCodeInRange("400", response.httpStatusCode)) {
@@ -586,10 +716,46 @@ export class LocationApiResponseProcessor {
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: LocationDto = ObjectSerializer.deserialize(
+            const body: MessageDto = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "LocationDto", ""
-            ) as LocationDto;
+                "MessageDto", ""
+            ) as MessageDto;
+            return body;
+        }
+
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+    }
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to locationLocationIdPut
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async locationLocationIdPut(response: ResponseContext): Promise<GetLocationDto > {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+            const body: GetLocationDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "GetLocationDto", ""
+            ) as GetLocationDto;
+            return body;
+        }
+        if (isCodeInRange("400", response.httpStatusCode)) {
+            const body: MessageDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "MessageDto", ""
+            ) as MessageDto;
+            throw new ApiException<MessageDto>(response.httpStatusCode, "Bad Request", body, response.headers);
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: GetLocationDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "GetLocationDto", ""
+            ) as GetLocationDto;
             return body;
         }
 
@@ -626,6 +792,42 @@ export class LocationApiResponseProcessor {
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "GetLocationDto", ""
             ) as GetLocationDto;
+            return body;
+        }
+
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+    }
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to locationRequestUpdateLocationIdPost
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async locationRequestUpdateLocationIdPost(response: ResponseContext): Promise<MessageDto > {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+            const body: MessageDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "MessageDto", ""
+            ) as MessageDto;
+            return body;
+        }
+        if (isCodeInRange("400", response.httpStatusCode)) {
+            const body: MessageDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "MessageDto", ""
+            ) as MessageDto;
+            throw new ApiException<MessageDto>(response.httpStatusCode, "Bad Request", body, response.headers);
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: MessageDto = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "MessageDto", ""
+            ) as MessageDto;
             return body;
         }
 
