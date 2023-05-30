@@ -18,8 +18,6 @@ export class LocationDto {
     'description'?: string | null;
     'latitude'?: number;
     'longitude'?: number;
-    'authorId'?: string;
-    'isValidate'?: boolean;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -53,18 +51,6 @@ export class LocationDto {
             "baseName": "longitude",
             "type": "number",
             "format": "double"
-        },
-        {
-            "name": "authorId",
-            "baseName": "authorId",
-            "type": "string",
-            "format": "uuid"
-        },
-        {
-            "name": "isValidate",
-            "baseName": "isValidate",
-            "type": "boolean",
-            "format": ""
         }    ];
 
     static getAttributeTypeMap() {

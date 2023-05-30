@@ -15,8 +15,6 @@ import { HttpFile } from '../http/http';
 export class LocationNameDto {
     'id'?: string | null;
     'name'?: string | null;
-    'authorId'?: string;
-    'isValidate'?: boolean;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -31,18 +29,6 @@ export class LocationNameDto {
             "name": "name",
             "baseName": "name",
             "type": "string",
-            "format": ""
-        },
-        {
-            "name": "authorId",
-            "baseName": "authorId",
-            "type": "string",
-            "format": "uuid"
-        },
-        {
-            "name": "isValidate",
-            "baseName": "isValidate",
-            "type": "boolean",
             "format": ""
         }    ];
 

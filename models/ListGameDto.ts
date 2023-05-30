@@ -18,8 +18,6 @@ export class ListGameDto {
     'description'?: string | null;
     'editor'?: string | null;
     'releaseDate'?: number | null;
-    'authorId'?: string;
-    'isValidate'?: boolean;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -53,18 +51,6 @@ export class ListGameDto {
             "baseName": "releaseDate",
             "type": "number",
             "format": "int64"
-        },
-        {
-            "name": "authorId",
-            "baseName": "authorId",
-            "type": "string",
-            "format": "uuid"
-        },
-        {
-            "name": "isValidate",
-            "baseName": "isValidate",
-            "type": "boolean",
-            "format": ""
         }    ];
 
     static getAttributeTypeMap() {

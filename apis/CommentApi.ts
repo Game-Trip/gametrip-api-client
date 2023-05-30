@@ -21,17 +21,15 @@ export class CommentApiRequestFactory extends BaseAPIRequestFactory {
     /**
      * Add Comment To location
      * @param locationId Id of location where add comment
-     * @param froce Force Validation for this comment
      * @param addCommentToLocationDto AddCommentToLocationDto
      */
-    public async commentAddLocationIdPost(locationId: string, froce?: boolean, addCommentToLocationDto?: AddCommentToLocationDto, _options?: Configuration): Promise<RequestContext> {
+    public async commentAddLocationIdPost(locationId: string, addCommentToLocationDto?: AddCommentToLocationDto, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'locationId' is not null or undefined
         if (locationId === null || locationId === undefined) {
             throw new RequiredError("CommentApi", "commentAddLocationIdPost", "locationId");
         }
-
 
 
 
@@ -42,11 +40,6 @@ export class CommentApiRequestFactory extends BaseAPIRequestFactory {
         // Make Request Context
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
         requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
-
-        // Query Params
-        if (froce !== undefined) {
-            requestContext.setQueryParam("froce", ObjectSerializer.serialize(froce, "boolean", ""));
-        }
 
 
         // Body Params

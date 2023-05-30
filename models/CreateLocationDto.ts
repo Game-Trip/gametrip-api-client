@@ -17,7 +17,6 @@ export class CreateLocationDto {
     'description'?: string | null;
     'latitude'?: number;
     'longitude'?: number;
-    'authorId'?: string;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -45,12 +44,6 @@ export class CreateLocationDto {
             "baseName": "longitude",
             "type": "number",
             "format": "double"
-        },
-        {
-            "name": "authorId",
-            "baseName": "authorId",
-            "type": "string",
-            "format": "uuid"
         }    ];
 
     static getAttributeTypeMap() {

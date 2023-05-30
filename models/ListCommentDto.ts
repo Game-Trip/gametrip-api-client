@@ -17,7 +17,6 @@ export class ListCommentDto {
     'text'?: string | null;
     'userId'?: string;
     'locationId'?: string;
-    'isValidate'?: boolean;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -45,12 +44,6 @@ export class ListCommentDto {
             "baseName": "locationId",
             "type": "string",
             "format": "uuid"
-        },
-        {
-            "name": "isValidate",
-            "baseName": "isValidate",
-            "type": "boolean",
-            "format": ""
         }    ];
 
     static getAttributeTypeMap() {

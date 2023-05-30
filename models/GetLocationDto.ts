@@ -22,8 +22,6 @@ export class GetLocationDto {
     'description'?: string | null;
     'latitude'?: number;
     'longitude'?: number;
-    'authorId'?: string;
-    'isValidate'?: boolean;
     'pictures'?: Array<ListPictureDto> | null;
     'games'?: Array<ListGameDto> | null;
     'comments'?: Array<ListCommentDto> | null;
@@ -61,18 +59,6 @@ export class GetLocationDto {
             "baseName": "longitude",
             "type": "number",
             "format": "double"
-        },
-        {
-            "name": "authorId",
-            "baseName": "authorId",
-            "type": "string",
-            "format": "uuid"
-        },
-        {
-            "name": "isValidate",
-            "baseName": "isValidate",
-            "type": "boolean",
-            "format": ""
         },
         {
             "name": "pictures",
