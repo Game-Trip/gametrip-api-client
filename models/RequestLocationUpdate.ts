@@ -10,33 +10,46 @@
  * Do not edit the class manually.
  */
 
-import { ListCommentDto } from '../models/ListCommentDto';
-import { ListGameDto } from '../models/ListGameDto';
-import { ListLikedLocationDto } from '../models/ListLikedLocationDto';
-import { ListPictureDto } from '../models/ListPictureDto';
+import { Game } from '../models/Game';
+import { Location } from '../models/Location';
+import { Picture } from '../models/Picture';
 import { HttpFile } from '../http/http';
 
-export class GetLocationDto {
-    'id'?: string | null;
+export class RequestLocationUpdate {
+    'idRequestLocationUpdate'?: string;
+    'locationId'?: string;
+    'location'?: Location;
     'name'?: string | null;
     'description'?: string | null;
-    'latitude'?: number;
-    'longitude'?: number;
-    'authorId'?: string;
-    'isValidate'?: boolean;
-    'pictures'?: Array<ListPictureDto> | null;
-    'games'?: Array<ListGameDto> | null;
-    'comments'?: Array<ListCommentDto> | null;
-    'likedLocations'?: Array<ListLikedLocationDto> | null;
+    'latitude'?: number | null;
+    'longitude'?: number | null;
+    'idPicture'?: string | null;
+    'picture'?: Picture;
+    'isAddedPicture'?: boolean | null;
+    'idGame'?: string | null;
+    'game'?: Game;
+    'isAddedGame'?: boolean | null;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "id",
-            "baseName": "id",
+            "name": "idRequestLocationUpdate",
+            "baseName": "idRequestLocationUpdate",
             "type": "string",
             "format": "uuid"
+        },
+        {
+            "name": "locationId",
+            "baseName": "locationId",
+            "type": "string",
+            "format": "uuid"
+        },
+        {
+            "name": "location",
+            "baseName": "location",
+            "type": "Location",
+            "format": ""
         },
         {
             "name": "name",
@@ -63,44 +76,44 @@ export class GetLocationDto {
             "format": "double"
         },
         {
-            "name": "authorId",
-            "baseName": "authorId",
+            "name": "idPicture",
+            "baseName": "idPicture",
             "type": "string",
             "format": "uuid"
         },
         {
-            "name": "isValidate",
-            "baseName": "isValidate",
+            "name": "picture",
+            "baseName": "picture",
+            "type": "Picture",
+            "format": ""
+        },
+        {
+            "name": "isAddedPicture",
+            "baseName": "isAddedPicture",
             "type": "boolean",
             "format": ""
         },
         {
-            "name": "pictures",
-            "baseName": "pictures",
-            "type": "Array<ListPictureDto>",
+            "name": "idGame",
+            "baseName": "idGame",
+            "type": "string",
+            "format": "uuid"
+        },
+        {
+            "name": "game",
+            "baseName": "game",
+            "type": "Game",
             "format": ""
         },
         {
-            "name": "games",
-            "baseName": "games",
-            "type": "Array<ListGameDto>",
-            "format": ""
-        },
-        {
-            "name": "comments",
-            "baseName": "comments",
-            "type": "Array<ListCommentDto>",
-            "format": ""
-        },
-        {
-            "name": "likedLocations",
-            "baseName": "likedLocations",
-            "type": "Array<ListLikedLocationDto>",
+            "name": "isAddedGame",
+            "baseName": "isAddedGame",
+            "type": "boolean",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return GetLocationDto.attributeTypeMap;
+        return RequestLocationUpdate.attributeTypeMap;
     }
 
     public constructor() {

@@ -21,6 +21,7 @@ export class Comment {
     'user'?: GameTripUser;
     'locationId'?: string;
     'location'?: Location;
+    'isValidate'?: boolean;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -59,6 +60,12 @@ export class Comment {
             "name": "location",
             "baseName": "location",
             "type": "Location",
+            "format": ""
+        },
+        {
+            "name": "isValidate",
+            "baseName": "isValidate",
+            "type": "boolean",
             "format": ""
         }    ];
 

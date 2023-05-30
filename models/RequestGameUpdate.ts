@@ -10,35 +10,46 @@
  * Do not edit the class manually.
  */
 
-import { GameTripUser } from '../models/GameTripUser';
-import { LikedGame } from '../models/LikedGame';
+import { Game } from '../models/Game';
 import { Location } from '../models/Location';
 import { Picture } from '../models/Picture';
-import { RequestGameUpdate } from '../models/RequestGameUpdate';
 import { HttpFile } from '../http/http';
 
-export class Game {
-    'idGame'?: string;
+export class RequestGameUpdate {
+    'idRequestGameUpdate'?: string;
+    'gameId'?: string;
+    'game'?: Game;
     'name'?: string | null;
     'description'?: string | null;
     'editor'?: string | null;
     'releaseDate'?: number | null;
-    'isValidate'?: boolean;
-    'authorId'?: string;
-    'author'?: GameTripUser;
-    'locations'?: Array<Location> | null;
-    'pictures'?: Array<Picture> | null;
-    'likedGames'?: Array<LikedGame> | null;
-    'requestGameUpdates'?: Array<RequestGameUpdate> | null;
+    'idLocation'?: string | null;
+    'location'?: Location;
+    'isAddedLocation'?: boolean | null;
+    'idPicture'?: string | null;
+    'picture'?: Picture;
+    'isAddedPicture'?: boolean | null;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "idGame",
-            "baseName": "idGame",
+            "name": "idRequestGameUpdate",
+            "baseName": "idRequestGameUpdate",
             "type": "string",
             "format": "uuid"
+        },
+        {
+            "name": "gameId",
+            "baseName": "gameId",
+            "type": "string",
+            "format": "uuid"
+        },
+        {
+            "name": "game",
+            "baseName": "game",
+            "type": "Game",
+            "format": ""
         },
         {
             "name": "name",
@@ -65,50 +76,44 @@ export class Game {
             "format": "int64"
         },
         {
-            "name": "isValidate",
-            "baseName": "isValidate",
-            "type": "boolean",
-            "format": ""
-        },
-        {
-            "name": "authorId",
-            "baseName": "authorId",
+            "name": "idLocation",
+            "baseName": "idLocation",
             "type": "string",
             "format": "uuid"
         },
         {
-            "name": "author",
-            "baseName": "author",
-            "type": "GameTripUser",
+            "name": "location",
+            "baseName": "location",
+            "type": "Location",
             "format": ""
         },
         {
-            "name": "locations",
-            "baseName": "locations",
-            "type": "Array<Location>",
+            "name": "isAddedLocation",
+            "baseName": "isAddedLocation",
+            "type": "boolean",
             "format": ""
         },
         {
-            "name": "pictures",
-            "baseName": "pictures",
-            "type": "Array<Picture>",
+            "name": "idPicture",
+            "baseName": "idPicture",
+            "type": "string",
+            "format": "uuid"
+        },
+        {
+            "name": "picture",
+            "baseName": "picture",
+            "type": "Picture",
             "format": ""
         },
         {
-            "name": "likedGames",
-            "baseName": "likedGames",
-            "type": "Array<LikedGame>",
-            "format": ""
-        },
-        {
-            "name": "requestGameUpdates",
-            "baseName": "requestGameUpdates",
-            "type": "Array<RequestGameUpdate>",
+            "name": "isAddedPicture",
+            "baseName": "isAddedPicture",
+            "type": "boolean",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return Game.attributeTypeMap;
+        return RequestGameUpdate.attributeTypeMap;
     }
 
     public constructor() {

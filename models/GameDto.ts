@@ -20,6 +20,8 @@ export class GameDto {
     'description'?: string | null;
     'editor'?: string | null;
     'releaseDate'?: number | null;
+    'authorId'?: string;
+    'isValidate'?: boolean;
     'locations'?: Array<LocationNameDto> | null;
     'pictures'?: Array<ListPictureDto> | null;
     'likedGames'?: Array<ListLikedGameDto> | null;
@@ -50,6 +52,18 @@ export class GameDto {
             "baseName": "releaseDate",
             "type": "number",
             "format": "int64"
+        },
+        {
+            "name": "authorId",
+            "baseName": "authorId",
+            "type": "string",
+            "format": "uuid"
+        },
+        {
+            "name": "isValidate",
+            "baseName": "isValidate",
+            "type": "boolean",
+            "format": ""
         },
         {
             "name": "locations",

@@ -3,6 +3,7 @@ export * from '../models/AddLikeGameDto';
 export * from '../models/AddLikeLocationDto';
 export * from '../models/Assembly';
 export * from '../models/CallingConventions';
+export * from '../models/Comment';
 export * from '../models/ConfirmMailDto';
 export * from '../models/ConstructorInfo';
 export * from '../models/CreateGameDto';
@@ -16,22 +17,31 @@ export * from '../models/Exception';
 export * from '../models/FieldAttributes';
 export * from '../models/FieldInfo';
 export * from '../models/ForgotPasswordDto';
+export * from '../models/Game';
 export * from '../models/GameDto';
 export * from '../models/GameNameDto';
+export * from '../models/GameTripUser';
 export * from '../models/GameTripUserDto';
+export * from '../models/GameUpdateRequestDto';
 export * from '../models/GenericParameterAttributes';
 export * from '../models/GetLocationDto';
 export * from '../models/IdentityError';
 export * from '../models/LayoutKind';
+export * from '../models/LikedGame';
 export * from '../models/LikedGameDto';
+export * from '../models/LikedLocation';
 export * from '../models/LikedLocationDto';
 export * from '../models/ListCommentDto';
 export * from '../models/ListGameDto';
 export * from '../models/ListLikedGameDto';
 export * from '../models/ListLikedLocationDto';
+export * from '../models/ListLocationUpdateRequest';
 export * from '../models/ListPictureDto';
+export * from '../models/Location';
 export * from '../models/LocationDto';
 export * from '../models/LocationNameDto';
+export * from '../models/LocationUpdateRequestDto';
+export * from '../models/LocationUpdateRequestNameDto';
 export * from '../models/LoginDto';
 export * from '../models/MemberInfo';
 export * from '../models/MemberTypes';
@@ -45,12 +55,17 @@ export * from '../models/ModelStateEntry';
 export * from '../models/ModelValidationState';
 export * from '../models/Module';
 export * from '../models/ModuleHandle';
+export * from '../models/NotFound';
 export * from '../models/ParameterAttributes';
 export * from '../models/ParameterInfo';
+export * from '../models/Picture';
+export * from '../models/PictureDto';
 export * from '../models/ProblemDetails';
 export * from '../models/PropertyAttributes';
 export * from '../models/PropertyInfo';
 export * from '../models/RegisterDto';
+export * from '../models/RequestGameUpdate';
+export * from '../models/RequestLocationUpdate';
 export * from '../models/ResetPasswordDto';
 export * from '../models/RuntimeFieldHandle';
 export * from '../models/RuntimeMethodHandle';
@@ -71,6 +86,7 @@ import { AddLikeGameDto } from '../models/AddLikeGameDto';
 import { AddLikeLocationDto } from '../models/AddLikeLocationDto';
 import { Assembly                   } from '../models/Assembly';
 import { CallingConventions } from '../models/CallingConventions';
+import { Comment } from '../models/Comment';
 import { ConfirmMailDto } from '../models/ConfirmMailDto';
 import { ConstructorInfo                                 } from '../models/ConstructorInfo';
 import { CreateGameDto } from '../models/CreateGameDto';
@@ -84,22 +100,31 @@ import { Exception } from '../models/Exception';
 import { FieldAttributes } from '../models/FieldAttributes';
 import { FieldInfo                           } from '../models/FieldInfo';
 import { ForgotPasswordDto } from '../models/ForgotPasswordDto';
+import { Game } from '../models/Game';
 import { GameDto } from '../models/GameDto';
 import { GameNameDto } from '../models/GameNameDto';
+import { GameTripUser } from '../models/GameTripUser';
 import { GameTripUserDto } from '../models/GameTripUserDto';
+import { GameUpdateRequestDto } from '../models/GameUpdateRequestDto';
 import { GenericParameterAttributes } from '../models/GenericParameterAttributes';
 import { GetLocationDto } from '../models/GetLocationDto';
 import { IdentityError } from '../models/IdentityError';
 import { LayoutKind } from '../models/LayoutKind';
+import { LikedGame } from '../models/LikedGame';
 import { LikedGameDto } from '../models/LikedGameDto';
+import { LikedLocation } from '../models/LikedLocation';
 import { LikedLocationDto } from '../models/LikedLocationDto';
 import { ListCommentDto } from '../models/ListCommentDto';
 import { ListGameDto } from '../models/ListGameDto';
 import { ListLikedGameDto } from '../models/ListLikedGameDto';
 import { ListLikedLocationDto } from '../models/ListLikedLocationDto';
+import { ListLocationUpdateRequest } from '../models/ListLocationUpdateRequest';
 import { ListPictureDto } from '../models/ListPictureDto';
+import { Location } from '../models/Location';
 import { LocationDto } from '../models/LocationDto';
 import { LocationNameDto } from '../models/LocationNameDto';
+import { LocationUpdateRequestDto } from '../models/LocationUpdateRequestDto';
+import { LocationUpdateRequestNameDto } from '../models/LocationUpdateRequestNameDto';
 import { LoginDto } from '../models/LoginDto';
 import { MemberInfo         } from '../models/MemberInfo';
 import { MemberTypes } from '../models/MemberTypes';
@@ -113,12 +138,17 @@ import { ModelStateEntry       } from '../models/ModelStateEntry';
 import { ModelValidationState } from '../models/ModelValidationState';
 import { Module } from '../models/Module';
 import { ModuleHandle } from '../models/ModuleHandle';
+import { NotFound } from '../models/NotFound';
 import { ParameterAttributes } from '../models/ParameterAttributes';
 import { ParameterInfo                } from '../models/ParameterInfo';
+import { Picture } from '../models/Picture';
+import { PictureDto } from '../models/PictureDto';
 import { ProblemDetails } from '../models/ProblemDetails';
 import { PropertyAttributes } from '../models/PropertyAttributes';
 import { PropertyInfo                } from '../models/PropertyInfo';
 import { RegisterDto } from '../models/RegisterDto';
+import { RequestGameUpdate } from '../models/RequestGameUpdate';
+import { RequestLocationUpdate } from '../models/RequestLocationUpdate';
 import { ResetPasswordDto } from '../models/ResetPasswordDto';
 import { RuntimeFieldHandle } from '../models/RuntimeFieldHandle';
 import { RuntimeMethodHandle } from '../models/RuntimeMethodHandle';
@@ -174,6 +204,7 @@ let typeMap: {[index: string]: any} = {
     "AddLikeGameDto": AddLikeGameDto,
     "AddLikeLocationDto": AddLikeLocationDto,
     "Assembly": Assembly,
+    "Comment": Comment,
     "ConfirmMailDto": ConfirmMailDto,
     "ConstructorInfo": ConstructorInfo,
     "CreateGameDto": CreateGameDto,
@@ -185,20 +216,29 @@ let typeMap: {[index: string]: any} = {
     "Exception": Exception,
     "FieldInfo": FieldInfo,
     "ForgotPasswordDto": ForgotPasswordDto,
+    "Game": Game,
     "GameDto": GameDto,
     "GameNameDto": GameNameDto,
+    "GameTripUser": GameTripUser,
     "GameTripUserDto": GameTripUserDto,
+    "GameUpdateRequestDto": GameUpdateRequestDto,
     "GetLocationDto": GetLocationDto,
     "IdentityError": IdentityError,
+    "LikedGame": LikedGame,
     "LikedGameDto": LikedGameDto,
+    "LikedLocation": LikedLocation,
     "LikedLocationDto": LikedLocationDto,
     "ListCommentDto": ListCommentDto,
     "ListGameDto": ListGameDto,
     "ListLikedGameDto": ListLikedGameDto,
     "ListLikedLocationDto": ListLikedLocationDto,
+    "ListLocationUpdateRequest": ListLocationUpdateRequest,
     "ListPictureDto": ListPictureDto,
+    "Location": Location,
     "LocationDto": LocationDto,
     "LocationNameDto": LocationNameDto,
+    "LocationUpdateRequestDto": LocationUpdateRequestDto,
+    "LocationUpdateRequestNameDto": LocationUpdateRequestNameDto,
     "LoginDto": LoginDto,
     "MemberInfo": MemberInfo,
     "MessageDto": MessageDto,
@@ -208,10 +248,15 @@ let typeMap: {[index: string]: any} = {
     "ModelStateEntry": ModelStateEntry,
     "Module": Module,
     "ModuleHandle": ModuleHandle,
+    "NotFound": NotFound,
     "ParameterInfo": ParameterInfo,
+    "Picture": Picture,
+    "PictureDto": PictureDto,
     "ProblemDetails": ProblemDetails,
     "PropertyInfo": PropertyInfo,
     "RegisterDto": RegisterDto,
+    "RequestGameUpdate": RequestGameUpdate,
+    "RequestLocationUpdate": RequestLocationUpdate,
     "ResetPasswordDto": ResetPasswordDto,
     "RuntimeFieldHandle": RuntimeFieldHandle,
     "RuntimeMethodHandle": RuntimeMethodHandle,

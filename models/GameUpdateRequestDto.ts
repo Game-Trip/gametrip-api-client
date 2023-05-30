@@ -12,18 +12,19 @@
 
 import { HttpFile } from '../http/http';
 
-export class GameNameDto {
-    'id'?: string | null;
+export class GameUpdateRequestDto {
+    'gameId'?: string;
     'name'?: string | null;
-    'authorId'?: string;
-    'isValidate'?: boolean;
+    'description'?: string | null;
+    'editor'?: string | null;
+    'releaseDate'?: number | null;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "id",
-            "baseName": "id",
+            "name": "gameId",
+            "baseName": "gameId",
             "type": "string",
             "format": "uuid"
         },
@@ -34,20 +35,26 @@ export class GameNameDto {
             "format": ""
         },
         {
-            "name": "authorId",
-            "baseName": "authorId",
+            "name": "description",
+            "baseName": "description",
             "type": "string",
-            "format": "uuid"
+            "format": ""
         },
         {
-            "name": "isValidate",
-            "baseName": "isValidate",
-            "type": "boolean",
+            "name": "editor",
+            "baseName": "editor",
+            "type": "string",
             "format": ""
+        },
+        {
+            "name": "releaseDate",
+            "baseName": "releaseDate",
+            "type": "number",
+            "format": "int64"
         }    ];
 
     static getAttributeTypeMap() {
-        return GameNameDto.attributeTypeMap;
+        return GameUpdateRequestDto.attributeTypeMap;
     }
 
     public constructor() {

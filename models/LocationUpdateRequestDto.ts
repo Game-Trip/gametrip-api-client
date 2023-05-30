@@ -10,18 +10,28 @@
  * Do not edit the class manually.
  */
 
+import { Game } from '../models/Game';
 import { HttpFile } from '../http/http';
 
-export class CreateLocationDto {
+export class LocationUpdateRequestDto {
+    'locationId'?: string;
     'name'?: string | null;
     'description'?: string | null;
-    'latitude'?: number;
-    'longitude'?: number;
-    'authorId'?: string;
+    'latitude'?: number | null;
+    'longitude'?: number | null;
+    'idGame'?: string | null;
+    'game'?: Game;
+    'isAddedGame'?: boolean | null;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
+        {
+            "name": "locationId",
+            "baseName": "locationId",
+            "type": "string",
+            "format": "uuid"
+        },
         {
             "name": "name",
             "baseName": "name",
@@ -47,14 +57,26 @@ export class CreateLocationDto {
             "format": "double"
         },
         {
-            "name": "authorId",
-            "baseName": "authorId",
+            "name": "idGame",
+            "baseName": "idGame",
             "type": "string",
             "format": "uuid"
+        },
+        {
+            "name": "game",
+            "baseName": "game",
+            "type": "Game",
+            "format": ""
+        },
+        {
+            "name": "isAddedGame",
+            "baseName": "isAddedGame",
+            "type": "boolean",
+            "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return CreateLocationDto.attributeTypeMap;
+        return LocationUpdateRequestDto.attributeTypeMap;
     }
 
     public constructor() {

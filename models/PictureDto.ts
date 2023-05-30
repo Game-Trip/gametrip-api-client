@@ -10,20 +10,23 @@
  * Do not edit the class manually.
  */
 
+import { LocationNameDto } from '../models/LocationNameDto';
 import { HttpFile } from '../http/http';
 
-export class GameNameDto {
-    'id'?: string | null;
+export class PictureDto {
+    'pictureId'?: string;
     'name'?: string | null;
-    'authorId'?: string;
-    'isValidate'?: boolean;
+    'description'?: string | null;
+    'picture'?: HttpFile | null;
+    'locationId'?: string | null;
+    'location'?: LocationNameDto;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "id",
-            "baseName": "id",
+            "name": "pictureId",
+            "baseName": "pictureId",
             "type": "string",
             "format": "uuid"
         },
@@ -34,20 +37,32 @@ export class GameNameDto {
             "format": ""
         },
         {
-            "name": "authorId",
-            "baseName": "authorId",
+            "name": "description",
+            "baseName": "description",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "picture",
+            "baseName": "picture",
+            "type": "HttpFile",
+            "format": "binary"
+        },
+        {
+            "name": "locationId",
+            "baseName": "locationId",
             "type": "string",
             "format": "uuid"
         },
         {
-            "name": "isValidate",
-            "baseName": "isValidate",
-            "type": "boolean",
+            "name": "location",
+            "baseName": "location",
+            "type": "LocationNameDto",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return GameNameDto.attributeTypeMap;
+        return PictureDto.attributeTypeMap;
     }
 
     public constructor() {
