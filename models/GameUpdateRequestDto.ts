@@ -10,25 +10,21 @@
  * Do not edit the class manually.
  */
 
-import { Game } from '../models/Game';
 import { HttpFile } from '../http/http';
 
-export class LocationUpdateRequestDto {
-    'locationId'?: string;
+export class GameUpdateRequestDto {
+    'gameId'?: string;
     'name'?: string | null;
     'description'?: string | null;
-    'latitude'?: number | null;
-    'longitude'?: number | null;
-    'idGame'?: string | null;
-    'game'?: Game;
-    'isAddedGame'?: boolean | null;
+    'editor'?: string | null;
+    'releaseDate'?: number | null;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "locationId",
-            "baseName": "locationId",
+            "name": "gameId",
+            "baseName": "gameId",
             "type": "string",
             "format": "uuid"
         },
@@ -45,38 +41,20 @@ export class LocationUpdateRequestDto {
             "format": ""
         },
         {
-            "name": "latitude",
-            "baseName": "latitude",
-            "type": "number",
-            "format": "double"
-        },
-        {
-            "name": "longitude",
-            "baseName": "longitude",
-            "type": "number",
-            "format": "double"
-        },
-        {
-            "name": "idGame",
-            "baseName": "idGame",
+            "name": "editor",
+            "baseName": "editor",
             "type": "string",
-            "format": "uuid"
-        },
-        {
-            "name": "game",
-            "baseName": "game",
-            "type": "Game",
             "format": ""
         },
         {
-            "name": "isAddedGame",
-            "baseName": "isAddedGame",
-            "type": "boolean",
-            "format": ""
+            "name": "releaseDate",
+            "baseName": "releaseDate",
+            "type": "number",
+            "format": "int64"
         }    ];
 
     static getAttributeTypeMap() {
-        return LocationUpdateRequestDto.attributeTypeMap;
+        return GameUpdateRequestDto.attributeTypeMap;
     }
 
     public constructor() {

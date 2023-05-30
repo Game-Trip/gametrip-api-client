@@ -11,8 +11,11 @@
  */
 
 import { Comment } from '../models/Comment';
+import { Game } from '../models/Game';
 import { LikedGame } from '../models/LikedGame';
 import { LikedLocation } from '../models/LikedLocation';
+import { Location } from '../models/Location';
+import { Picture } from '../models/Picture';
 import { HttpFile } from '../http/http';
 
 export class GameTripUser {
@@ -31,6 +34,9 @@ export class GameTripUser {
     'lockoutEnd'?: Date | null;
     'lockoutEnabled'?: boolean;
     'accessFailedCount'?: number;
+    'createdGame'?: Array<Game> | null;
+    'createdLocation'?: Array<Location> | null;
+    'createdPictures'?: Array<Picture> | null;
     'comments'?: Array<Comment> | null;
     'likedGames'?: Array<LikedGame> | null;
     'likedLocations'?: Array<LikedLocation> | null;
@@ -127,6 +133,24 @@ export class GameTripUser {
             "baseName": "accessFailedCount",
             "type": "number",
             "format": "int32"
+        },
+        {
+            "name": "createdGame",
+            "baseName": "createdGame",
+            "type": "Array<Game>",
+            "format": ""
+        },
+        {
+            "name": "createdLocation",
+            "baseName": "createdLocation",
+            "type": "Array<Location>",
+            "format": ""
+        },
+        {
+            "name": "createdPictures",
+            "baseName": "createdPictures",
+            "type": "Array<Picture>",
+            "format": ""
         },
         {
             "name": "comments",

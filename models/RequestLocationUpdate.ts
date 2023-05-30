@@ -11,14 +11,21 @@
  */
 
 import { Game } from '../models/Game';
+import { Location } from '../models/Location';
+import { Picture } from '../models/Picture';
 import { HttpFile } from '../http/http';
 
-export class LocationUpdateRequestDto {
+export class RequestLocationUpdate {
+    'idRequestLocationUpdate'?: string;
     'locationId'?: string;
+    'location'?: Location;
     'name'?: string | null;
     'description'?: string | null;
     'latitude'?: number | null;
     'longitude'?: number | null;
+    'idPicture'?: string | null;
+    'picture'?: Picture;
+    'isAddedPicture'?: boolean | null;
     'idGame'?: string | null;
     'game'?: Game;
     'isAddedGame'?: boolean | null;
@@ -27,10 +34,22 @@ export class LocationUpdateRequestDto {
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
+            "name": "idRequestLocationUpdate",
+            "baseName": "idRequestLocationUpdate",
+            "type": "string",
+            "format": "uuid"
+        },
+        {
             "name": "locationId",
             "baseName": "locationId",
             "type": "string",
             "format": "uuid"
+        },
+        {
+            "name": "location",
+            "baseName": "location",
+            "type": "Location",
+            "format": ""
         },
         {
             "name": "name",
@@ -57,6 +76,24 @@ export class LocationUpdateRequestDto {
             "format": "double"
         },
         {
+            "name": "idPicture",
+            "baseName": "idPicture",
+            "type": "string",
+            "format": "uuid"
+        },
+        {
+            "name": "picture",
+            "baseName": "picture",
+            "type": "Picture",
+            "format": ""
+        },
+        {
+            "name": "isAddedPicture",
+            "baseName": "isAddedPicture",
+            "type": "boolean",
+            "format": ""
+        },
+        {
             "name": "idGame",
             "baseName": "idGame",
             "type": "string",
@@ -76,7 +113,7 @@ export class LocationUpdateRequestDto {
         }    ];
 
     static getAttributeTypeMap() {
-        return LocationUpdateRequestDto.attributeTypeMap;
+        return RequestLocationUpdate.attributeTypeMap;
     }
 
     public constructor() {

@@ -12,8 +12,10 @@
 
 import { Comment } from '../models/Comment';
 import { Game } from '../models/Game';
+import { GameTripUser } from '../models/GameTripUser';
 import { LikedLocation } from '../models/LikedLocation';
 import { Picture } from '../models/Picture';
+import { RequestLocationUpdate } from '../models/RequestLocationUpdate';
 import { HttpFile } from '../http/http';
 
 export class Location {
@@ -22,10 +24,14 @@ export class Location {
     'description'?: string | null;
     'latitude'?: number;
     'longitude'?: number;
+    'isValid'?: boolean;
+    'authorId'?: string;
+    'author'?: GameTripUser;
     'pictures'?: Array<Picture> | null;
     'games'?: Array<Game> | null;
     'comments'?: Array<Comment> | null;
     'likedLocations'?: Array<LikedLocation> | null;
+    'requestLocationUpdates'?: Array<RequestLocationUpdate> | null;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -61,6 +67,24 @@ export class Location {
             "format": "double"
         },
         {
+            "name": "isValid",
+            "baseName": "isValid",
+            "type": "boolean",
+            "format": ""
+        },
+        {
+            "name": "authorId",
+            "baseName": "authorId",
+            "type": "string",
+            "format": "uuid"
+        },
+        {
+            "name": "author",
+            "baseName": "author",
+            "type": "GameTripUser",
+            "format": ""
+        },
+        {
             "name": "pictures",
             "baseName": "pictures",
             "type": "Array<Picture>",
@@ -82,6 +106,12 @@ export class Location {
             "name": "likedLocations",
             "baseName": "likedLocations",
             "type": "Array<LikedLocation>",
+            "format": ""
+        },
+        {
+            "name": "requestLocationUpdates",
+            "baseName": "requestLocationUpdates",
+            "type": "Array<RequestLocationUpdate>",
             "format": ""
         }    ];
 

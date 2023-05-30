@@ -7,6 +7,7 @@ import { AddLikeGameDto } from '../models/AddLikeGameDto';
 import { AddLikeLocationDto } from '../models/AddLikeLocationDto';
 import { Assembly } from '../models/Assembly';
 import { CallingConventions } from '../models/CallingConventions';
+import { Comment } from '../models/Comment';
 import { ConfirmMailDto } from '../models/ConfirmMailDto';
 import { ConstructorInfo } from '../models/ConstructorInfo';
 import { CreateGameDto } from '../models/CreateGameDto';
@@ -20,23 +21,31 @@ import { Exception } from '../models/Exception';
 import { FieldAttributes } from '../models/FieldAttributes';
 import { FieldInfo } from '../models/FieldInfo';
 import { ForgotPasswordDto } from '../models/ForgotPasswordDto';
+import { Game } from '../models/Game';
 import { GameDto } from '../models/GameDto';
 import { GameNameDto } from '../models/GameNameDto';
+import { GameTripUser } from '../models/GameTripUser';
 import { GameTripUserDto } from '../models/GameTripUserDto';
+import { GameUpdateRequestDto } from '../models/GameUpdateRequestDto';
 import { GenericParameterAttributes } from '../models/GenericParameterAttributes';
 import { GetLocationDto } from '../models/GetLocationDto';
 import { IdentityError } from '../models/IdentityError';
 import { LayoutKind } from '../models/LayoutKind';
+import { LikedGame } from '../models/LikedGame';
 import { LikedGameDto } from '../models/LikedGameDto';
+import { LikedLocation } from '../models/LikedLocation';
 import { LikedLocationDto } from '../models/LikedLocationDto';
 import { ListCommentDto } from '../models/ListCommentDto';
 import { ListGameDto } from '../models/ListGameDto';
 import { ListLikedGameDto } from '../models/ListLikedGameDto';
 import { ListLikedLocationDto } from '../models/ListLikedLocationDto';
+import { ListLocationUpdateRequest } from '../models/ListLocationUpdateRequest';
 import { ListPictureDto } from '../models/ListPictureDto';
+import { Location } from '../models/Location';
 import { LocationDto } from '../models/LocationDto';
 import { LocationNameDto } from '../models/LocationNameDto';
 import { LocationUpdateRequestDto } from '../models/LocationUpdateRequestDto';
+import { LocationUpdateRequestNameDto } from '../models/LocationUpdateRequestNameDto';
 import { LoginDto } from '../models/LoginDto';
 import { MemberInfo } from '../models/MemberInfo';
 import { MemberTypes } from '../models/MemberTypes';
@@ -50,12 +59,17 @@ import { ModelStateEntry } from '../models/ModelStateEntry';
 import { ModelValidationState } from '../models/ModelValidationState';
 import { Module } from '../models/Module';
 import { ModuleHandle } from '../models/ModuleHandle';
+import { NotFound } from '../models/NotFound';
 import { ParameterAttributes } from '../models/ParameterAttributes';
 import { ParameterInfo } from '../models/ParameterInfo';
+import { Picture } from '../models/Picture';
+import { PictureDto } from '../models/PictureDto';
 import { ProblemDetails } from '../models/ProblemDetails';
 import { PropertyAttributes } from '../models/PropertyAttributes';
 import { PropertyInfo } from '../models/PropertyInfo';
 import { RegisterDto } from '../models/RegisterDto';
+import { RequestGameUpdate } from '../models/RequestGameUpdate';
+import { RequestLocationUpdate } from '../models/RequestLocationUpdate';
 import { ResetPasswordDto } from '../models/ResetPasswordDto';
 import { RuntimeFieldHandle } from '../models/RuntimeFieldHandle';
 import { RuntimeMethodHandle } from '../models/RuntimeMethodHandle';
@@ -474,12 +488,60 @@ export class ObservableGameApi {
     }
 
     /**
+     * Request Update Game by Id
+     * @param requestUpdateId Id of request UpdateId Game
+     */
+    public gameDeleteRequestUpdateRequestUpdateIdDelete(requestUpdateId: string, _options?: Configuration): Observable<MessageDto> {
+        const requestContextPromise = this.requestFactory.gameDeleteRequestUpdateRequestUpdateIdDelete(requestUpdateId, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.gameDeleteRequestUpdateRequestUpdateIdDelete(rsp)));
+            }));
+    }
+
+    /**
+     * Make a request to update a game
+     * @param gameId Id of game to request an update
+     * @param gameUpdateRequestDto GameUpdateRequestDto
+     */
+    public gameGameIdPost(gameId: string, gameUpdateRequestDto?: GameUpdateRequestDto, _options?: Configuration): Observable<MessageDto> {
+        const requestContextPromise = this.requestFactory.gameGameIdPost(gameId, gameUpdateRequestDto, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.gameGameIdPost(rsp)));
+            }));
+    }
+
+    /**
      * Update Game
      * @param gameId Id of game to update
+     * @param requestUpdateId If used, this means that the update is performed following validation of a request
      * @param updateGameDto UpdateGameDto
      */
-    public gameGameIdPut(gameId: string, updateGameDto?: UpdateGameDto, _options?: Configuration): Observable<GameDto> {
-        const requestContextPromise = this.requestFactory.gameGameIdPut(gameId, updateGameDto, _options);
+    public gameGameIdPut(gameId: string, requestUpdateId?: string, updateGameDto?: UpdateGameDto, _options?: Configuration): Observable<GameDto> {
+        const requestContextPromise = this.requestFactory.gameGameIdPut(gameId, requestUpdateId, updateGameDto, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -634,6 +696,79 @@ export class ObservableGameApi {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
                 return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.gameRemoveGameToLocationGameGameIdLocationLocationIdPost(rsp)));
+            }));
+    }
+
+    /**
+     * Create request to Add Game to Location by Game Id and Location Id
+     * @param gameId Id of added Game
+     * @param locationId Id of location to add Game
+     * @param files 
+     */
+    public gameRequestAddGameToLocationGameGameIdLocationLocationIdPost(gameId: string, locationId: string, files: Array<HttpFile>, _options?: Configuration): Observable<MessageDto> {
+        const requestContextPromise = this.requestFactory.gameRequestAddGameToLocationGameGameIdLocationLocationIdPost(gameId, locationId, files, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.gameRequestAddGameToLocationGameGameIdLocationLocationIdPost(rsp)));
+            }));
+    }
+
+    /**
+     * Create request to remove Game from Location by Game Id and Location Id
+     * @param gameId Id of removed Game
+     * @param locationId Id of location to remove Game
+     * @param files 
+     */
+    public gameRequestToRemoveGameToLocationGameGameIdLocationLocationIdPost(gameId: string, locationId: string, files: Array<HttpFile>, _options?: Configuration): Observable<MessageDto> {
+        const requestContextPromise = this.requestFactory.gameRequestToRemoveGameToLocationGameGameIdLocationLocationIdPost(gameId, locationId, files, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.gameRequestToRemoveGameToLocationGameGameIdLocationLocationIdPost(rsp)));
+            }));
+    }
+
+    /**
+     * Get game with all request update
+     * @param gameId Id of game wanted
+     */
+    public gameRequestUpdateGameIdGet(gameId: string, _options?: Configuration): Observable<MessageDto> {
+        const requestContextPromise = this.requestFactory.gameRequestUpdateGameIdGet(gameId, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.gameRequestUpdateGameIdGet(rsp)));
             }));
     }
 
@@ -907,6 +1042,29 @@ export class ObservableLocationApi {
     }
 
     /**
+     * Request Update Game by Id
+     * @param requestUpdateId Id of request UpdateId Game
+     */
+    public locationDeleteRequestUpdateRequestUpdateIdDelete(requestUpdateId: string, _options?: Configuration): Observable<MessageDto> {
+        const requestContextPromise = this.requestFactory.locationDeleteRequestUpdateRequestUpdateIdDelete(requestUpdateId, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.locationDeleteRequestUpdateRequestUpdateIdDelete(rsp)));
+            }));
+    }
+
+    /**
      * Get all location by game id
      * @param gameId Id of related game
      */
@@ -1025,11 +1183,11 @@ export class ObservableLocationApi {
     /**
      * Update location -> For Admin only
      * @param locationId Id of location to update
-     * @param isRequestUpdate Bool -&gt; Define if the update is due to an update request or not
+     * @param requestUpdateId If used, this means that the update is performed following validation of a request
      * @param updateLocationDto UpdateLocationDto
      */
-    public locationLocationIdPut(locationId: string, isRequestUpdate?: boolean, updateLocationDto?: UpdateLocationDto, _options?: Configuration): Observable<GetLocationDto> {
-        const requestContextPromise = this.requestFactory.locationLocationIdPut(locationId, isRequestUpdate, updateLocationDto, _options);
+    public locationLocationIdPut(locationId: string, requestUpdateId?: string, updateLocationDto?: UpdateLocationDto, _options?: Configuration): Observable<GetLocationDto> {
+        const requestContextPromise = this.requestFactory.locationLocationIdPut(locationId, requestUpdateId, updateLocationDto, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -1071,11 +1229,11 @@ export class ObservableLocationApi {
     }
 
     /**
-     * @param locationId 
-     * @param files 
+     * Get location with all request update
+     * @param locationId Id of location
      */
-    public locationRequestUpdateLocationIdPost(locationId: string, files: Array<HttpFile>, _options?: Configuration): Observable<MessageDto> {
-        const requestContextPromise = this.requestFactory.locationRequestUpdateLocationIdPost(locationId, files, _options);
+    public locationRequestUpdateLocationIdGet(locationId: string, _options?: Configuration): Observable<ListLocationUpdateRequest> {
+        const requestContextPromise = this.requestFactory.locationRequestUpdateLocationIdGet(locationId, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -1089,7 +1247,7 @@ export class ObservableLocationApi {
                 for (let middleware of this.configuration.middleware) {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.locationRequestUpdateLocationIdPost(rsp)));
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.locationRequestUpdateLocationIdGet(rsp)));
             }));
     }
 

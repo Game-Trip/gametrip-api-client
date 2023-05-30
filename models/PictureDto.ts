@@ -10,25 +10,23 @@
  * Do not edit the class manually.
  */
 
-import { Game } from '../models/Game';
+import { LocationNameDto } from '../models/LocationNameDto';
 import { HttpFile } from '../http/http';
 
-export class LocationUpdateRequestDto {
-    'locationId'?: string;
+export class PictureDto {
+    'pictureId'?: string;
     'name'?: string | null;
     'description'?: string | null;
-    'latitude'?: number | null;
-    'longitude'?: number | null;
-    'idGame'?: string | null;
-    'game'?: Game;
-    'isAddedGame'?: boolean | null;
+    'picture'?: HttpFile | null;
+    'locationId'?: string | null;
+    'location'?: LocationNameDto;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "locationId",
-            "baseName": "locationId",
+            "name": "pictureId",
+            "baseName": "pictureId",
             "type": "string",
             "format": "uuid"
         },
@@ -45,38 +43,26 @@ export class LocationUpdateRequestDto {
             "format": ""
         },
         {
-            "name": "latitude",
-            "baseName": "latitude",
-            "type": "number",
-            "format": "double"
+            "name": "picture",
+            "baseName": "picture",
+            "type": "HttpFile",
+            "format": "binary"
         },
         {
-            "name": "longitude",
-            "baseName": "longitude",
-            "type": "number",
-            "format": "double"
-        },
-        {
-            "name": "idGame",
-            "baseName": "idGame",
+            "name": "locationId",
+            "baseName": "locationId",
             "type": "string",
             "format": "uuid"
         },
         {
-            "name": "game",
-            "baseName": "game",
-            "type": "Game",
-            "format": ""
-        },
-        {
-            "name": "isAddedGame",
-            "baseName": "isAddedGame",
-            "type": "boolean",
+            "name": "location",
+            "baseName": "location",
+            "type": "LocationNameDto",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return LocationUpdateRequestDto.attributeTypeMap;
+        return PictureDto.attributeTypeMap;
     }
 
     public constructor() {

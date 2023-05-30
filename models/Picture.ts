@@ -11,6 +11,7 @@
  */
 
 import { Game } from '../models/Game';
+import { GameTripUser } from '../models/GameTripUser';
 import { Location } from '../models/Location';
 import { HttpFile } from '../http/http';
 
@@ -23,6 +24,9 @@ export class Picture {
     'location'?: Location;
     'gameId'?: string | null;
     'game'?: Game;
+    'isValidate'?: boolean;
+    'authorId'?: string;
+    'author'?: GameTripUser;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -73,6 +77,24 @@ export class Picture {
             "name": "game",
             "baseName": "game",
             "type": "Game",
+            "format": ""
+        },
+        {
+            "name": "isValidate",
+            "baseName": "isValidate",
+            "type": "boolean",
+            "format": ""
+        },
+        {
+            "name": "authorId",
+            "baseName": "authorId",
+            "type": "string",
+            "format": "uuid"
+        },
+        {
+            "name": "author",
+            "baseName": "author",
+            "type": "GameTripUser",
             "format": ""
         }    ];
 

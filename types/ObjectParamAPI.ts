@@ -6,6 +6,7 @@ import { AddLikeGameDto } from '../models/AddLikeGameDto';
 import { AddLikeLocationDto } from '../models/AddLikeLocationDto';
 import { Assembly } from '../models/Assembly';
 import { CallingConventions } from '../models/CallingConventions';
+import { Comment } from '../models/Comment';
 import { ConfirmMailDto } from '../models/ConfirmMailDto';
 import { ConstructorInfo } from '../models/ConstructorInfo';
 import { CreateGameDto } from '../models/CreateGameDto';
@@ -19,23 +20,31 @@ import { Exception } from '../models/Exception';
 import { FieldAttributes } from '../models/FieldAttributes';
 import { FieldInfo } from '../models/FieldInfo';
 import { ForgotPasswordDto } from '../models/ForgotPasswordDto';
+import { Game } from '../models/Game';
 import { GameDto } from '../models/GameDto';
 import { GameNameDto } from '../models/GameNameDto';
+import { GameTripUser } from '../models/GameTripUser';
 import { GameTripUserDto } from '../models/GameTripUserDto';
+import { GameUpdateRequestDto } from '../models/GameUpdateRequestDto';
 import { GenericParameterAttributes } from '../models/GenericParameterAttributes';
 import { GetLocationDto } from '../models/GetLocationDto';
 import { IdentityError } from '../models/IdentityError';
 import { LayoutKind } from '../models/LayoutKind';
+import { LikedGame } from '../models/LikedGame';
 import { LikedGameDto } from '../models/LikedGameDto';
+import { LikedLocation } from '../models/LikedLocation';
 import { LikedLocationDto } from '../models/LikedLocationDto';
 import { ListCommentDto } from '../models/ListCommentDto';
 import { ListGameDto } from '../models/ListGameDto';
 import { ListLikedGameDto } from '../models/ListLikedGameDto';
 import { ListLikedLocationDto } from '../models/ListLikedLocationDto';
+import { ListLocationUpdateRequest } from '../models/ListLocationUpdateRequest';
 import { ListPictureDto } from '../models/ListPictureDto';
+import { Location } from '../models/Location';
 import { LocationDto } from '../models/LocationDto';
 import { LocationNameDto } from '../models/LocationNameDto';
 import { LocationUpdateRequestDto } from '../models/LocationUpdateRequestDto';
+import { LocationUpdateRequestNameDto } from '../models/LocationUpdateRequestNameDto';
 import { LoginDto } from '../models/LoginDto';
 import { MemberInfo } from '../models/MemberInfo';
 import { MemberTypes } from '../models/MemberTypes';
@@ -49,12 +58,17 @@ import { ModelStateEntry } from '../models/ModelStateEntry';
 import { ModelValidationState } from '../models/ModelValidationState';
 import { Module } from '../models/Module';
 import { ModuleHandle } from '../models/ModuleHandle';
+import { NotFound } from '../models/NotFound';
 import { ParameterAttributes } from '../models/ParameterAttributes';
 import { ParameterInfo } from '../models/ParameterInfo';
+import { Picture } from '../models/Picture';
+import { PictureDto } from '../models/PictureDto';
 import { ProblemDetails } from '../models/ProblemDetails';
 import { PropertyAttributes } from '../models/PropertyAttributes';
 import { PropertyInfo } from '../models/PropertyInfo';
 import { RegisterDto } from '../models/RegisterDto';
+import { RequestGameUpdate } from '../models/RequestGameUpdate';
+import { RequestLocationUpdate } from '../models/RequestLocationUpdate';
 import { ResetPasswordDto } from '../models/ResetPasswordDto';
 import { RuntimeFieldHandle } from '../models/RuntimeFieldHandle';
 import { RuntimeMethodHandle } from '../models/RuntimeMethodHandle';
@@ -363,6 +377,30 @@ export interface GameApiGameDeleteGameIdDeleteRequest {
     gameId: string
 }
 
+export interface GameApiGameDeleteRequestUpdateRequestUpdateIdDeleteRequest {
+    /**
+     * Id of request UpdateId Game
+     * @type string
+     * @memberof GameApigameDeleteRequestUpdateRequestUpdateIdDelete
+     */
+    requestUpdateId: string
+}
+
+export interface GameApiGameGameIdPostRequest {
+    /**
+     * Id of game to request an update
+     * @type string
+     * @memberof GameApigameGameIdPost
+     */
+    gameId: string
+    /**
+     * GameUpdateRequestDto
+     * @type GameUpdateRequestDto
+     * @memberof GameApigameGameIdPost
+     */
+    gameUpdateRequestDto?: GameUpdateRequestDto
+}
+
 export interface GameApiGameGameIdPutRequest {
     /**
      * Id of game to update
@@ -370,6 +408,12 @@ export interface GameApiGameGameIdPutRequest {
      * @memberof GameApigameGameIdPut
      */
     gameId: string
+    /**
+     * If used, this means that the update is performed following validation of a request
+     * @type string
+     * @memberof GameApigameGameIdPut
+     */
+    requestUpdateId?: string
     /**
      * UpdateGameDto
      * @type UpdateGameDto
@@ -444,6 +488,57 @@ export interface GameApiGameRemoveGameToLocationGameGameIdLocationLocationIdPost
     files: Array<HttpFile>
 }
 
+export interface GameApiGameRequestAddGameToLocationGameGameIdLocationLocationIdPostRequest {
+    /**
+     * Id of added Game
+     * @type string
+     * @memberof GameApigameRequestAddGameToLocationGameGameIdLocationLocationIdPost
+     */
+    gameId: string
+    /**
+     * Id of location to add Game
+     * @type string
+     * @memberof GameApigameRequestAddGameToLocationGameGameIdLocationLocationIdPost
+     */
+    locationId: string
+    /**
+     * 
+     * @type Array&lt;HttpFile&gt;
+     * @memberof GameApigameRequestAddGameToLocationGameGameIdLocationLocationIdPost
+     */
+    files: Array<HttpFile>
+}
+
+export interface GameApiGameRequestToRemoveGameToLocationGameGameIdLocationLocationIdPostRequest {
+    /**
+     * Id of removed Game
+     * @type string
+     * @memberof GameApigameRequestToRemoveGameToLocationGameGameIdLocationLocationIdPost
+     */
+    gameId: string
+    /**
+     * Id of location to remove Game
+     * @type string
+     * @memberof GameApigameRequestToRemoveGameToLocationGameGameIdLocationLocationIdPost
+     */
+    locationId: string
+    /**
+     * 
+     * @type Array&lt;HttpFile&gt;
+     * @memberof GameApigameRequestToRemoveGameToLocationGameGameIdLocationLocationIdPost
+     */
+    files: Array<HttpFile>
+}
+
+export interface GameApiGameRequestUpdateGameIdGetRequest {
+    /**
+     * Id of game wanted
+     * @type string
+     * @memberof GameApigameRequestUpdateGameIdGet
+     */
+    gameId: string
+}
+
 export class ObjectGameApi {
     private api: ObservableGameApi
 
@@ -476,11 +571,27 @@ export class ObjectGameApi {
     }
 
     /**
+     * Request Update Game by Id
+     * @param param the request object
+     */
+    public gameDeleteRequestUpdateRequestUpdateIdDelete(param: GameApiGameDeleteRequestUpdateRequestUpdateIdDeleteRequest, options?: Configuration): Promise<MessageDto> {
+        return this.api.gameDeleteRequestUpdateRequestUpdateIdDelete(param.requestUpdateId,  options).toPromise();
+    }
+
+    /**
+     * Make a request to update a game
+     * @param param the request object
+     */
+    public gameGameIdPost(param: GameApiGameGameIdPostRequest, options?: Configuration): Promise<MessageDto> {
+        return this.api.gameGameIdPost(param.gameId, param.gameUpdateRequestDto,  options).toPromise();
+    }
+
+    /**
      * Update Game
      * @param param the request object
      */
     public gameGameIdPut(param: GameApiGameGameIdPutRequest, options?: Configuration): Promise<GameDto> {
-        return this.api.gameGameIdPut(param.gameId, param.updateGameDto,  options).toPromise();
+        return this.api.gameGameIdPut(param.gameId, param.requestUpdateId, param.updateGameDto,  options).toPromise();
     }
 
     /**
@@ -529,6 +640,30 @@ export class ObjectGameApi {
      */
     public gameRemoveGameToLocationGameGameIdLocationLocationIdPost(param: GameApiGameRemoveGameToLocationGameGameIdLocationLocationIdPostRequest, options?: Configuration): Promise<MessageDto> {
         return this.api.gameRemoveGameToLocationGameGameIdLocationLocationIdPost(param.gameId, param.locationId, param.files,  options).toPromise();
+    }
+
+    /**
+     * Create request to Add Game to Location by Game Id and Location Id
+     * @param param the request object
+     */
+    public gameRequestAddGameToLocationGameGameIdLocationLocationIdPost(param: GameApiGameRequestAddGameToLocationGameGameIdLocationLocationIdPostRequest, options?: Configuration): Promise<MessageDto> {
+        return this.api.gameRequestAddGameToLocationGameGameIdLocationLocationIdPost(param.gameId, param.locationId, param.files,  options).toPromise();
+    }
+
+    /**
+     * Create request to remove Game from Location by Game Id and Location Id
+     * @param param the request object
+     */
+    public gameRequestToRemoveGameToLocationGameGameIdLocationLocationIdPost(param: GameApiGameRequestToRemoveGameToLocationGameGameIdLocationLocationIdPostRequest, options?: Configuration): Promise<MessageDto> {
+        return this.api.gameRequestToRemoveGameToLocationGameGameIdLocationLocationIdPost(param.gameId, param.locationId, param.files,  options).toPromise();
+    }
+
+    /**
+     * Get game with all request update
+     * @param param the request object
+     */
+    public gameRequestUpdateGameIdGet(param: GameApiGameRequestUpdateGameIdGetRequest, options?: Configuration): Promise<MessageDto> {
+        return this.api.gameRequestUpdateGameIdGet(param.gameId,  options).toPromise();
     }
 
 }
@@ -720,6 +855,15 @@ export interface LocationApiLocationDeleteLocationIdDeleteRequest {
     locationId: string
 }
 
+export interface LocationApiLocationDeleteRequestUpdateRequestUpdateIdDeleteRequest {
+    /**
+     * Id of request UpdateId Game
+     * @type string
+     * @memberof LocationApilocationDeleteRequestUpdateRequestUpdateIdDelete
+     */
+    requestUpdateId: string
+}
+
 export interface LocationApiLocationGameIdGameIdGetRequest {
     /**
      * Id of related game
@@ -779,11 +923,11 @@ export interface LocationApiLocationLocationIdPutRequest {
      */
     locationId: string
     /**
-     * Bool -&gt; Define if the update is due to an update request or not
-     * @type boolean
+     * If used, this means that the update is performed following validation of a request
+     * @type string
      * @memberof LocationApilocationLocationIdPut
      */
-    isRequestUpdate?: boolean
+    requestUpdateId?: string
     /**
      * UpdateLocationDto
      * @type UpdateLocationDto
@@ -801,19 +945,13 @@ export interface LocationApiLocationNameLocationNameGetRequest {
     locationName: string
 }
 
-export interface LocationApiLocationRequestUpdateLocationIdPostRequest {
+export interface LocationApiLocationRequestUpdateLocationIdGetRequest {
     /**
-     * 
+     * Id of location
      * @type string
-     * @memberof LocationApilocationRequestUpdateLocationIdPost
+     * @memberof LocationApilocationRequestUpdateLocationIdGet
      */
     locationId: string
-    /**
-     * 
-     * @type Array&lt;HttpFile&gt;
-     * @memberof LocationApilocationRequestUpdateLocationIdPost
-     */
-    files: Array<HttpFile>
 }
 
 export class ObjectLocationApi {
@@ -837,6 +975,14 @@ export class ObjectLocationApi {
      */
     public locationDeleteLocationIdDelete(param: LocationApiLocationDeleteLocationIdDeleteRequest, options?: Configuration): Promise<MessageDto> {
         return this.api.locationDeleteLocationIdDelete(param.locationId,  options).toPromise();
+    }
+
+    /**
+     * Request Update Game by Id
+     * @param param the request object
+     */
+    public locationDeleteRequestUpdateRequestUpdateIdDelete(param: LocationApiLocationDeleteRequestUpdateRequestUpdateIdDeleteRequest, options?: Configuration): Promise<MessageDto> {
+        return this.api.locationDeleteRequestUpdateRequestUpdateIdDelete(param.requestUpdateId,  options).toPromise();
     }
 
     /**
@@ -884,7 +1030,7 @@ export class ObjectLocationApi {
      * @param param the request object
      */
     public locationLocationIdPut(param: LocationApiLocationLocationIdPutRequest, options?: Configuration): Promise<GetLocationDto> {
-        return this.api.locationLocationIdPut(param.locationId, param.isRequestUpdate, param.updateLocationDto,  options).toPromise();
+        return this.api.locationLocationIdPut(param.locationId, param.requestUpdateId, param.updateLocationDto,  options).toPromise();
     }
 
     /**
@@ -896,10 +1042,11 @@ export class ObjectLocationApi {
     }
 
     /**
+     * Get location with all request update
      * @param param the request object
      */
-    public locationRequestUpdateLocationIdPost(param: LocationApiLocationRequestUpdateLocationIdPostRequest, options?: Configuration): Promise<MessageDto> {
-        return this.api.locationRequestUpdateLocationIdPost(param.locationId, param.files,  options).toPromise();
+    public locationRequestUpdateLocationIdGet(param: LocationApiLocationRequestUpdateLocationIdGetRequest, options?: Configuration): Promise<ListLocationUpdateRequest> {
+        return this.api.locationRequestUpdateLocationIdGet(param.locationId,  options).toPromise();
     }
 
 }
