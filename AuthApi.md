@@ -184,7 +184,6 @@ Name | Type | Description  | Notes
 # **authLoginPost**
 > TokenDto authLoginPost()
 
-{    \"username\": \"Dercraker\",    \"password\": \"NMdRx$HqyT8jX6\"  }
 
 ### Example
 
