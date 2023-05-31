@@ -17,6 +17,7 @@ export class CreateGameDto {
     'description'?: string | null;
     'editor'?: string | null;
     'releaseDate'?: number | null;
+    'authorId'?: string;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -44,6 +45,12 @@ export class CreateGameDto {
             "baseName": "releaseDate",
             "type": "number",
             "format": "int64"
+        },
+        {
+            "name": "authorId",
+            "baseName": "authorId",
+            "type": "string",
+            "format": "uuid"
         }    ];
 
     static getAttributeTypeMap() {
