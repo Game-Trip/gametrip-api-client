@@ -172,7 +172,6 @@ export class ObjectAuthApi {
     }
 
     /**
-     * {    \"username\": \"Dercraker\",    \"password\": \"NMdRx$HqyT8jX6\"  }
      * Authenticate a user
      * @param param the request object
      */

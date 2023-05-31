@@ -177,7 +177,6 @@ export class AuthApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * {    \"username\": \"Dercraker\",    \"password\": \"NMdRx$HqyT8jX6\"  }
      * Authenticate a user
      * @param loginDto LoginDto
      */
