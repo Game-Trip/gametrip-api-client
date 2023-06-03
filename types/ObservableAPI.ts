@@ -5,6 +5,8 @@ import {mergeMap, map} from  '../rxjsStub';
 import { AddCommentToLocationDto } from '../models/AddCommentToLocationDto';
 import { AddLikeGameDto } from '../models/AddLikeGameDto';
 import { AddLikeLocationDto } from '../models/AddLikeLocationDto';
+import { AddPictureToGameDto } from '../models/AddPictureToGameDto';
+import { AddPictureToLocationDto } from '../models/AddPictureToLocationDto';
 import { Assembly } from '../models/Assembly';
 import { CallingConventions } from '../models/CallingConventions';
 import { Comment } from '../models/Comment';
@@ -148,10 +150,9 @@ export class ObservableAuthApi {
     }
 
     /**
-     * @param files 
      */
-    public authInitializePost(files: Array<HttpFile>, _options?: Configuration): Observable<void> {
-        const requestContextPromise = this.requestFactory.authInitializePost(files, _options);
+    public authInitializePost(_options?: Configuration): Observable<void> {
+        const requestContextPromise = this.requestFactory.authInitializePost(_options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -418,10 +419,9 @@ export class ObservableGameApi {
      * Add Game to Location by Game Id and Location Id
      * @param gameId Id of added Game
      * @param locationId Id of location to add Game
-     * @param files 
      */
-    public gameAddGameToLocationGameGameIdLocationLocationIdPost(gameId: string, locationId: string, files: Array<HttpFile>, _options?: Configuration): Observable<MessageDto> {
-        const requestContextPromise = this.requestFactory.gameAddGameToLocationGameGameIdLocationLocationIdPost(gameId, locationId, files, _options);
+    public gameAddGameToLocationGameGameIdLocationLocationIdPost(gameId: string, locationId: string, _options?: Configuration): Observable<MessageDto> {
+        const requestContextPromise = this.requestFactory.gameAddGameToLocationGameGameIdLocationLocationIdPost(gameId, locationId, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -677,10 +677,9 @@ export class ObservableGameApi {
      * Remove Game from Location by Game Id and Location Id
      * @param gameId Id of removed Game
      * @param locationId Id of location to remove Game
-     * @param files 
      */
-    public gameRemoveGameToLocationGameGameIdLocationLocationIdPost(gameId: string, locationId: string, files: Array<HttpFile>, _options?: Configuration): Observable<MessageDto> {
-        const requestContextPromise = this.requestFactory.gameRemoveGameToLocationGameGameIdLocationLocationIdPost(gameId, locationId, files, _options);
+    public gameRemoveGameToLocationGameGameIdLocationLocationIdPost(gameId: string, locationId: string, _options?: Configuration): Observable<MessageDto> {
+        const requestContextPromise = this.requestFactory.gameRemoveGameToLocationGameGameIdLocationLocationIdPost(gameId, locationId, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -702,10 +701,9 @@ export class ObservableGameApi {
      * Create request to Add Game to Location by Game Id and Location Id
      * @param gameId Id of added Game
      * @param locationId Id of location to add Game
-     * @param files 
      */
-    public gameRequestAddGameToLocationGameGameIdLocationLocationIdPost(gameId: string, locationId: string, files: Array<HttpFile>, _options?: Configuration): Observable<MessageDto> {
-        const requestContextPromise = this.requestFactory.gameRequestAddGameToLocationGameGameIdLocationLocationIdPost(gameId, locationId, files, _options);
+    public gameRequestAddGameToLocationGameGameIdLocationLocationIdPost(gameId: string, locationId: string, _options?: Configuration): Observable<MessageDto> {
+        const requestContextPromise = this.requestFactory.gameRequestAddGameToLocationGameGameIdLocationLocationIdPost(gameId, locationId, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -727,10 +725,9 @@ export class ObservableGameApi {
      * Create request to remove Game from Location by Game Id and Location Id
      * @param gameId Id of removed Game
      * @param locationId Id of location to remove Game
-     * @param files 
      */
-    public gameRequestToRemoveGameToLocationGameGameIdLocationLocationIdPost(gameId: string, locationId: string, files: Array<HttpFile>, _options?: Configuration): Observable<MessageDto> {
-        const requestContextPromise = this.requestFactory.gameRequestToRemoveGameToLocationGameGameIdLocationLocationIdPost(gameId, locationId, files, _options);
+    public gameRequestToRemoveGameToLocationGameGameIdLocationLocationIdPost(gameId: string, locationId: string, _options?: Configuration): Observable<MessageDto> {
+        const requestContextPromise = this.requestFactory.gameRequestToRemoveGameToLocationGameGameIdLocationLocationIdPost(gameId, locationId, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -929,10 +926,9 @@ export class ObservableLikeApi {
      * Remove Like to game
      * @param gameId Id of game to remove like
      * @param userId Id of user who liked Game
-     * @param files 
      */
-    public likeRemoveLikeToGameGameIdUserIdPost(gameId: string, userId: string, files: Array<HttpFile>, _options?: Configuration): Observable<LikedGameDto> {
-        const requestContextPromise = this.requestFactory.likeRemoveLikeToGameGameIdUserIdPost(gameId, userId, files, _options);
+    public likeRemoveLikeToGameGameIdUserIdPost(gameId: string, userId: string, _options?: Configuration): Observable<LikedGameDto> {
+        const requestContextPromise = this.requestFactory.likeRemoveLikeToGameGameIdUserIdPost(gameId, userId, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -954,10 +950,9 @@ export class ObservableLikeApi {
      * Remove like to location
      * @param locationId id of liked location
      * @param userId id of user who liked location
-     * @param files 
      */
-    public likeRemoveLikeToLocationLocationIdUserIdPost(locationId: string, userId: string, files: Array<HttpFile>, _options?: Configuration): Observable<LikedLocationDto> {
-        const requestContextPromise = this.requestFactory.likeRemoveLikeToLocationLocationIdUserIdPost(locationId, userId, files, _options);
+    public likeRemoveLikeToLocationLocationIdUserIdPost(locationId: string, userId: string, _options?: Configuration): Observable<LikedLocationDto> {
+        const requestContextPromise = this.requestFactory.likeRemoveLikeToLocationLocationIdUserIdPost(locationId, userId, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -1270,15 +1265,13 @@ export class ObservablePictureApi {
 
     /**
      * Create and Add picture to Game
-     * @param gameId Id of game to add picture
+     * @param gameId 
      * @param userId 
-     * @param name Name of picture
-     * @param description Description of Picture
      * @param force 
-     * @param pictureData 
+     * @param addPictureToGameDto 
      */
-    public pictureAddPictureToGameGameIdUserIdPost(gameId: string, userId: string, name?: string, description?: string, force?: boolean, pictureData?: HttpFile, _options?: Configuration): Observable<MessageDto> {
-        const requestContextPromise = this.requestFactory.pictureAddPictureToGameGameIdUserIdPost(gameId, userId, name, description, force, pictureData, _options);
+    public pictureAddPictureToGameGameIdUserIdPost(gameId: string, userId: string, force?: boolean, addPictureToGameDto?: AddPictureToGameDto, _options?: Configuration): Observable<MessageDto> {
+        const requestContextPromise = this.requestFactory.pictureAddPictureToGameGameIdUserIdPost(gameId, userId, force, addPictureToGameDto, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -1298,15 +1291,13 @@ export class ObservablePictureApi {
 
     /**
      * Create and add picture to location
-     * @param locationId Id of location to add picture
+     * @param locationId 
      * @param userId 
-     * @param name Picture name
-     * @param description Picture description
      * @param force 
-     * @param pictureData 
+     * @param addPictureToLocationDto 
      */
-    public pictureAddPictureToLocationLocationIdUserIdPost(locationId: string, userId: string, name?: string, description?: string, force?: boolean, pictureData?: HttpFile, _options?: Configuration): Observable<MessageDto> {
-        const requestContextPromise = this.requestFactory.pictureAddPictureToLocationLocationIdUserIdPost(locationId, userId, name, description, force, pictureData, _options);
+    public pictureAddPictureToLocationLocationIdUserIdPost(locationId: string, userId: string, force?: boolean, addPictureToLocationDto?: AddPictureToLocationDto, _options?: Configuration): Observable<MessageDto> {
+        const requestContextPromise = this.requestFactory.pictureAddPictureToLocationLocationIdUserIdPost(locationId, userId, force, addPictureToLocationDto, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -1656,10 +1647,9 @@ export class ObservableValidationApi {
     /**
      * @param commentId 
      * @param userId 
-     * @param files 
      */
-    public validationSwitchCommentValidateStateCommentIdUserIdPost(commentId: string, userId: string, files: Array<HttpFile>, _options?: Configuration): Observable<MessageDto> {
-        const requestContextPromise = this.requestFactory.validationSwitchCommentValidateStateCommentIdUserIdPost(commentId, userId, files, _options);
+    public validationSwitchCommentValidateStateCommentIdUserIdPost(commentId: string, userId: string, _options?: Configuration): Observable<MessageDto> {
+        const requestContextPromise = this.requestFactory.validationSwitchCommentValidateStateCommentIdUserIdPost(commentId, userId, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -1680,10 +1670,9 @@ export class ObservableValidationApi {
     /**
      * @param gameId 
      * @param userId 
-     * @param files 
      */
-    public validationSwitchGameValidateStateGameIdUserIdPost(gameId: string, userId: string, files: Array<HttpFile>, _options?: Configuration): Observable<MessageDto> {
-        const requestContextPromise = this.requestFactory.validationSwitchGameValidateStateGameIdUserIdPost(gameId, userId, files, _options);
+    public validationSwitchGameValidateStateGameIdUserIdPost(gameId: string, userId: string, _options?: Configuration): Observable<MessageDto> {
+        const requestContextPromise = this.requestFactory.validationSwitchGameValidateStateGameIdUserIdPost(gameId, userId, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -1704,10 +1693,9 @@ export class ObservableValidationApi {
     /**
      * @param locationId 
      * @param userId 
-     * @param files 
      */
-    public validationSwitchLocationValidateStateLocationIdUserIdPost(locationId: string, userId: string, files: Array<HttpFile>, _options?: Configuration): Observable<MessageDto> {
-        const requestContextPromise = this.requestFactory.validationSwitchLocationValidateStateLocationIdUserIdPost(locationId, userId, files, _options);
+    public validationSwitchLocationValidateStateLocationIdUserIdPost(locationId: string, userId: string, _options?: Configuration): Observable<MessageDto> {
+        const requestContextPromise = this.requestFactory.validationSwitchLocationValidateStateLocationIdUserIdPost(locationId, userId, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -1728,10 +1716,9 @@ export class ObservableValidationApi {
     /**
      * @param pictureId 
      * @param userId 
-     * @param files 
      */
-    public validationSwitchPictureValidateStatePictureIdUserIdPost(pictureId: string, userId: string, files: Array<HttpFile>, _options?: Configuration): Observable<MessageDto> {
-        const requestContextPromise = this.requestFactory.validationSwitchPictureValidateStatePictureIdUserIdPost(pictureId, userId, files, _options);
+    public validationSwitchPictureValidateStatePictureIdUserIdPost(pictureId: string, userId: string, _options?: Configuration): Observable<MessageDto> {
+        const requestContextPromise = this.requestFactory.validationSwitchPictureValidateStatePictureIdUserIdPost(pictureId, userId, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);

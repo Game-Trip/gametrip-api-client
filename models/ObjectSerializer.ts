@@ -1,6 +1,8 @@
 export * from '../models/AddCommentToLocationDto';
 export * from '../models/AddLikeGameDto';
 export * from '../models/AddLikeLocationDto';
+export * from '../models/AddPictureToGameDto';
+export * from '../models/AddPictureToLocationDto';
 export * from '../models/Assembly';
 export * from '../models/CallingConventions';
 export * from '../models/Comment';
@@ -84,6 +86,8 @@ export * from '../models/UpdateLocationDto';
 import { AddCommentToLocationDto } from '../models/AddCommentToLocationDto';
 import { AddLikeGameDto } from '../models/AddLikeGameDto';
 import { AddLikeLocationDto } from '../models/AddLikeLocationDto';
+import { AddPictureToGameDto } from '../models/AddPictureToGameDto';
+import { AddPictureToLocationDto } from '../models/AddPictureToLocationDto';
 import { Assembly                   } from '../models/Assembly';
 import { CallingConventions } from '../models/CallingConventions';
 import { Comment } from '../models/Comment';
@@ -203,6 +207,8 @@ let typeMap: {[index: string]: any} = {
     "AddCommentToLocationDto": AddCommentToLocationDto,
     "AddLikeGameDto": AddLikeGameDto,
     "AddLikeLocationDto": AddLikeLocationDto,
+    "AddPictureToGameDto": AddPictureToGameDto,
+    "AddPictureToLocationDto": AddPictureToLocationDto,
     "Assembly": Assembly,
     "Comment": Comment,
     "ConfirmMailDto": ConfirmMailDto,

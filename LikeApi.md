@@ -353,10 +353,6 @@ let body:.LikeApiLikeRemoveLikeToGameGameIdUserIdPostRequest = {
   gameId: "gameId_example",
   // string | Id of user who liked Game
   userId: "userId_example",
-  // Array<HttpFile>
-  files: [
-    { data: Buffer.from(fs.readFileSync('/path/to/file', 'utf-8')), name: '/path/to/file' },
-  ],
 };
 
 apiInstance.likeRemoveLikeToGameGameIdUserIdPost(body).then((data:any) => {
@@ -371,7 +367,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **gameId** | [**string**] | Id of game to remove like | defaults to undefined
  **userId** | [**string**] | Id of user who liked Game | defaults to undefined
- **files** | **Array&lt;HttpFile&gt;** |  | defaults to undefined
 
 
 ### Return type
@@ -384,7 +379,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: multipart/form-data
+ - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
 
@@ -416,10 +411,6 @@ let body:.LikeApiLikeRemoveLikeToLocationLocationIdUserIdPostRequest = {
   locationId: "locationId_example",
   // string | id of user who liked location
   userId: "userId_example",
-  // Array<HttpFile>
-  files: [
-    { data: Buffer.from(fs.readFileSync('/path/to/file', 'utf-8')), name: '/path/to/file' },
-  ],
 };
 
 apiInstance.likeRemoveLikeToLocationLocationIdUserIdPost(body).then((data:any) => {
@@ -434,7 +425,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **locationId** | [**string**] | id of liked location | defaults to undefined
  **userId** | [**string**] | id of user who liked location | defaults to undefined
- **files** | **Array&lt;HttpFile&gt;** |  | defaults to undefined
 
 
 ### Return type
@@ -447,7 +437,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: multipart/form-data
+ - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
 

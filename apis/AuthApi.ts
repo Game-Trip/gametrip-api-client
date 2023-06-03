@@ -117,16 +117,9 @@ export class AuthApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * @param files 
      */
-    public async authInitializePost(files: Array<HttpFile>, _options?: Configuration): Promise<RequestContext> {
+    public async authInitializePost(_options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
-
-        // verify required parameter 'files' is not null or undefined
-        if (files === null || files === undefined) {
-            throw new RequiredError("AuthApi", "authInitializePost", "files");
-        }
-
 
         // Path Params
         const localVarPath = '/Auth/Initialize';
@@ -135,31 +128,6 @@ export class AuthApiRequestFactory extends BaseAPIRequestFactory {
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
         requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
-        // Form Params
-        const useForm = canConsumeForm([
-            'multipart/form-data',
-        ]);
-
-        let localVarFormParams
-        if (useForm) {
-            localVarFormParams = new FormData();
-        } else {
-            localVarFormParams = new URLSearchParams();
-        }
-
-        if (files) {
-            // TODO: replace .append with .set
-            localVarFormParams.append('files', files.join(COLLECTION_FORMATS["csv"]));
-        }
-
-        requestContext.setBody(localVarFormParams);
-
-        if(!useForm) {
-            const contentType = ObjectSerializer.getPreferredMediaType([
-                "multipart/form-data"
-            ]);
-            requestContext.setHeaderParam("Content-Type", contentType);
-        }
 
         let authMethod: SecurityAuthentication | undefined;
         // Apply auth methods

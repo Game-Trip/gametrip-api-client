@@ -40,10 +40,6 @@ let body:.GameApiGameAddGameToLocationGameGameIdLocationLocationIdPostRequest = 
   gameId: "gameId_example",
   // string | Id of location to add Game
   locationId: "locationId_example",
-  // Array<HttpFile>
-  files: [
-    { data: Buffer.from(fs.readFileSync('/path/to/file', 'utf-8')), name: '/path/to/file' },
-  ],
 };
 
 apiInstance.gameAddGameToLocationGameGameIdLocationLocationIdPost(body).then((data:any) => {
@@ -58,7 +54,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **gameId** | [**string**] | Id of added Game | defaults to undefined
  **locationId** | [**string**] | Id of location to add Game | defaults to undefined
- **files** | **Array&lt;HttpFile&gt;** |  | defaults to undefined
 
 
 ### Return type
@@ -71,7 +66,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: multipart/form-data
+ - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
 
@@ -673,10 +668,6 @@ let body:.GameApiGameRemoveGameToLocationGameGameIdLocationLocationIdPostRequest
   gameId: "gameId_example",
   // string | Id of location to remove Game
   locationId: "locationId_example",
-  // Array<HttpFile>
-  files: [
-    { data: Buffer.from(fs.readFileSync('/path/to/file', 'utf-8')), name: '/path/to/file' },
-  ],
 };
 
 apiInstance.gameRemoveGameToLocationGameGameIdLocationLocationIdPost(body).then((data:any) => {
@@ -691,7 +682,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **gameId** | [**string**] | Id of removed Game | defaults to undefined
  **locationId** | [**string**] | Id of location to remove Game | defaults to undefined
- **files** | **Array&lt;HttpFile&gt;** |  | defaults to undefined
 
 
 ### Return type
@@ -704,7 +694,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: multipart/form-data
+ - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
 
@@ -735,10 +725,6 @@ let body:.GameApiGameRequestAddGameToLocationGameGameIdLocationLocationIdPostReq
   gameId: "gameId_example",
   // string | Id of location to add Game
   locationId: "locationId_example",
-  // Array<HttpFile>
-  files: [
-    { data: Buffer.from(fs.readFileSync('/path/to/file', 'utf-8')), name: '/path/to/file' },
-  ],
 };
 
 apiInstance.gameRequestAddGameToLocationGameGameIdLocationLocationIdPost(body).then((data:any) => {
@@ -753,7 +739,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **gameId** | [**string**] | Id of added Game | defaults to undefined
  **locationId** | [**string**] | Id of location to add Game | defaults to undefined
- **files** | **Array&lt;HttpFile&gt;** |  | defaults to undefined
 
 
 ### Return type
@@ -766,7 +751,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: multipart/form-data
+ - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
 
@@ -798,10 +783,6 @@ let body:.GameApiGameRequestToRemoveGameToLocationGameGameIdLocationLocationIdPo
   gameId: "gameId_example",
   // string | Id of location to remove Game
   locationId: "locationId_example",
-  // Array<HttpFile>
-  files: [
-    { data: Buffer.from(fs.readFileSync('/path/to/file', 'utf-8')), name: '/path/to/file' },
-  ],
 };
 
 apiInstance.gameRequestToRemoveGameToLocationGameGameIdLocationLocationIdPost(body).then((data:any) => {
@@ -816,7 +797,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **gameId** | [**string**] | Id of removed Game | defaults to undefined
  **locationId** | [**string**] | Id of location to remove Game | defaults to undefined
- **files** | **Array&lt;HttpFile&gt;** |  | defaults to undefined
 
 
 ### Return type
@@ -829,7 +809,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: multipart/form-data
+ - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
 

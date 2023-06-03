@@ -26,18 +26,21 @@ const configuration = .createConfiguration();
 const apiInstance = new .PictureApi(configuration);
 
 let body:.PictureApiPictureAddPictureToGameGameIdUserIdPostRequest = {
-  // string | Id of game to add picture
+  // string
   gameId: "gameId_example",
   // string
   userId: "userId_example",
-  // string | Name of picture (optional)
-  name: "name_example",
-  // string | Description of Picture (optional)
-  description: "description_example",
   // boolean (optional)
   force: true,
-  // HttpFile (optional)
-  pictureData: { data: Buffer.from(fs.readFileSync('/path/to/file', 'utf-8')), name: '/path/to/file' },
+  // AddPictureToGameDto (optional)
+  addPictureToGameDto: {
+    pictureId: "pictureId_example",
+    name: "name_example",
+    description: "description_example",
+    gameId: "gameId_example",
+    pictureData: 'YQ==',
+    authorId: "authorId_example",
+  },
 };
 
 apiInstance.pictureAddPictureToGameGameIdUserIdPost(body).then((data:any) => {
@@ -50,12 +53,10 @@ apiInstance.pictureAddPictureToGameGameIdUserIdPost(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **gameId** | [**string**] | Id of game to add picture | defaults to undefined
+ **addPictureToGameDto** | **AddPictureToGameDto**|  |
+ **gameId** | [**string**] |  | defaults to undefined
  **userId** | [**string**] |  | defaults to undefined
- **name** | [**string**] | Name of picture | (optional) defaults to undefined
- **description** | [**string**] | Description of Picture | (optional) defaults to undefined
  **force** | [**boolean**] |  | (optional) defaults to undefined
- **pictureData** | [**HttpFile**] |  | (optional) defaults to undefined
 
 
 ### Return type
@@ -68,7 +69,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: multipart/form-data
+ - **Content-Type**: application/json, text/json, application/*+json
  - **Accept**: text/plain, application/json, text/json
 
 
@@ -96,18 +97,21 @@ const configuration = .createConfiguration();
 const apiInstance = new .PictureApi(configuration);
 
 let body:.PictureApiPictureAddPictureToLocationLocationIdUserIdPostRequest = {
-  // string | Id of location to add picture
+  // string
   locationId: "locationId_example",
   // string
   userId: "userId_example",
-  // string | Picture name (optional)
-  name: "name_example",
-  // string | Picture description (optional)
-  description: "description_example",
   // boolean (optional)
   force: true,
-  // HttpFile (optional)
-  pictureData: { data: Buffer.from(fs.readFileSync('/path/to/file', 'utf-8')), name: '/path/to/file' },
+  // AddPictureToLocationDto (optional)
+  addPictureToLocationDto: {
+    pictureId: "pictureId_example",
+    name: "name_example",
+    description: "description_example",
+    locationId: "locationId_example",
+    pictureData: 'YQ==',
+    authorId: "authorId_example",
+  },
 };
 
 apiInstance.pictureAddPictureToLocationLocationIdUserIdPost(body).then((data:any) => {
@@ -120,12 +124,10 @@ apiInstance.pictureAddPictureToLocationLocationIdUserIdPost(body).then((data:any
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **locationId** | [**string**] | Id of location to add picture | defaults to undefined
+ **addPictureToLocationDto** | **AddPictureToLocationDto**|  |
+ **locationId** | [**string**] |  | defaults to undefined
  **userId** | [**string**] |  | defaults to undefined
- **name** | [**string**] | Picture name | (optional) defaults to undefined
- **description** | [**string**] | Picture description | (optional) defaults to undefined
  **force** | [**boolean**] |  | (optional) defaults to undefined
- **pictureData** | [**HttpFile**] |  | (optional) defaults to undefined
 
 
 ### Return type
@@ -138,7 +140,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: multipart/form-data
+ - **Content-Type**: application/json, text/json, application/*+json
  - **Accept**: text/plain, application/json, text/json
 
 

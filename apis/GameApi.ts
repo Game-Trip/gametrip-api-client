@@ -25,9 +25,8 @@ export class GameApiRequestFactory extends BaseAPIRequestFactory {
      * Add Game to Location by Game Id and Location Id
      * @param gameId Id of added Game
      * @param locationId Id of location to add Game
-     * @param files 
      */
-    public async gameAddGameToLocationGameGameIdLocationLocationIdPost(gameId: string, locationId: string, files: Array<HttpFile>, _options?: Configuration): Promise<RequestContext> {
+    public async gameAddGameToLocationGameGameIdLocationLocationIdPost(gameId: string, locationId: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'gameId' is not null or undefined
@@ -42,12 +41,6 @@ export class GameApiRequestFactory extends BaseAPIRequestFactory {
         }
 
 
-        // verify required parameter 'files' is not null or undefined
-        if (files === null || files === undefined) {
-            throw new RequiredError("GameApi", "gameAddGameToLocationGameGameIdLocationLocationIdPost", "files");
-        }
-
-
         // Path Params
         const localVarPath = '/Game/AddGameToLocation/Game/{gameId}/Location/{locationId}'
             .replace('{' + 'gameId' + '}', encodeURIComponent(String(gameId)))
@@ -57,31 +50,6 @@ export class GameApiRequestFactory extends BaseAPIRequestFactory {
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
         requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
-        // Form Params
-        const useForm = canConsumeForm([
-            'multipart/form-data',
-        ]);
-
-        let localVarFormParams
-        if (useForm) {
-            localVarFormParams = new FormData();
-        } else {
-            localVarFormParams = new URLSearchParams();
-        }
-
-        if (files) {
-            // TODO: replace .append with .set
-            localVarFormParams.append('files', files.join(COLLECTION_FORMATS["csv"]));
-        }
-
-        requestContext.setBody(localVarFormParams);
-
-        if(!useForm) {
-            const contentType = ObjectSerializer.getPreferredMediaType([
-                "multipart/form-data"
-            ]);
-            requestContext.setHeaderParam("Content-Type", contentType);
-        }
 
         let authMethod: SecurityAuthentication | undefined;
         // Apply auth methods
@@ -528,9 +496,8 @@ export class GameApiRequestFactory extends BaseAPIRequestFactory {
      * Remove Game from Location by Game Id and Location Id
      * @param gameId Id of removed Game
      * @param locationId Id of location to remove Game
-     * @param files 
      */
-    public async gameRemoveGameToLocationGameGameIdLocationLocationIdPost(gameId: string, locationId: string, files: Array<HttpFile>, _options?: Configuration): Promise<RequestContext> {
+    public async gameRemoveGameToLocationGameGameIdLocationLocationIdPost(gameId: string, locationId: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'gameId' is not null or undefined
@@ -545,12 +512,6 @@ export class GameApiRequestFactory extends BaseAPIRequestFactory {
         }
 
 
-        // verify required parameter 'files' is not null or undefined
-        if (files === null || files === undefined) {
-            throw new RequiredError("GameApi", "gameRemoveGameToLocationGameGameIdLocationLocationIdPost", "files");
-        }
-
-
         // Path Params
         const localVarPath = '/Game/RemoveGameToLocation/Game/{gameId}/Location/{locationId}'
             .replace('{' + 'gameId' + '}', encodeURIComponent(String(gameId)))
@@ -560,31 +521,6 @@ export class GameApiRequestFactory extends BaseAPIRequestFactory {
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
         requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
-        // Form Params
-        const useForm = canConsumeForm([
-            'multipart/form-data',
-        ]);
-
-        let localVarFormParams
-        if (useForm) {
-            localVarFormParams = new FormData();
-        } else {
-            localVarFormParams = new URLSearchParams();
-        }
-
-        if (files) {
-            // TODO: replace .append with .set
-            localVarFormParams.append('files', files.join(COLLECTION_FORMATS["csv"]));
-        }
-
-        requestContext.setBody(localVarFormParams);
-
-        if(!useForm) {
-            const contentType = ObjectSerializer.getPreferredMediaType([
-                "multipart/form-data"
-            ]);
-            requestContext.setHeaderParam("Content-Type", contentType);
-        }
 
         let authMethod: SecurityAuthentication | undefined;
         // Apply auth methods
@@ -605,9 +541,8 @@ export class GameApiRequestFactory extends BaseAPIRequestFactory {
      * Create request to Add Game to Location by Game Id and Location Id
      * @param gameId Id of added Game
      * @param locationId Id of location to add Game
-     * @param files 
      */
-    public async gameRequestAddGameToLocationGameGameIdLocationLocationIdPost(gameId: string, locationId: string, files: Array<HttpFile>, _options?: Configuration): Promise<RequestContext> {
+    public async gameRequestAddGameToLocationGameGameIdLocationLocationIdPost(gameId: string, locationId: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'gameId' is not null or undefined
@@ -622,12 +557,6 @@ export class GameApiRequestFactory extends BaseAPIRequestFactory {
         }
 
 
-        // verify required parameter 'files' is not null or undefined
-        if (files === null || files === undefined) {
-            throw new RequiredError("GameApi", "gameRequestAddGameToLocationGameGameIdLocationLocationIdPost", "files");
-        }
-
-
         // Path Params
         const localVarPath = '/Game/RequestAddGameToLocation/Game/{gameId}/Location/{locationId}'
             .replace('{' + 'gameId' + '}', encodeURIComponent(String(gameId)))
@@ -637,31 +566,6 @@ export class GameApiRequestFactory extends BaseAPIRequestFactory {
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
         requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
-        // Form Params
-        const useForm = canConsumeForm([
-            'multipart/form-data',
-        ]);
-
-        let localVarFormParams
-        if (useForm) {
-            localVarFormParams = new FormData();
-        } else {
-            localVarFormParams = new URLSearchParams();
-        }
-
-        if (files) {
-            // TODO: replace .append with .set
-            localVarFormParams.append('files', files.join(COLLECTION_FORMATS["csv"]));
-        }
-
-        requestContext.setBody(localVarFormParams);
-
-        if(!useForm) {
-            const contentType = ObjectSerializer.getPreferredMediaType([
-                "multipart/form-data"
-            ]);
-            requestContext.setHeaderParam("Content-Type", contentType);
-        }
 
         let authMethod: SecurityAuthentication | undefined;
         // Apply auth methods
@@ -682,9 +586,8 @@ export class GameApiRequestFactory extends BaseAPIRequestFactory {
      * Create request to remove Game from Location by Game Id and Location Id
      * @param gameId Id of removed Game
      * @param locationId Id of location to remove Game
-     * @param files 
      */
-    public async gameRequestToRemoveGameToLocationGameGameIdLocationLocationIdPost(gameId: string, locationId: string, files: Array<HttpFile>, _options?: Configuration): Promise<RequestContext> {
+    public async gameRequestToRemoveGameToLocationGameGameIdLocationLocationIdPost(gameId: string, locationId: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'gameId' is not null or undefined
@@ -699,12 +602,6 @@ export class GameApiRequestFactory extends BaseAPIRequestFactory {
         }
 
 
-        // verify required parameter 'files' is not null or undefined
-        if (files === null || files === undefined) {
-            throw new RequiredError("GameApi", "gameRequestToRemoveGameToLocationGameGameIdLocationLocationIdPost", "files");
-        }
-
-
         // Path Params
         const localVarPath = '/Game/RequestToRemoveGameToLocation/Game/{gameId}/Location/{locationId}'
             .replace('{' + 'gameId' + '}', encodeURIComponent(String(gameId)))
@@ -714,31 +611,6 @@ export class GameApiRequestFactory extends BaseAPIRequestFactory {
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
         requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
-        // Form Params
-        const useForm = canConsumeForm([
-            'multipart/form-data',
-        ]);
-
-        let localVarFormParams
-        if (useForm) {
-            localVarFormParams = new FormData();
-        } else {
-            localVarFormParams = new URLSearchParams();
-        }
-
-        if (files) {
-            // TODO: replace .append with .set
-            localVarFormParams.append('files', files.join(COLLECTION_FORMATS["csv"]));
-        }
-
-        requestContext.setBody(localVarFormParams);
-
-        if(!useForm) {
-            const contentType = ObjectSerializer.getPreferredMediaType([
-                "multipart/form-data"
-            ]);
-            requestContext.setHeaderParam("Content-Type", contentType);
-        }
 
         let authMethod: SecurityAuthentication | undefined;
         // Apply auth methods

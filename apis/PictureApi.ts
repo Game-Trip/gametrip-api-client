@@ -8,6 +8,8 @@ import {canConsumeForm, isCodeInRange} from '../util';
 import {SecurityAuthentication} from '../auth/auth';
 
 
+import { AddPictureToGameDto } from '../models/AddPictureToGameDto';
+import { AddPictureToLocationDto } from '../models/AddPictureToLocationDto';
 import { ListPictureDto } from '../models/ListPictureDto';
 import { MessageDto } from '../models/MessageDto';
 import { ModelStateEntry } from '../models/ModelStateEntry';
@@ -19,14 +21,12 @@ export class PictureApiRequestFactory extends BaseAPIRequestFactory {
 
     /**
      * Create and Add picture to Game
-     * @param gameId Id of game to add picture
+     * @param gameId 
      * @param userId 
-     * @param name Name of picture
-     * @param description Description of Picture
      * @param force 
-     * @param pictureData 
+     * @param addPictureToGameDto 
      */
-    public async pictureAddPictureToGameGameIdUserIdPost(gameId: string, userId: string, name?: string, description?: string, force?: boolean, pictureData?: HttpFile, _options?: Configuration): Promise<RequestContext> {
+    public async pictureAddPictureToGameGameIdUserIdPost(gameId: string, userId: string, force?: boolean, addPictureToGameDto?: AddPictureToGameDto, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'gameId' is not null or undefined
@@ -43,8 +43,6 @@ export class PictureApiRequestFactory extends BaseAPIRequestFactory {
 
 
 
-
-
         // Path Params
         const localVarPath = '/Picture/AddPictureToGame/{gameId}/{userId}'
             .replace('{' + 'gameId' + '}', encodeURIComponent(String(gameId)))
@@ -55,47 +53,25 @@ export class PictureApiRequestFactory extends BaseAPIRequestFactory {
         requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
         // Query Params
-        if (name !== undefined) {
-            requestContext.setQueryParam("name", ObjectSerializer.serialize(name, "string", ""));
-        }
-
-        // Query Params
-        if (description !== undefined) {
-            requestContext.setQueryParam("description", ObjectSerializer.serialize(description, "string", ""));
-        }
-
-        // Query Params
         if (force !== undefined) {
             requestContext.setQueryParam("force", ObjectSerializer.serialize(force, "boolean", ""));
         }
 
-        // Form Params
-        const useForm = canConsumeForm([
-            'multipart/form-data',
+
+        // Body Params
+        const contentType = ObjectSerializer.getPreferredMediaType([
+            "application/json",
+        
+            "text/json",
+        
+            "application/*+json"
         ]);
-
-        let localVarFormParams
-        if (useForm) {
-            localVarFormParams = new FormData();
-        } else {
-            localVarFormParams = new URLSearchParams();
-        }
-
-        if (pictureData !== undefined) {
-             // TODO: replace .append with .set
-             if (localVarFormParams instanceof FormData) {
-                 localVarFormParams.append('pictureData', pictureData, pictureData.name);
-             }
-        }
-
-        requestContext.setBody(localVarFormParams);
-
-        if(!useForm) {
-            const contentType = ObjectSerializer.getPreferredMediaType([
-                "multipart/form-data"
-            ]);
-            requestContext.setHeaderParam("Content-Type", contentType);
-        }
+        requestContext.setHeaderParam("Content-Type", contentType);
+        const serializedBody = ObjectSerializer.stringify(
+            ObjectSerializer.serialize(addPictureToGameDto, "AddPictureToGameDto", ""),
+            contentType
+        );
+        requestContext.setBody(serializedBody);
 
         let authMethod: SecurityAuthentication | undefined;
         // Apply auth methods
@@ -114,14 +90,12 @@ export class PictureApiRequestFactory extends BaseAPIRequestFactory {
 
     /**
      * Create and add picture to location
-     * @param locationId Id of location to add picture
+     * @param locationId 
      * @param userId 
-     * @param name Picture name
-     * @param description Picture description
      * @param force 
-     * @param pictureData 
+     * @param addPictureToLocationDto 
      */
-    public async pictureAddPictureToLocationLocationIdUserIdPost(locationId: string, userId: string, name?: string, description?: string, force?: boolean, pictureData?: HttpFile, _options?: Configuration): Promise<RequestContext> {
+    public async pictureAddPictureToLocationLocationIdUserIdPost(locationId: string, userId: string, force?: boolean, addPictureToLocationDto?: AddPictureToLocationDto, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'locationId' is not null or undefined
@@ -138,8 +112,6 @@ export class PictureApiRequestFactory extends BaseAPIRequestFactory {
 
 
 
-
-
         // Path Params
         const localVarPath = '/Picture/AddPictureToLocation/{locationId}/{userId}'
             .replace('{' + 'locationId' + '}', encodeURIComponent(String(locationId)))
@@ -150,47 +122,25 @@ export class PictureApiRequestFactory extends BaseAPIRequestFactory {
         requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
         // Query Params
-        if (name !== undefined) {
-            requestContext.setQueryParam("name", ObjectSerializer.serialize(name, "string", ""));
-        }
-
-        // Query Params
-        if (description !== undefined) {
-            requestContext.setQueryParam("description", ObjectSerializer.serialize(description, "string", ""));
-        }
-
-        // Query Params
         if (force !== undefined) {
             requestContext.setQueryParam("force", ObjectSerializer.serialize(force, "boolean", ""));
         }
 
-        // Form Params
-        const useForm = canConsumeForm([
-            'multipart/form-data',
+
+        // Body Params
+        const contentType = ObjectSerializer.getPreferredMediaType([
+            "application/json",
+        
+            "text/json",
+        
+            "application/*+json"
         ]);
-
-        let localVarFormParams
-        if (useForm) {
-            localVarFormParams = new FormData();
-        } else {
-            localVarFormParams = new URLSearchParams();
-        }
-
-        if (pictureData !== undefined) {
-             // TODO: replace .append with .set
-             if (localVarFormParams instanceof FormData) {
-                 localVarFormParams.append('pictureData', pictureData, pictureData.name);
-             }
-        }
-
-        requestContext.setBody(localVarFormParams);
-
-        if(!useForm) {
-            const contentType = ObjectSerializer.getPreferredMediaType([
-                "multipart/form-data"
-            ]);
-            requestContext.setHeaderParam("Content-Type", contentType);
-        }
+        requestContext.setHeaderParam("Content-Type", contentType);
+        const serializedBody = ObjectSerializer.stringify(
+            ObjectSerializer.serialize(addPictureToLocationDto, "AddPictureToLocationDto", ""),
+            contentType
+        );
+        requestContext.setBody(serializedBody);
 
         let authMethod: SecurityAuthentication | undefined;
         // Apply auth methods
