@@ -18,9 +18,8 @@ export class ValidationApiRequestFactory extends BaseAPIRequestFactory {
     /**
      * @param commentId 
      * @param userId 
-     * @param files 
      */
-    public async validationSwitchCommentValidateStateCommentIdUserIdPost(commentId: string, userId: string, files: Array<HttpFile>, _options?: Configuration): Promise<RequestContext> {
+    public async validationSwitchCommentValidateStateCommentIdUserIdPost(commentId: string, userId: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'commentId' is not null or undefined
@@ -35,12 +34,6 @@ export class ValidationApiRequestFactory extends BaseAPIRequestFactory {
         }
 
 
-        // verify required parameter 'files' is not null or undefined
-        if (files === null || files === undefined) {
-            throw new RequiredError("ValidationApi", "validationSwitchCommentValidateStateCommentIdUserIdPost", "files");
-        }
-
-
         // Path Params
         const localVarPath = '/Validation/SwitchCommentValidateState/{commentId}/{userId}'
             .replace('{' + 'commentId' + '}', encodeURIComponent(String(commentId)))
@@ -50,31 +43,6 @@ export class ValidationApiRequestFactory extends BaseAPIRequestFactory {
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
         requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
-        // Form Params
-        const useForm = canConsumeForm([
-            'multipart/form-data',
-        ]);
-
-        let localVarFormParams
-        if (useForm) {
-            localVarFormParams = new FormData();
-        } else {
-            localVarFormParams = new URLSearchParams();
-        }
-
-        if (files) {
-            // TODO: replace .append with .set
-            localVarFormParams.append('files', files.join(COLLECTION_FORMATS["csv"]));
-        }
-
-        requestContext.setBody(localVarFormParams);
-
-        if(!useForm) {
-            const contentType = ObjectSerializer.getPreferredMediaType([
-                "multipart/form-data"
-            ]);
-            requestContext.setHeaderParam("Content-Type", contentType);
-        }
 
         let authMethod: SecurityAuthentication | undefined;
         // Apply auth methods
@@ -94,9 +62,8 @@ export class ValidationApiRequestFactory extends BaseAPIRequestFactory {
     /**
      * @param gameId 
      * @param userId 
-     * @param files 
      */
-    public async validationSwitchGameValidateStateGameIdUserIdPost(gameId: string, userId: string, files: Array<HttpFile>, _options?: Configuration): Promise<RequestContext> {
+    public async validationSwitchGameValidateStateGameIdUserIdPost(gameId: string, userId: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'gameId' is not null or undefined
@@ -111,12 +78,6 @@ export class ValidationApiRequestFactory extends BaseAPIRequestFactory {
         }
 
 
-        // verify required parameter 'files' is not null or undefined
-        if (files === null || files === undefined) {
-            throw new RequiredError("ValidationApi", "validationSwitchGameValidateStateGameIdUserIdPost", "files");
-        }
-
-
         // Path Params
         const localVarPath = '/Validation/SwitchGameValidateState/{gameId}/{userId}'
             .replace('{' + 'gameId' + '}', encodeURIComponent(String(gameId)))
@@ -126,31 +87,6 @@ export class ValidationApiRequestFactory extends BaseAPIRequestFactory {
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
         requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
-        // Form Params
-        const useForm = canConsumeForm([
-            'multipart/form-data',
-        ]);
-
-        let localVarFormParams
-        if (useForm) {
-            localVarFormParams = new FormData();
-        } else {
-            localVarFormParams = new URLSearchParams();
-        }
-
-        if (files) {
-            // TODO: replace .append with .set
-            localVarFormParams.append('files', files.join(COLLECTION_FORMATS["csv"]));
-        }
-
-        requestContext.setBody(localVarFormParams);
-
-        if(!useForm) {
-            const contentType = ObjectSerializer.getPreferredMediaType([
-                "multipart/form-data"
-            ]);
-            requestContext.setHeaderParam("Content-Type", contentType);
-        }
 
         let authMethod: SecurityAuthentication | undefined;
         // Apply auth methods
@@ -170,9 +106,8 @@ export class ValidationApiRequestFactory extends BaseAPIRequestFactory {
     /**
      * @param locationId 
      * @param userId 
-     * @param files 
      */
-    public async validationSwitchLocationValidateStateLocationIdUserIdPost(locationId: string, userId: string, files: Array<HttpFile>, _options?: Configuration): Promise<RequestContext> {
+    public async validationSwitchLocationValidateStateLocationIdUserIdPost(locationId: string, userId: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'locationId' is not null or undefined
@@ -187,12 +122,6 @@ export class ValidationApiRequestFactory extends BaseAPIRequestFactory {
         }
 
 
-        // verify required parameter 'files' is not null or undefined
-        if (files === null || files === undefined) {
-            throw new RequiredError("ValidationApi", "validationSwitchLocationValidateStateLocationIdUserIdPost", "files");
-        }
-
-
         // Path Params
         const localVarPath = '/Validation/SwitchLocationValidateState/{locationId}/{userId}'
             .replace('{' + 'locationId' + '}', encodeURIComponent(String(locationId)))
@@ -202,31 +131,6 @@ export class ValidationApiRequestFactory extends BaseAPIRequestFactory {
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
         requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
-        // Form Params
-        const useForm = canConsumeForm([
-            'multipart/form-data',
-        ]);
-
-        let localVarFormParams
-        if (useForm) {
-            localVarFormParams = new FormData();
-        } else {
-            localVarFormParams = new URLSearchParams();
-        }
-
-        if (files) {
-            // TODO: replace .append with .set
-            localVarFormParams.append('files', files.join(COLLECTION_FORMATS["csv"]));
-        }
-
-        requestContext.setBody(localVarFormParams);
-
-        if(!useForm) {
-            const contentType = ObjectSerializer.getPreferredMediaType([
-                "multipart/form-data"
-            ]);
-            requestContext.setHeaderParam("Content-Type", contentType);
-        }
 
         let authMethod: SecurityAuthentication | undefined;
         // Apply auth methods
@@ -246,9 +150,8 @@ export class ValidationApiRequestFactory extends BaseAPIRequestFactory {
     /**
      * @param pictureId 
      * @param userId 
-     * @param files 
      */
-    public async validationSwitchPictureValidateStatePictureIdUserIdPost(pictureId: string, userId: string, files: Array<HttpFile>, _options?: Configuration): Promise<RequestContext> {
+    public async validationSwitchPictureValidateStatePictureIdUserIdPost(pictureId: string, userId: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'pictureId' is not null or undefined
@@ -263,12 +166,6 @@ export class ValidationApiRequestFactory extends BaseAPIRequestFactory {
         }
 
 
-        // verify required parameter 'files' is not null or undefined
-        if (files === null || files === undefined) {
-            throw new RequiredError("ValidationApi", "validationSwitchPictureValidateStatePictureIdUserIdPost", "files");
-        }
-
-
         // Path Params
         const localVarPath = '/Validation/SwitchPictureValidateState/{pictureId}/{userId}'
             .replace('{' + 'pictureId' + '}', encodeURIComponent(String(pictureId)))
@@ -278,31 +175,6 @@ export class ValidationApiRequestFactory extends BaseAPIRequestFactory {
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
         requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
-        // Form Params
-        const useForm = canConsumeForm([
-            'multipart/form-data',
-        ]);
-
-        let localVarFormParams
-        if (useForm) {
-            localVarFormParams = new FormData();
-        } else {
-            localVarFormParams = new URLSearchParams();
-        }
-
-        if (files) {
-            // TODO: replace .append with .set
-            localVarFormParams.append('files', files.join(COLLECTION_FORMATS["csv"]));
-        }
-
-        requestContext.setBody(localVarFormParams);
-
-        if(!useForm) {
-            const contentType = ObjectSerializer.getPreferredMediaType([
-                "multipart/form-data"
-            ]);
-            requestContext.setHeaderParam("Content-Type", contentType);
-        }
 
         let authMethod: SecurityAuthentication | undefined;
         // Apply auth methods

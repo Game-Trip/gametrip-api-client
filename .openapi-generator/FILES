@@ -32,6 +32,8 @@ middleware.ts
 models/AddCommentToLocationDto.ts
 models/AddLikeGameDto.ts
 models/AddLikeLocationDto.ts
+models/AddPictureToGameDto.ts
+models/AddPictureToLocationDto.ts
 models/Assembly.ts
 models/CallingConventions.ts
 models/Comment.ts
