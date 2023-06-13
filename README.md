@@ -1,4 +1,4 @@
-## @game-trip/ts-api-client@1.10.34-Beta
+## @game-trip/ts-api-client@1.10.35-Beta
 
 This generator creates TypeScript/JavaScript client that utilizes fetch-api.
 
@@ -21,7 +21,7 @@ Navigate to the folder of your consuming project and run one of the following co
 _published:_
 
 ```
-npm install @game-trip/ts-api-client@1.10.34-Beta --save
+npm install @game-trip/ts-api-client@1.10.35-Beta --save
 ```
 
 _unPublished (not recommended):_
