@@ -54,7 +54,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/Json
+ - **Accept**: text/plain, application/json, text/json
 
 
 ### HTTP response details
@@ -108,7 +108,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/Json
+ - **Accept**: text/plain, application/json, text/json
 
 
 ### HTTP response details
@@ -162,7 +162,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/Json
+ - **Accept**: text/plain, application/json, text/json
 
 
 ### HTTP response details
@@ -216,7 +216,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/Json
+ - **Accept**: text/plain, application/json, text/json
 
 
 ### HTTP response details
@@ -277,7 +277,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json, text/json, application/*+json
- - **Accept**: application/Json
+ - **Accept**: text/plain, application/json, text/json
 
 
 ### HTTP response details
