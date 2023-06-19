@@ -76,6 +76,8 @@ import { ResetPasswordDto } from '../models/ResetPasswordDto';
 import { RuntimeFieldHandle } from '../models/RuntimeFieldHandle';
 import { RuntimeMethodHandle } from '../models/RuntimeMethodHandle';
 import { RuntimeTypeHandle } from '../models/RuntimeTypeHandle';
+import { SearchLocationDto } from '../models/SearchLocationDto';
+import { SearchedGameDto } from '../models/SearchedGameDto';
 import { SecurityRuleSet } from '../models/SecurityRuleSet';
 import { StructLayoutAttribute } from '../models/StructLayoutAttribute';
 import { TokenDto } from '../models/TokenDto';
@@ -1407,9 +1409,10 @@ export class ObservableSearchApi {
      * @param description 
      * @param editor 
      * @param releaseDate 
+     * @param locations 
      */
-    public searchSearchGameGet(name?: string, description?: string, editor?: string, releaseDate?: number, _options?: Configuration): Observable<Array<GameNameDto>> {
-        const requestContextPromise = this.requestFactory.searchSearchGameGet(name, description, editor, releaseDate, _options);
+    public searchSearchGameGet(name?: string, description?: string, editor?: string, releaseDate?: number, locations?: Array<SearchLocationDto>, _options?: Configuration): Observable<Array<SearchedGameDto>> {
+        const requestContextPromise = this.requestFactory.searchSearchGameGet(name, description, editor, releaseDate, locations, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);

@@ -8,8 +8,9 @@ import {canConsumeForm, isCodeInRange} from '../util';
 import {SecurityAuthentication} from '../auth/auth';
 
 
-import { GameNameDto } from '../models/GameNameDto';
 import { LocationNameDto } from '../models/LocationNameDto';
+import { SearchLocationDto } from '../models/SearchLocationDto';
+import { SearchedGameDto } from '../models/SearchedGameDto';
 
 /**
  * no description
@@ -21,9 +22,11 @@ export class SearchApiRequestFactory extends BaseAPIRequestFactory {
      * @param description 
      * @param editor 
      * @param releaseDate 
+     * @param locations 
      */
-    public async searchSearchGameGet(name?: string, description?: string, editor?: string, releaseDate?: number, _options?: Configuration): Promise<RequestContext> {
+    public async searchSearchGameGet(name?: string, description?: string, editor?: string, releaseDate?: number, locations?: Array<SearchLocationDto>, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
+
 
 
 
@@ -54,6 +57,11 @@ export class SearchApiRequestFactory extends BaseAPIRequestFactory {
         // Query Params
         if (releaseDate !== undefined) {
             requestContext.setQueryParam("ReleaseDate", ObjectSerializer.serialize(releaseDate, "number", "int64"));
+        }
+
+        // Query Params
+        if (locations !== undefined) {
+            requestContext.setQueryParam("Locations", ObjectSerializer.serialize(locations, "Array<SearchLocationDto>", ""));
         }
 
 
@@ -139,22 +147,22 @@ export class SearchApiResponseProcessor {
      * @params response Response returned by the server for a request to searchSearchGameGet
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async searchSearchGameGet(response: ResponseContext): Promise<Array<GameNameDto> > {
+     public async searchSearchGameGet(response: ResponseContext): Promise<Array<SearchedGameDto> > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: Array<GameNameDto> = ObjectSerializer.deserialize(
+            const body: Array<SearchedGameDto> = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "Array<GameNameDto>", ""
-            ) as Array<GameNameDto>;
+                "Array<SearchedGameDto>", ""
+            ) as Array<SearchedGameDto>;
             return body;
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: Array<GameNameDto> = ObjectSerializer.deserialize(
+            const body: Array<SearchedGameDto> = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "Array<GameNameDto>", ""
-            ) as Array<GameNameDto>;
+                "Array<SearchedGameDto>", ""
+            ) as Array<SearchedGameDto>;
             return body;
         }
 

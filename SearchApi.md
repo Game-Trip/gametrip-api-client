@@ -9,7 +9,7 @@ Method | HTTP request | Description
 
 
 # **searchSearchGameGet**
-> Array<GameNameDto> searchSearchGameGet()
+> Array<SearchedGameDto> searchSearchGameGet()
 
 
 ### Example
@@ -31,6 +31,15 @@ let body:.SearchApiSearchSearchGameGetRequest = {
   editor: "Editor_example",
   // number (optional)
   releaseDate: 1,
+  // Array<SearchLocationDto> (optional)
+  locations: [
+    {
+      name: "name_example",
+      description: "description_example",
+      latitude: 3.14,
+      longitude: 3.14,
+    },
+  ],
 };
 
 apiInstance.searchSearchGameGet(body).then((data:any) => {
@@ -47,11 +56,12 @@ Name | Type | Description  | Notes
  **description** | [**string**] |  | (optional) defaults to undefined
  **editor** | [**string**] |  | (optional) defaults to undefined
  **releaseDate** | [**number**] |  | (optional) defaults to undefined
+ **locations** | **Array&lt;SearchLocationDto&gt;** |  | (optional) defaults to undefined
 
 
 ### Return type
 
-**Array<GameNameDto>**
+**Array<SearchedGameDto>**
 
 ### Authorization
 

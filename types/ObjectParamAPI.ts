@@ -75,6 +75,8 @@ import { ResetPasswordDto } from '../models/ResetPasswordDto';
 import { RuntimeFieldHandle } from '../models/RuntimeFieldHandle';
 import { RuntimeMethodHandle } from '../models/RuntimeMethodHandle';
 import { RuntimeTypeHandle } from '../models/RuntimeTypeHandle';
+import { SearchLocationDto } from '../models/SearchLocationDto';
+import { SearchedGameDto } from '../models/SearchedGameDto';
 import { SecurityRuleSet } from '../models/SecurityRuleSet';
 import { StructLayoutAttribute } from '../models/StructLayoutAttribute';
 import { TokenDto } from '../models/TokenDto';
@@ -1171,6 +1173,12 @@ export interface SearchApiSearchSearchGameGetRequest {
      * @memberof SearchApisearchSearchGameGet
      */
     releaseDate?: number
+    /**
+     * 
+     * @type Array&lt;SearchLocationDto&gt;
+     * @memberof SearchApisearchSearchGameGet
+     */
+    locations?: Array<SearchLocationDto>
 }
 
 export interface SearchApiSearchSearchLocationGetRequest {
@@ -1210,8 +1218,8 @@ export class ObjectSearchApi {
     /**
      * @param param the request object
      */
-    public searchSearchGameGet(param: SearchApiSearchSearchGameGetRequest = {}, options?: Configuration): Promise<Array<GameNameDto>> {
-        return this.api.searchSearchGameGet(param.name, param.description, param.editor, param.releaseDate,  options).toPromise();
+    public searchSearchGameGet(param: SearchApiSearchSearchGameGetRequest = {}, options?: Configuration): Promise<Array<SearchedGameDto>> {
+        return this.api.searchSearchGameGet(param.name, param.description, param.editor, param.releaseDate, param.locations,  options).toPromise();
     }
 
     /**

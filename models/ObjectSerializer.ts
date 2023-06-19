@@ -72,6 +72,8 @@ export * from '../models/ResetPasswordDto';
 export * from '../models/RuntimeFieldHandle';
 export * from '../models/RuntimeMethodHandle';
 export * from '../models/RuntimeTypeHandle';
+export * from '../models/SearchLocationDto';
+export * from '../models/SearchedGameDto';
 export * from '../models/SecurityRuleSet';
 export * from '../models/StructLayoutAttribute';
 export * from '../models/TokenDto';
@@ -157,6 +159,8 @@ import { ResetPasswordDto } from '../models/ResetPasswordDto';
 import { RuntimeFieldHandle } from '../models/RuntimeFieldHandle';
 import { RuntimeMethodHandle } from '../models/RuntimeMethodHandle';
 import { RuntimeTypeHandle } from '../models/RuntimeTypeHandle';
+import { SearchLocationDto } from '../models/SearchLocationDto';
+import { SearchedGameDto } from '../models/SearchedGameDto';
 import { SecurityRuleSet } from '../models/SecurityRuleSet';
 import { StructLayoutAttribute   } from '../models/StructLayoutAttribute';
 import { TokenDto } from '../models/TokenDto';
@@ -267,6 +271,8 @@ let typeMap: {[index: string]: any} = {
     "RuntimeFieldHandle": RuntimeFieldHandle,
     "RuntimeMethodHandle": RuntimeMethodHandle,
     "RuntimeTypeHandle": RuntimeTypeHandle,
+    "SearchLocationDto": SearchLocationDto,
+    "SearchedGameDto": SearchedGameDto,
     "StructLayoutAttribute": StructLayoutAttribute,
     "TokenDto": TokenDto,
     "Type": Type,

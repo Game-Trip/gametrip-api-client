@@ -104,6 +104,8 @@ models/ResetPasswordDto.ts
 models/RuntimeFieldHandle.ts
 models/RuntimeMethodHandle.ts
 models/RuntimeTypeHandle.ts
+models/SearchLocationDto.ts
+models/SearchedGameDto.ts
 models/SecurityRuleSet.ts
 models/StructLayoutAttribute.ts
 models/TokenDto.ts
