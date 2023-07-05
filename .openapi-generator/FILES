@@ -41,6 +41,7 @@ models/ConfirmMailDto.ts
 models/ConstructorInfo.ts
 models/CreateGameDto.ts
 models/CreateLocationDto.ts
+models/CreateLocationWithGameAndPictureDto.ts
 models/CustomAttributeData.ts
 models/CustomAttributeNamedArgument.ts
 models/CustomAttributeTypedArgument.ts

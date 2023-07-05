@@ -13,6 +13,7 @@ import { ConfirmMailDto } from '../models/ConfirmMailDto';
 import { ConstructorInfo } from '../models/ConstructorInfo';
 import { CreateGameDto } from '../models/CreateGameDto';
 import { CreateLocationDto } from '../models/CreateLocationDto';
+import { CreateLocationWithGameAndPictureDto } from '../models/CreateLocationWithGameAndPictureDto';
 import { CustomAttributeData } from '../models/CustomAttributeData';
 import { CustomAttributeNamedArgument } from '../models/CustomAttributeNamedArgument';
 import { CustomAttributeTypedArgument } from '../models/CustomAttributeTypedArgument';
@@ -507,6 +508,15 @@ export class PromiseLocationApi {
      */
     public locationCreateLocationPost(force?: boolean, createLocationDto?: CreateLocationDto, _options?: Configuration): Promise<MessageDto> {
         const result = this.api.locationCreateLocationPost(force, createLocationDto, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param force 
+     * @param createLocationWithGameAndPictureDto 
+     */
+    public locationCreateLocationWithGamesAndPicturesPost(force?: boolean, createLocationWithGameAndPictureDto?: CreateLocationWithGameAndPictureDto, _options?: Configuration): Promise<MessageDto> {
+        const result = this.api.locationCreateLocationWithGamesAndPicturesPost(force, createLocationWithGameAndPictureDto, _options);
         return result.toPromise();
     }
 

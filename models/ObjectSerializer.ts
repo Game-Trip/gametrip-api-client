@@ -10,6 +10,7 @@ export * from '../models/ConfirmMailDto';
 export * from '../models/ConstructorInfo';
 export * from '../models/CreateGameDto';
 export * from '../models/CreateLocationDto';
+export * from '../models/CreateLocationWithGameAndPictureDto';
 export * from '../models/CustomAttributeData';
 export * from '../models/CustomAttributeNamedArgument';
 export * from '../models/CustomAttributeTypedArgument';
@@ -97,6 +98,7 @@ import { ConfirmMailDto } from '../models/ConfirmMailDto';
 import { ConstructorInfo                                 } from '../models/ConstructorInfo';
 import { CreateGameDto } from '../models/CreateGameDto';
 import { CreateLocationDto } from '../models/CreateLocationDto';
+import { CreateLocationWithGameAndPictureDto } from '../models/CreateLocationWithGameAndPictureDto';
 import { CustomAttributeData } from '../models/CustomAttributeData';
 import { CustomAttributeNamedArgument } from '../models/CustomAttributeNamedArgument';
 import { CustomAttributeTypedArgument } from '../models/CustomAttributeTypedArgument';
@@ -219,6 +221,7 @@ let typeMap: {[index: string]: any} = {
     "ConstructorInfo": ConstructorInfo,
     "CreateGameDto": CreateGameDto,
     "CreateLocationDto": CreateLocationDto,
+    "CreateLocationWithGameAndPictureDto": CreateLocationWithGameAndPictureDto,
     "CustomAttributeData": CustomAttributeData,
     "CustomAttributeNamedArgument": CustomAttributeNamedArgument,
     "CustomAttributeTypedArgument": CustomAttributeTypedArgument,

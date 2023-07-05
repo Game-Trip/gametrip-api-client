@@ -14,6 +14,7 @@ import { ConfirmMailDto } from '../models/ConfirmMailDto';
 import { ConstructorInfo } from '../models/ConstructorInfo';
 import { CreateGameDto } from '../models/CreateGameDto';
 import { CreateLocationDto } from '../models/CreateLocationDto';
+import { CreateLocationWithGameAndPictureDto } from '../models/CreateLocationWithGameAndPictureDto';
 import { CustomAttributeData } from '../models/CustomAttributeData';
 import { CustomAttributeNamedArgument } from '../models/CustomAttributeNamedArgument';
 import { CustomAttributeTypedArgument } from '../models/CustomAttributeTypedArgument';
@@ -1011,6 +1012,29 @@ export class ObservableLocationApi {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
                 return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.locationCreateLocationPost(rsp)));
+            }));
+    }
+
+    /**
+     * @param force 
+     * @param createLocationWithGameAndPictureDto 
+     */
+    public locationCreateLocationWithGamesAndPicturesPost(force?: boolean, createLocationWithGameAndPictureDto?: CreateLocationWithGameAndPictureDto, _options?: Configuration): Observable<MessageDto> {
+        const requestContextPromise = this.requestFactory.locationCreateLocationWithGamesAndPicturesPost(force, createLocationWithGameAndPictureDto, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.locationCreateLocationWithGamesAndPicturesPost(rsp)));
             }));
     }
 

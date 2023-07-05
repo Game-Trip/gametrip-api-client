@@ -13,6 +13,7 @@ import { ConfirmMailDto } from '../models/ConfirmMailDto';
 import { ConstructorInfo } from '../models/ConstructorInfo';
 import { CreateGameDto } from '../models/CreateGameDto';
 import { CreateLocationDto } from '../models/CreateLocationDto';
+import { CreateLocationWithGameAndPictureDto } from '../models/CreateLocationWithGameAndPictureDto';
 import { CustomAttributeData } from '../models/CustomAttributeData';
 import { CustomAttributeNamedArgument } from '../models/CustomAttributeNamedArgument';
 import { CustomAttributeTypedArgument } from '../models/CustomAttributeTypedArgument';
@@ -807,6 +808,21 @@ export interface LocationApiLocationCreateLocationPostRequest {
     createLocationDto?: CreateLocationDto
 }
 
+export interface LocationApiLocationCreateLocationWithGamesAndPicturesPostRequest {
+    /**
+     * 
+     * @type boolean
+     * @memberof LocationApilocationCreateLocationWithGamesAndPicturesPost
+     */
+    force?: boolean
+    /**
+     * 
+     * @type CreateLocationWithGameAndPictureDto
+     * @memberof LocationApilocationCreateLocationWithGamesAndPicturesPost
+     */
+    createLocationWithGameAndPictureDto?: CreateLocationWithGameAndPictureDto
+}
+
 export interface LocationApiLocationDeleteLocationIdDeleteRequest {
     /**
      * Id of deleted location
@@ -928,6 +944,13 @@ export class ObjectLocationApi {
      */
     public locationCreateLocationPost(param: LocationApiLocationCreateLocationPostRequest = {}, options?: Configuration): Promise<MessageDto> {
         return this.api.locationCreateLocationPost(param.force, param.createLocationDto,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public locationCreateLocationWithGamesAndPicturesPost(param: LocationApiLocationCreateLocationWithGamesAndPicturesPostRequest = {}, options?: Configuration): Promise<MessageDto> {
+        return this.api.locationCreateLocationWithGamesAndPicturesPost(param.force, param.createLocationWithGameAndPictureDto,  options).toPromise();
     }
 
     /**
