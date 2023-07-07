@@ -41,6 +41,7 @@ models/ConfirmMailDto.ts
 models/ConstructorInfo.ts
 models/CreateGameDto.ts
 models/CreateLocationDto.ts
+models/CreateLocationWithGameAndPictureDto.ts
 models/CustomAttributeData.ts
 models/CustomAttributeNamedArgument.ts
 models/CustomAttributeTypedArgument.ts
@@ -104,6 +105,8 @@ models/ResetPasswordDto.ts
 models/RuntimeFieldHandle.ts
 models/RuntimeMethodHandle.ts
 models/RuntimeTypeHandle.ts
+models/SearchLocationDto.ts
+models/SearchedGameDto.ts
 models/SecurityRuleSet.ts
 models/StructLayoutAttribute.ts
 models/TokenDto.ts

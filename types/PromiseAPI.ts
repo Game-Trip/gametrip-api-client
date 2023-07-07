@@ -13,6 +13,7 @@ import { ConfirmMailDto } from '../models/ConfirmMailDto';
 import { ConstructorInfo } from '../models/ConstructorInfo';
 import { CreateGameDto } from '../models/CreateGameDto';
 import { CreateLocationDto } from '../models/CreateLocationDto';
+import { CreateLocationWithGameAndPictureDto } from '../models/CreateLocationWithGameAndPictureDto';
 import { CustomAttributeData } from '../models/CustomAttributeData';
 import { CustomAttributeNamedArgument } from '../models/CustomAttributeNamedArgument';
 import { CustomAttributeTypedArgument } from '../models/CustomAttributeTypedArgument';
@@ -75,6 +76,8 @@ import { ResetPasswordDto } from '../models/ResetPasswordDto';
 import { RuntimeFieldHandle } from '../models/RuntimeFieldHandle';
 import { RuntimeMethodHandle } from '../models/RuntimeMethodHandle';
 import { RuntimeTypeHandle } from '../models/RuntimeTypeHandle';
+import { SearchLocationDto } from '../models/SearchLocationDto';
+import { SearchedGameDto } from '../models/SearchedGameDto';
 import { SecurityRuleSet } from '../models/SecurityRuleSet';
 import { StructLayoutAttribute } from '../models/StructLayoutAttribute';
 import { TokenDto } from '../models/TokenDto';
@@ -509,6 +512,15 @@ export class PromiseLocationApi {
     }
 
     /**
+     * @param force 
+     * @param createLocationWithGameAndPictureDto 
+     */
+    public locationCreateLocationWithGamesAndPicturesPost(force?: boolean, createLocationWithGameAndPictureDto?: CreateLocationWithGameAndPictureDto, _options?: Configuration): Promise<MessageDto> {
+        const result = this.api.locationCreateLocationWithGamesAndPicturesPost(force, createLocationWithGameAndPictureDto, _options);
+        return result.toPromise();
+    }
+
+    /**
      * Delete location by id
      * @param locationId Id of deleted location
      */
@@ -695,9 +707,10 @@ export class PromiseSearchApi {
      * @param description 
      * @param editor 
      * @param releaseDate 
+     * @param locations 
      */
-    public searchSearchGameGet(name?: string, description?: string, editor?: string, releaseDate?: number, _options?: Configuration): Promise<Array<GameNameDto>> {
-        const result = this.api.searchSearchGameGet(name, description, editor, releaseDate, _options);
+    public searchSearchGameGet(name?: string, description?: string, editor?: string, releaseDate?: number, locations?: Array<SearchLocationDto>, _options?: Configuration): Promise<Array<SearchedGameDto>> {
+        const result = this.api.searchSearchGameGet(name, description, editor, releaseDate, locations, _options);
         return result.toPromise();
     }
 

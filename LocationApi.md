@@ -5,6 +5,7 @@ All URIs are relative to *http://localhost*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**locationCreateLocationPost**](LocationApi.md#locationCreateLocationPost) | **POST** /Location/CreateLocation | Create new location
+[**locationCreateLocationWithGamesAndPicturesPost**](LocationApi.md#locationCreateLocationWithGamesAndPicturesPost) | **POST** /Location/CreateLocationWithGamesAndPictures | 
 [**locationDeleteLocationIdDelete**](LocationApi.md#locationDeleteLocationIdDelete) | **DELETE** /Location/Delete/{locationId} | Delete location by id
 [**locationDeleteRequestUpdateRequestUpdateIdDelete**](LocationApi.md#locationDeleteRequestUpdateRequestUpdateIdDelete) | **DELETE** /Location/DeleteRequestUpdate/{requestUpdateId} | Request Update Game by Id
 [**locationGameIdGameIdGet**](LocationApi.md#locationGameIdGameIdGet) | **GET** /Location/Game/Id/{gameId} | Get all location by game id
@@ -55,6 +56,74 @@ apiInstance.locationCreateLocationPost(body).then((data:any) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **createLocationDto** | **CreateLocationDto**| CreateLocationDto |
+ **force** | [**boolean**] |  | (optional) defaults to undefined
+
+
+### Return type
+
+**MessageDto**
+
+### Authorization
+
+[Bearer](README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/*+json
+ - **Accept**: text/plain, application/json, text/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Success |  -  |
+**400** | Bad Request |  -  |
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **locationCreateLocationWithGamesAndPicturesPost**
+> MessageDto locationCreateLocationWithGamesAndPicturesPost()
+
+
+### Example
+
+
+```typescript
+import {  } from '';
+import * as fs from 'fs';
+
+const configuration = .createConfiguration();
+const apiInstance = new .LocationApi(configuration);
+
+let body:.LocationApiLocationCreateLocationWithGamesAndPicturesPostRequest = {
+  // boolean (optional)
+  force: true,
+  // CreateLocationWithGameAndPictureDto (optional)
+  createLocationWithGameAndPictureDto: {
+    location: {
+      name: "name_example",
+      description: "description_example",
+      latitude: 3.14,
+      longitude: 3.14,
+      authorId: "authorId_example",
+    },
+    gamesIds: [
+      "gamesIds_example",
+    ],
+  },
+};
+
+apiInstance.locationCreateLocationWithGamesAndPicturesPost(body).then((data:any) => {
+  console.log('API called successfully. Returned data: ' + data);
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **createLocationWithGameAndPictureDto** | **CreateLocationWithGameAndPictureDto**|  |
  **force** | [**boolean**] |  | (optional) defaults to undefined
 
 

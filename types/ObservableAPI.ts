@@ -14,6 +14,7 @@ import { ConfirmMailDto } from '../models/ConfirmMailDto';
 import { ConstructorInfo } from '../models/ConstructorInfo';
 import { CreateGameDto } from '../models/CreateGameDto';
 import { CreateLocationDto } from '../models/CreateLocationDto';
+import { CreateLocationWithGameAndPictureDto } from '../models/CreateLocationWithGameAndPictureDto';
 import { CustomAttributeData } from '../models/CustomAttributeData';
 import { CustomAttributeNamedArgument } from '../models/CustomAttributeNamedArgument';
 import { CustomAttributeTypedArgument } from '../models/CustomAttributeTypedArgument';
@@ -76,6 +77,8 @@ import { ResetPasswordDto } from '../models/ResetPasswordDto';
 import { RuntimeFieldHandle } from '../models/RuntimeFieldHandle';
 import { RuntimeMethodHandle } from '../models/RuntimeMethodHandle';
 import { RuntimeTypeHandle } from '../models/RuntimeTypeHandle';
+import { SearchLocationDto } from '../models/SearchLocationDto';
+import { SearchedGameDto } from '../models/SearchedGameDto';
 import { SecurityRuleSet } from '../models/SecurityRuleSet';
 import { StructLayoutAttribute } from '../models/StructLayoutAttribute';
 import { TokenDto } from '../models/TokenDto';
@@ -1013,6 +1016,29 @@ export class ObservableLocationApi {
     }
 
     /**
+     * @param force 
+     * @param createLocationWithGameAndPictureDto 
+     */
+    public locationCreateLocationWithGamesAndPicturesPost(force?: boolean, createLocationWithGameAndPictureDto?: CreateLocationWithGameAndPictureDto, _options?: Configuration): Observable<MessageDto> {
+        const requestContextPromise = this.requestFactory.locationCreateLocationWithGamesAndPicturesPost(force, createLocationWithGameAndPictureDto, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.locationCreateLocationWithGamesAndPicturesPost(rsp)));
+            }));
+    }
+
+    /**
      * Delete location by id
      * @param locationId Id of deleted location
      */
@@ -1407,9 +1433,10 @@ export class ObservableSearchApi {
      * @param description 
      * @param editor 
      * @param releaseDate 
+     * @param locations 
      */
-    public searchSearchGameGet(name?: string, description?: string, editor?: string, releaseDate?: number, _options?: Configuration): Observable<Array<GameNameDto>> {
-        const requestContextPromise = this.requestFactory.searchSearchGameGet(name, description, editor, releaseDate, _options);
+    public searchSearchGameGet(name?: string, description?: string, editor?: string, releaseDate?: number, locations?: Array<SearchLocationDto>, _options?: Configuration): Observable<Array<SearchedGameDto>> {
+        const requestContextPromise = this.requestFactory.searchSearchGameGet(name, description, editor, releaseDate, locations, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);

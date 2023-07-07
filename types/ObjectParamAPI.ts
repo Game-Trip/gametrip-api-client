@@ -13,6 +13,7 @@ import { ConfirmMailDto } from '../models/ConfirmMailDto';
 import { ConstructorInfo } from '../models/ConstructorInfo';
 import { CreateGameDto } from '../models/CreateGameDto';
 import { CreateLocationDto } from '../models/CreateLocationDto';
+import { CreateLocationWithGameAndPictureDto } from '../models/CreateLocationWithGameAndPictureDto';
 import { CustomAttributeData } from '../models/CustomAttributeData';
 import { CustomAttributeNamedArgument } from '../models/CustomAttributeNamedArgument';
 import { CustomAttributeTypedArgument } from '../models/CustomAttributeTypedArgument';
@@ -75,6 +76,8 @@ import { ResetPasswordDto } from '../models/ResetPasswordDto';
 import { RuntimeFieldHandle } from '../models/RuntimeFieldHandle';
 import { RuntimeMethodHandle } from '../models/RuntimeMethodHandle';
 import { RuntimeTypeHandle } from '../models/RuntimeTypeHandle';
+import { SearchLocationDto } from '../models/SearchLocationDto';
+import { SearchedGameDto } from '../models/SearchedGameDto';
 import { SecurityRuleSet } from '../models/SecurityRuleSet';
 import { StructLayoutAttribute } from '../models/StructLayoutAttribute';
 import { TokenDto } from '../models/TokenDto';
@@ -805,6 +808,21 @@ export interface LocationApiLocationCreateLocationPostRequest {
     createLocationDto?: CreateLocationDto
 }
 
+export interface LocationApiLocationCreateLocationWithGamesAndPicturesPostRequest {
+    /**
+     * 
+     * @type boolean
+     * @memberof LocationApilocationCreateLocationWithGamesAndPicturesPost
+     */
+    force?: boolean
+    /**
+     * 
+     * @type CreateLocationWithGameAndPictureDto
+     * @memberof LocationApilocationCreateLocationWithGamesAndPicturesPost
+     */
+    createLocationWithGameAndPictureDto?: CreateLocationWithGameAndPictureDto
+}
+
 export interface LocationApiLocationDeleteLocationIdDeleteRequest {
     /**
      * Id of deleted location
@@ -926,6 +944,13 @@ export class ObjectLocationApi {
      */
     public locationCreateLocationPost(param: LocationApiLocationCreateLocationPostRequest = {}, options?: Configuration): Promise<MessageDto> {
         return this.api.locationCreateLocationPost(param.force, param.createLocationDto,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public locationCreateLocationWithGamesAndPicturesPost(param: LocationApiLocationCreateLocationWithGamesAndPicturesPostRequest = {}, options?: Configuration): Promise<MessageDto> {
+        return this.api.locationCreateLocationWithGamesAndPicturesPost(param.force, param.createLocationWithGameAndPictureDto,  options).toPromise();
     }
 
     /**
@@ -1171,6 +1196,12 @@ export interface SearchApiSearchSearchGameGetRequest {
      * @memberof SearchApisearchSearchGameGet
      */
     releaseDate?: number
+    /**
+     * 
+     * @type Array&lt;SearchLocationDto&gt;
+     * @memberof SearchApisearchSearchGameGet
+     */
+    locations?: Array<SearchLocationDto>
 }
 
 export interface SearchApiSearchSearchLocationGetRequest {
@@ -1210,8 +1241,8 @@ export class ObjectSearchApi {
     /**
      * @param param the request object
      */
-    public searchSearchGameGet(param: SearchApiSearchSearchGameGetRequest = {}, options?: Configuration): Promise<Array<GameNameDto>> {
-        return this.api.searchSearchGameGet(param.name, param.description, param.editor, param.releaseDate,  options).toPromise();
+    public searchSearchGameGet(param: SearchApiSearchSearchGameGetRequest = {}, options?: Configuration): Promise<Array<SearchedGameDto>> {
+        return this.api.searchSearchGameGet(param.name, param.description, param.editor, param.releaseDate, param.locations,  options).toPromise();
     }
 
     /**

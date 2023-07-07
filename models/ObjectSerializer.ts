@@ -10,6 +10,7 @@ export * from '../models/ConfirmMailDto';
 export * from '../models/ConstructorInfo';
 export * from '../models/CreateGameDto';
 export * from '../models/CreateLocationDto';
+export * from '../models/CreateLocationWithGameAndPictureDto';
 export * from '../models/CustomAttributeData';
 export * from '../models/CustomAttributeNamedArgument';
 export * from '../models/CustomAttributeTypedArgument';
@@ -72,6 +73,8 @@ export * from '../models/ResetPasswordDto';
 export * from '../models/RuntimeFieldHandle';
 export * from '../models/RuntimeMethodHandle';
 export * from '../models/RuntimeTypeHandle';
+export * from '../models/SearchLocationDto';
+export * from '../models/SearchedGameDto';
 export * from '../models/SecurityRuleSet';
 export * from '../models/StructLayoutAttribute';
 export * from '../models/TokenDto';
@@ -95,6 +98,7 @@ import { ConfirmMailDto } from '../models/ConfirmMailDto';
 import { ConstructorInfo                                 } from '../models/ConstructorInfo';
 import { CreateGameDto } from '../models/CreateGameDto';
 import { CreateLocationDto } from '../models/CreateLocationDto';
+import { CreateLocationWithGameAndPictureDto } from '../models/CreateLocationWithGameAndPictureDto';
 import { CustomAttributeData } from '../models/CustomAttributeData';
 import { CustomAttributeNamedArgument } from '../models/CustomAttributeNamedArgument';
 import { CustomAttributeTypedArgument } from '../models/CustomAttributeTypedArgument';
@@ -157,6 +161,8 @@ import { ResetPasswordDto } from '../models/ResetPasswordDto';
 import { RuntimeFieldHandle } from '../models/RuntimeFieldHandle';
 import { RuntimeMethodHandle } from '../models/RuntimeMethodHandle';
 import { RuntimeTypeHandle } from '../models/RuntimeTypeHandle';
+import { SearchLocationDto } from '../models/SearchLocationDto';
+import { SearchedGameDto } from '../models/SearchedGameDto';
 import { SecurityRuleSet } from '../models/SecurityRuleSet';
 import { StructLayoutAttribute   } from '../models/StructLayoutAttribute';
 import { TokenDto } from '../models/TokenDto';
@@ -215,6 +221,7 @@ let typeMap: {[index: string]: any} = {
     "ConstructorInfo": ConstructorInfo,
     "CreateGameDto": CreateGameDto,
     "CreateLocationDto": CreateLocationDto,
+    "CreateLocationWithGameAndPictureDto": CreateLocationWithGameAndPictureDto,
     "CustomAttributeData": CustomAttributeData,
     "CustomAttributeNamedArgument": CustomAttributeNamedArgument,
     "CustomAttributeTypedArgument": CustomAttributeTypedArgument,
@@ -267,6 +274,8 @@ let typeMap: {[index: string]: any} = {
     "RuntimeFieldHandle": RuntimeFieldHandle,
     "RuntimeMethodHandle": RuntimeMethodHandle,
     "RuntimeTypeHandle": RuntimeTypeHandle,
+    "SearchLocationDto": SearchLocationDto,
+    "SearchedGameDto": SearchedGameDto,
     "StructLayoutAttribute": StructLayoutAttribute,
     "TokenDto": TokenDto,
     "Type": Type,
